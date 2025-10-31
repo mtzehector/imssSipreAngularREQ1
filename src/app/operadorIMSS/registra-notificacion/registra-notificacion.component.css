@@ -1,0 +1,32 @@
+.comboBox {
+    width: 356px;
+    height: 47px;
+    flex-grow: 0;
+    margin: 9px 0 0;
+    padding: 12px 12px 13px 18px;
+    border-radius: 10px;
+    border: solid 1px #afaeae;
+}
+
+.inputSimple {
+    height: 47px;
+    border-radius: 10px;
+    border: solid 1px #afaeae;
+}
+
+.inputBorder {
+    border-radius: 10px;
+    border: solid 1px #afaeae;
+}
+
+.tituloPrestamo {
+    font-family: Montserrat;
+    font-size: 21px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
+    color: #282828;
+}

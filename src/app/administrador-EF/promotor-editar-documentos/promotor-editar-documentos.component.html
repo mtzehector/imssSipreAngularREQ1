@@ -1,0 +1,62 @@
+<h4>Documentación</h4>
+<hr class="red" style="margin: 10px 0 40px;">
+<p>
+  Carga los siguientes documentos del personal operativo:
+</p>
+
+<table class="table table-hover">
+  <tbody>
+    <tr>
+      <td>
+        Identificación oficial
+        <i class="glyphicon glyphicon-question-sign"
+          title="La identificación oficial puede ser credencial para votar, pasaporte vigente o credencial de afiliación al IMSS. Debe estar en un solo archivo, en formato .pdf con un peso máximo de 400 KB."></i>
+      </td>
+      <td>
+        <app-upload [documento]="model.registrarPromotor.ife" [idSolicitud]="1"></app-upload>
+      </td>
+      <td>
+        <app-download [documento]="model.registrarPromotor.ife"></app-download>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        Carta responsiva
+        <i class="glyphicon glyphicon-question-sign"
+          title="La carta responsiva corresponde al documento firmado por el Personal operativo y por el responsable de los mismos en la Entidad Financiera, donde se especifican las acciones a las que se obliga éste con el sujeto beneficiario de crédito al que brinda la atención. Debe estar en un solo archivo, en formato .pdf con un peso máximo de 700 KB."></i>
+      </td>
+      <td>
+        <app-upload [documento]="model.registrarPromotor.cartaResponsiva" [idSolicitud]="1"></app-upload>
+      </td>
+      <td>
+        <app-download [documento]="model.registrarPromotor.cartaResponsiva"></app-download>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        Fotografía
+        <i class="glyphicon glyphicon-question-sign"
+          title="La fotografía debe ser reciente,  tomada de frente con buena iluminación, sin lentes, cara descubierta, cabello sujetado, a color y con fondo claro. Debe estar en un solo archivo, en formato .jpg con un peso máximo de 400 KB."></i>
+      </td>
+      <td>
+        <app-upload [documento]="model.registrarPromotor.fotografia" [idSolicitud]="1"></app-upload>
+      </td>
+      <td>
+        <app-download [documento]="model.registrarPromotor.fotografia"></app-download>
+      </td>
+    </tr>
+    <tr *ngIf="model.registrarPromotor.tipoEmpleado === '2' || this.model.registrarPromotor.tipoEmpleado === 2">
+      <td>
+        Comprobante de domicilio
+        <i class="glyphicon glyphicon-question-sign"
+          title="El comprobante de domicilio puede ser cualquiera de las siguientes: recibo del impuesto predial, servicios de luz, gas, agua o teléfono, con una antigüedad no mayor a 4 meses. Debe estar en un solo archivo, en formato .pdf o .jpg con un peso máximo de 400 KB."></i>
+      </td>
+      <td>
+        <app-upload [documento]="model.registrarPromotor.comprobanteDomicilio" [idSolicitud]="1"></app-upload>
+      </td>
+      <td>
+        <app-download [documento]="model.registrarPromotor.comprobanteDomicilio"></app-download>
+      </td>
+    </tr>
+  </tbody>
+</table>

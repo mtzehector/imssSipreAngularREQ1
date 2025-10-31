@@ -1,0 +1,71 @@
+
+<div class="Rectangle-186" style ="float: left;">
+  <table  class="" >
+    <thead>
+  <tr>
+    <th scope="col" colspan="7"> </th>
+  </tr>
+    <tr>
+     
+        <th scope="col"  class="Nombre_solicitante">Nombre:  </th>
+       
+      </tr>
+    </thead>
+    <tbody> 
+       
+        <tr > 
+          
+            <td colspan="3"  class="Nombre_solicitante_dato">{{persona.nombre}} &nbsp; {{persona.primerApellido}} &nbsp;{{persona.segundoApellido}} </td>
+        </tr> 
+  
+          
+      <tr>
+        <th scope="col" class="CURP_solicitante" style="text-align: left; width: 33%; padding-bottom: 5px!important;">CURP:</th>
+        <th scope="col" class="NSS_Solicitante" style="text-align: left; width: 33%; padding-bottom: 5px!important;">NSS:  </th>
+     
+        
+      </tr>
+  
+      <tr > 
+          <td  class="CURP_solicitante_Dato">{{persona.curp}}</td>
+          <td   Class="NSS_Solicitante_dato"> {{pensionado.nss}} </td>
+  
+       </tr> 
+       <tr>
+        <th scope="col" class="Deleg_Solicitante" style="text-align: left; width: 33%; padding-bottom: 5px!important;">Delegación:</th>
+
+        <th scope="col" class="Telfono-mvil_solicitante"style="text-align: left; width: 33%; padding-bottom: 5px!important;">Tel&eacute;fono m&oacute;vil:  </th>
+     
+        
+      </tr>
+  
+      <tr> 
+        <td   class="Deleg_Solicitante_dato">{{pensionado.delegacion.descDelegacion}}</td>
+
+          <td   class="Telfono-mvil_solicitante_datos">{{persona.telefono}} </td>
+  
+      </tr> 
+       <tr>
+        <th scope="col" class="Correo-electrnico_solicitante"  style="text-align: left; width: 67%;padding-bottom: 5px!important;">Correo electr&oacute;nico:</th>
+        <th scope="col" class="Correo-electrnico_solicitante"  style="text-align: left; width: 67%;padding-bottom: 5px!important;">Tipo de pensión:</th>
+
+       </tr>
+       <tr>
+        <td    class="Correo-electrnico_solicitante_datos">{{persona.correoElectronico}}</td>
+        <td   class="Correo-electrnico_solicitante_datos">{{this.pensionado.tipoPension}}</td>
+
+       </tr>
+       <tr>
+        <th scope="col" class="Correo-electrnico_solicitante"  style="text-align: left; width: 67%;padding-bottom: 5px!important;">Tipo de crédito:</th>
+        <th scope="col" class="Correo-electrnico_solicitante"  style="text-align: left; width: 67%;padding-bottom: 5px!important;">Tipo de trabajador:</th>
+
+       </tr>
+       <tr>
+        <td    class="Correo-electrnico_solicitante_datos">{{this.tipoCredito}}</td>
+        <td   class="Correo-electrnico_solicitante_datos">PENSIONADO</td>
+
+       </tr>
+    </tbody>
+  </table>
+
+</div>

@@ -1,0 +1,276 @@
+<app-header></app-header>
+<div class="row" style="margin-top: -60px;">
+    <app-menu-ux [rol]="this.rol"></app-menu-ux>
+</div>
+<div class="row" style="padding: 10px;">
+    <div class="col-md-8">
+    </div>
+    <app-user-profile></app-user-profile>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <h4>Registro de Operador IMSS: </h4>
+        <hr class="red">
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6 " style="padding: 10px ; ">
+        <p>Ingresa la información del Operador a registrar:</p>
+    </div>
+
+
+</div>
+<div *ngIf="formulario_1">
+
+    <form role="form" class="form-horizontal" [formGroup]="formGroupValidar" autocomplete="off">
+
+        <div class="row">
+            <div class="col-md-4">
+                <span>CURP*:</span>
+                <input
+                    [ngClass]="[!formGroupValidar.controls['curp'].valid && formGroupValidar.controls['curp'].touched ? 'form-control-error':'form-control']  "
+                    class=" form-control" placeholder="Ingresa CURP" formControlName="curp"
+                    oninput="this.value = this.value.toUpperCase()" maxlength="18" type="text" />
+
+                <div *ngIf="!formGroupValidar.controls['curp'].valid">
+                    <div
+                        *ngIf="formGroupValidar.get('curp').errors?.pattern && formGroupValidar.controls['curp'].touched">
+                        <p class="error-class">
+                            No se permiten caracteres especiales.</p>
+                    </div>
+                    <div
+                        *ngIf="formGroupValidar.get('curp').value.length < 18 && formGroupValidar.controls['curp'].touched && formGroupValidar.get('curp').value.length > 0 && !formGroupValidar.get('curp').errors?.pattern">
+                        <p class="error-class">
+                            La CURP debe tener 18 caracteres.</p>
+                    </div>
+                    <div
+                        *ngIf=" formGroupValidar.controls['curp'].errors?.required && formGroupValidar.controls['curp'].touched">
+                        <p class="error-class">
+                            Es necesario ingresar la información del campo marcado como obligatorio.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <span>NSS*:</span>
+                <input
+                    [ngClass]="[!formGroupValidar.controls['nss'].valid && formGroupValidar.controls['nss'].touched  ? 'form-control-error':'form-control']  "
+                    class="form-control" placeholder="Ingresa NSS" formControlName="nss" maxlength="11" type="text">
+                <div *ngIf="!formGroupValidar.controls['nss'].valid">
+                    <div
+                        *ngIf="formGroupValidar.get('nss').errors?.pattern  && formGroupValidar.controls['nss'].touched">
+                        <p class="error-class">
+                            El NSS debe tener 11 dígitos.
+                        </p>
+                    </div>
+                    <div *ngIf="!formGroupValidar.controls['nss'].valid">
+                        <div
+                            *ngIf="formGroupValidar.get('nss').errors?.pattern && formGroupValidar.controls['nss'].touched">
+                            <p class="error-class">
+                                Sólo se permiten caracteres numéricos.</p>
+                        </div>
+                        <div
+                            *ngIf="formGroupValidar.get('nss').value.length < 11 && formGroupValidar.controls['nss'].touched && formGroupValidar.get('nss').value.length > 0 && !formGroupValidar.get('nss').errors?.pattern">
+                            <p class="error-class">
+                                El NSS debe tener 11 dígitos.
+                            </p>
+                        </div>
+                        <div
+                            *ngIf=" formGroupValidar.controls['nss'].errors?.required && formGroupValidar.controls['nss'].touched">
+                            <p class="error-class">
+                                Es necesario ingresar la información del campo marcado como obligatorio.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <span class="col-md-3  control-label">Matrícula*:</span>
+                <input
+                    [ngClass]="[!formGroupValidar.controls['matricula'].valid && formGroupValidar.controls['matricula'].touched  ? 'form-control-error':'form-control']  "
+                    class="form-control" placeholder="Ingresa Matrícula" formControlName="matricula"
+                    style="width:360px;" maxlength="15" type="text">
+                <div *ngIf="!formGroupValidar.controls['matricula'].valid">
+                    <div
+                        *ngIf="formGroupValidar.get('matricula').errors?.pattern && formGroupValidar.controls['matricula'].touched">
+                        <p class="error-class">
+                            Sólo se permiten caracteres numéricos.</p>
+                    </div>
+                    <div
+                        *ngIf=" formGroupValidar.controls['matricula'].errors?.required && formGroupValidar.controls['matricula'].touched">
+                        <p class="error-class">
+                            Es necesario ingresar la información del campo marcado como obligatorio.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-4">
+                <span>Delegación*:</span>
+                <select class="form-control" formControlName="delegacion" style="width:360px;">
+                    <option value="" disabled selected>
+                        <span>Selecciona una opción</span>
+                    </option>
+                    <option [value]="item['numDelegacion']" *ngFor="let item of items">
+                        {{item["desDelegacion"]}}</option>
+                </select>
+                <div *ngIf="!formGroupValidar.controls['delegacion'].valid">
+                    <div
+                        *ngIf=" formGroupValidar.controls['delegacion'].errors?.required && formGroupValidar.controls['delegacion'].touched">
+                        <p class="error-class">
+                            Es necesario ingresar la información del campo marcado como obligatorio.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-4">
+                *Campos obligatorios
+            </div>
+            <div class="col-md-8" style="text-align: right;">
+                <button type="button" class="btn btn-default" routerLink="../home">Regresar
+                </button> &nbsp;
+                <button type="submit" class="btn btn-primary pull-right" (click)="validarCandidato()"
+                    [disabled]="!formGroupValidar.valid || buttonSubmitStatus1">Continuar
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div *ngIf="formulario_2">
+
+
+    <div class="row tarjeta">
+        <div class="row tarjeta-body">
+            <div class="row tarjeta-data-1">
+                <span class="tarjeta-data-1-bold">{{ candidatoRs.datosCurp.nombres }}&nbsp;{{
+                    candidatoRs.datosCurp.apellido1 }}&nbsp;{{ candidatoRs.datosCurp.apellido2 }}
+                </span>
+            </div>
+            <div class="row tarjeta-title-1">
+                <div class="col-md-4">Sexo:</div>
+                <div class="col-md-4">Fecha de nacimiento:</div>
+                <div class="col-md-4">Entidad Federativa de nacimiento:</div>
+            </div>
+            <div class="row tarjeta-data-1">
+                <div class="col-md-4">{{ candidatoRs.datosCurp.sexo }}</div>
+                <div class="col-md-4">{{ candidatoRs.datosCurp.fechNac }}</div>
+                <div class="col-md-4">{{ candidatoRs.datosCurp.desEntidadNac }}</div>
+            </div>
+            <div class="row tarjeta-title-1">
+                <div class="col-md-4">NSS:</div>
+                <div class="col-md-4">Matrícula:</div>
+                <div class="col-md-4">Delegación:</div>
+            </div>
+            <div class="row tarjeta-data-1">
+                <div class="col-md-4">{{ formGroupValidar.get('nss').value }}</div>
+                <div class="col-md-4">{{ candidatoRs.matricula }}</div>
+                <div class="col-md-4">{{ delegacionStr }}</div>
+            </div>
+        </div>
+    </div>
+
+
+    <br>
+    <div class="row">
+        <div class="col-md-12">
+            <h5>Información del Operador </h5>
+            <hr class="red">
+        </div>
+    </div>
+    <h5>Datos de contacto </h5>
+    <p>Ingresa la información solicitada. El correo electrónico debe ser imss.gob.mx:</p>
+
+    <form role="form" class="form-horizontal" [formGroup]="formGroup" autocomplete="off">
+
+        <div class="row">
+            <div class="col-md-4">
+                <span>Teléfono Móvil*:</span>
+                <input
+                    [ngClass]="[!formGroup.controls['numTelefono'].valid && formGroup.controls['numTelefono'].touched  ? 'form-control-error':'form-control']  "
+                    class=" form-control" placeholder="Ingresa teléfono móvil" maxlength="10"
+                    formControlName="numTelefono" style="width:300px;" type="text">
+
+                <div *ngIf="!formGroup.controls['numTelefono'].valid">
+                    <div
+                        *ngIf="formGroup.get('numTelefono').errors?.pattern  && formGroup.controls['numTelefono'].touched">
+                        <p class="error-class">
+                            El teléfono celular debe tener 10 dígitos.
+                        </p>
+                    </div>
+                    <div
+                        *ngIf=" formGroup.controls['numTelefono'].errors?.required && formGroup.controls['numTelefono'].touched">
+                        <p class="error-class">
+                            Es necesario ingresar la información del campo marcado como obligatorio.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <span>Correo electrónico*:</span>
+                <input
+                    [ngClass]="[!formGroup.controls['correo'].valid && formGroup.controls['correo'].touched ? 'form-control-error':'form-control']  "
+                    class="form-control" formControlName="correo" style="width:3OOpx;" maxlength="50" type="text"
+                    oninput="this.value = this.value.toLowerCase()">
+                <div *ngIf="!formGroup.controls['correo'].valid">
+                    <div *ngIf="formGroup.get('correo').errors?.pattern  && formGroup.controls['correo'].touched">
+                        <p class="error-class">
+                            Asegúrate de que tu correo electrónico sea de dominio "@imss.gob.mx".
+                        </p>
+                    </div>
+                    <div *ngIf=" formGroup.controls['correo'].errors?.required && formGroup.controls['correo'].touched">
+                        <p class="error-class">
+                            Es necesario ingresar la información del campo marcado como obligatorio.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="form-group">
+
+                <div class="col-sm-4" style="text-align: left;">
+                    <p>*Campos obligatorios</p>
+                </div>
+                <div class="col-sm-8" style="text-align: right;">
+                    <button type="button" class="btn btn-secondary" routerLink="../home">Regresar</button> &nbsp; &nbsp;
+                    <button type="submit" class="btn btn-primary pull-right" (click)="registrarCandidato()"
+                        [disabled]="!formGroup.valid || buttonSubmitStatus2">Registrar
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+    </form>
+
+</div>
+
+<br>
+<br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br>
+<br>

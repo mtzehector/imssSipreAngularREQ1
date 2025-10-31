@@ -1,0 +1,6 @@
+.form-horizontal .control-label{
+    /* text-align:right; */
+    text-align:right !important;
+  
+    padding: 0px ; 
+    }

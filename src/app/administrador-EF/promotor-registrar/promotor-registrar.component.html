@@ -1,0 +1,89 @@
+<ol class="breadcrumb ">
+  <li><a href="#"><i class="icon icon-home"></i></a></li>
+  <li><a href="#">Inicio</a></li>
+  <li class="active">Registrar personal operativo</li>
+</ol>
+<div class="row" style="height: 50px;">
+  <div class="col-md-12">
+    <h4>Préstamos a cuenta de pensión con Entidades Financieras </h4>
+    <hr class="red">
+  </div>
+</div><br>
+<app-menu-ux [rol]="rol"></app-menu-ux>
+<div class="row" style="padding: 10px;">
+  <div class="col-md-8">
+  </div>
+  <app-user-profile></app-user-profile>
+</div>
+
+<div class="row ">
+  <div class="col-md-12">
+    <h4>Registrar personal operativo</h4>
+    <hr class="red">
+    <p align="left">Ingresa la información del personal operativo a registrar:</p>
+  </div>
+</div>
+
+<form #registrarCurpNss="ngForm" autocomplete="off" class="form-horizontal" role="form">
+
+  <div class="row">
+    <div class="col-sm-4">
+      <label>CURP*: </label>
+      <input type="text" class="form-control" [(ngModel)]="model.registrarPromotor.curp" name="curp" #curp="ngModel"
+        pKeyFilter="alphanum" placeholder="Ingresa CURP" minlength="1" maxlength="18" aria-describedby="basic-addon1"
+        required autofocus pattern="{{regexCurp}}" required oninput="this.value = this.value.toUpperCase()" />
+      <div *ngIf="curp.errors && (curp.dirty || curp.touched)">
+        <p *ngIf="curp.errors.pattern" class="error-class">La CURP ingresada no es correcta, por favor verifica.</p>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <label>NSS*: </label>
+
+      <input type="text" class="form-control" [(ngModel)]="model.registrarPromotor.nss" name="nss" #nss="ngModel"
+        pKeyFilter="num" placeholder="Ingresa NSS" minlength="1" maxlength="11" aria-describedby="basic-addon1"
+        required pattern="{{regexNSS}}" />
+      <div *ngIf="nss.errors && (nss.dirty || nss.touched)">
+
+        <p *ngIf="nss.errors.pattern" class="error-class">EL NSS ingresado no es correcto, por favor verifica.</p>
+
+      </div>
+    </div>
+    <div class="col-sm-2" style="padding-left: 8%;">
+      <br>
+      <button type="button" class="btn btn-secondary" (click)="regresar()">Regresar
+      </button>
+    </div>
+    <div class="col-sm-2">
+      <br>
+      <button type="submit" class="btn btn-primary pull-right" style="height: 45px;" (click)="continuar()"
+        [disabled]="!registrarCurpNss.valid">Continuar
+      </button>
+    </div>
+  </div>
+  <br><br>
+  <div class="form-group">
+    <div class="col-sm-4">
+      <div>
+        * Campos obligatorios
+      </div>
+    </div>
+  </div>
+
+</form>
+<p>
+  <br>
+  <br>
+</p>
+
+<jw-modal id="carga">
+  <div class="jw-modal-titulo"> <b>Atención</b></div>
+  <div style="height:100%; width:100%">
+    <br>
+    <br>
+    <p style="text-align:center"><b>Cargando datos</b></p>
+    <div align="center">
+      <div class="preloader"></div>
+    </div>
+    <br>
+  </div>
+</jw-modal>

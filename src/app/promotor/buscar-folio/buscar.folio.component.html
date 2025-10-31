@@ -1,0 +1,77 @@
+<app-breadcrumb-ux>
+</app-breadcrumb-ux>
+<br><br>
+<app-menu-ux [rol]="rol"></app-menu-ux>
+<div class="row" style="padding: 10px;">
+    <div class="col-md-8">
+    </div>
+    <app-user-profile></app-user-profile>
+</div>
+
+<form class="form-inline" role="form">
+    <div class="row">
+        <div class="col-md-12">
+            <h4>Buscar folio de préstamo </h4>
+            <hr class="red" />
+            <p>Ingresa un folio de préstamo y presiona el botón Buscar:
+            </p>
+        </div>
+    </div>
+    <div class="row" style="margin-right: 0px;">
+
+
+        <div class="col-md-12">
+            <div [ngClass]="
+        { 'has-error form-group' : (folioSolicitado.dirty || folioSolicitado.touched) && folioSolicitado.invalid }
+        ">
+
+                <div class="form-group">
+                    <label>Folio de préstamo:* &nbsp; &nbsp;</label>
+                    <input required minlength="13" maxlength="13" #folioSolicitado="ngModel"
+                        [(ngModel)]="numFolioSolicitud" id="folio" class="form-control " name="folio" type="text">
+
+                </div>
+                <div *ngIf="folioSolicitado.invalid && (folioSolicitado.dirty || folioSolicitado.touched)">
+
+                    <span class="text-danger" *ngIf="folioSolicitado.errors.required">
+                        El folio es requerido
+                    </span>
+                    <span class="text-danger" *ngIf="folioSolicitado.errors.minlength">
+                        El folio debe ser de 13 caracteres
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm">
+        <div class="row">
+            <div class="col-md-8"></div>
+            <div class="col-md-4" style="text-align: right;">
+                <!-- <button type="button" class="btn btn-default">
+          Regresar
+        </button> &nbsp; &nbsp; -->
+                <button type="button" (click)="buscarFolio()" class="btn btn-primary "
+                    [disabled]="this.data.model.buttonBusqFolioPromotor">
+                    <span class="oi oi-send glyphicon glyphicon-left"> </span>Buscar
+                </button> <br><br>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+        </div>
+    </div>
+</form>
+<jw-modal id="carga">
+    <div class="jw-modal-titulo"> <b>Atención</b></div>
+    <div style="height:100%; width:100%">
+        <br>
+        <br>
+        <p style="text-align:center"><b>Cargando datos</b></p>
+        <div align="center">
+            <div class="preloader"></div>
+        </div>
+
+        <br>
+    </div>
+</jw-modal>

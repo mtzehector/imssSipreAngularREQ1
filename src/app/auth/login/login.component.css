@@ -1,0 +1,95 @@
+.registrar-nuevo-usuario{
+    font-family: Montserrat;
+    font-size: 20px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: center;
+    color: #2f6e93;
+    text-decoration: none;
+  }
+
+  .registrar-nuevo-usuario:link {
+    font-family: Montserrat;
+    font-size: 20px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: center;
+    color: #2f6e93;
+  }
+  
+  /* visited link */
+  .registrar-nuevo-usuario:visited {
+    font-family: Montserrat;
+    font-size: 20px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: center;
+    color: #2f6e93;
+  }
+  
+  /* mouse over link */
+  .registrar-nuevo-usuario:hover {
+    font-family: Montserrat;
+    font-size: 20px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: center;
+    color: #2f6e93;
+    cursor: pointer;
+  }
+  
+  /* selected link */
+  .registrar-nuevo-usuario:active {
+    font-family: Montserrat;
+    font-size: 20px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: center;
+    color: #2f6e93;
+  }
+
+
+
+  .inicio-de-sesion {
+    font-family: Montserrat;
+    font-size: 24px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: center;
+    color:  #2f6e93;
+  }
+
+  .reload-captcha {
+    padding: 10px 0px 0px 0px;
+  }
+
+  .reload-captcha:hover {
+    cursor: pointer;
+  }
+
+  .tarjeta-body {
+    border-radius: 15px;
+    box-shadow: 3px 4px 20px 0 rgba(0, 0, 0, 0.18);
+    border: solid 1px #dcdcdc;
+    background-color: #fbfbfb;
+    padding: 20px 30px 20px 21px;
+}
+

@@ -1,0 +1,238 @@
+<app-header></app-header>
+<div class="row" style="margin-top: -60px;">
+    <app-menu-ux [rol]="this.rol"></app-menu-ux>
+</div>
+<div class="row" style="padding: 10px;">
+    <div class="col-md-8">
+    </div>
+    <app-user-profile></app-user-profile>
+</div>
+
+<div class="row ">
+    <div class="col-md-12">
+        <h4>{{title}}</h4>
+        <hr class="red">
+        <p>Ingresa la información solicitada:</p>
+    </div>
+</div>
+
+
+<div class="row tarjeta">
+    <div class="row tarjeta-body">
+        <div class="row tarjeta-data-1">
+            <span class="tarjeta-data-1-bold">{{ model.operador.nombre
+                }}&nbsp;{{
+                model.operador.primerApellido }}&nbsp;{{
+                model.operador.segundoApellido }}
+            </span>
+        </div>
+        <div class="row tarjeta-title-1">
+            <div class="col-md-4">Sexo:</div>
+            <div class="col-md-4">Fecha de nacimiento:</div>
+            <!--<div class="col-md-4">Entidad Federativa de nacimiento:</div>-->
+            <div class="col-md-4"></div>
+        </div>
+        <div class="row tarjeta-data-1">
+            <div class="col-md-4">{{ model.operador.sexoDescripcion }}</div>
+            <div class="col-md-4">{{this.fecdate|date:'dd/MM/yyyy'}}</div>
+            <!--<div class="col-md-4">{{model.operador.entidadFederativaNacimiento}}</div>-->
+            <div class="col-md-4"></div>
+        </div>
+    </div>
+</div>
+
+<div class="row ">
+    <div class="col-md-12">
+        <h3>Información del Operador</h3>
+        <hr class="red">
+    </div>
+</div>
+
+<form [formGroup]="formGroup2" autocomplete="off" role="form">
+
+    <div class="row ">
+        <div class="col-md-4">
+
+            <div class="form-group" style="text-align: left;">
+                <span class="">RFC:</span> &nbsp;
+                <input type="text" [ngClass]="[!formGroup2.controls['rfc'].valid && formGroup2.controls['rfc'].touched ? 'form-control-error':'form-control']  " class="form-control" formControlName="rfc" placeholder="Ingresa RFC de 13 caracteres" pKeyFilter="alphanum"
+                    minlength="1" maxlength="13" aria-describedby="basic-addon1" oninput="this.value = this.value.toUpperCase()" />
+
+                <div *ngIf="!formGroup2.controls['rfc'].valid">
+
+                    <div *ngIf="formGroup2.get('rfc').errors?.pattern && formGroup2.controls['rfc'].touched">
+                        <p class="error-class">
+                            No corresponde a la estructura válida de un RFC.</p>
+                    </div>
+
+                    <div *ngIf="(formGroup2.controls['rfc'].errors?.maxlength && formGroup2.controls['rfc'].touched) || (formGroup2.controls['rfc'].errors?.minlength && formGroup2.controls['rfc'].touched) ">
+                        <p class="error-class">El RFC debe tener 13 caracteres. </p>
+                    </div>
+
+                    <div *ngIf=" formGroup2.controls['rfc'].errors?.required && formGroup2.controls['rfc'].touched">
+                        <p class="error-class">Es necesario ingresar la información del campo marcado como obligatorio.
+                        </p>
+                    </div>
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-3">
+
+            <div class="form-group" style="text-align: left;">
+                <span class="">Número de empleado: </span> &nbsp;
+                <input type="text" [ngClass]="[!formGroup2.controls['numEmpleado'].valid && formGroup2.controls['numEmpleado'].touched ? 'form-control-error':'form-control']  " class="form-control" formControlName="numEmpleado" placeholder="Ingresa número de empleado"
+                    minlength="1" maxlength="20" aria-describedby="basic-addon1" />
+
+                <div *ngIf="!formGroup2.controls['numEmpleado'].valid">
+
+                    <div *ngIf=" formGroup2.controls['numEmpleado'].errors?.maxlength && formGroup2.controls['numEmpleado'].touched">
+                        <p class="error-class">El número de empleado debe tener un máximo de 20 caracteres.</p>
+                    </div>
+
+                    <div *ngIf=" formGroup2.controls['numEmpleado'].errors?.minlength && formGroup2.controls['numEmpleado'].touched">
+                        <p class="error-class">El número de empleado debe tener un máximo de 20 caracteres. </p>
+                    </div>
+                    <div *ngIf=" formGroup2.controls['numEmpleado'].errors?.required && formGroup2.controls['numEmpleado'].touched">
+                        <p class="error-class">Es necesario ingresar la información del campo marcado como obligatorio.
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-5">
+            <div class="form-group" style="text-align: left;">
+                <span class="">Firmante carta recibo</span> &nbsp;
+                <input type="checkbox" [checked]="firmaDocumentoPermiso" class="form-control" (click)="cambioFirma(firmaDocumentoPermiso)" aria-describedby="basic-addon1">
+            </div>
+        </div>
+
+        <div class="col-md-4"></div>
+    </div>
+    <h3>Datos de Contacto</h3>
+    <br>
+    <div class="row ">
+        <div class="col-md-4">
+
+            <div class="form-group" style="text-align: left;">
+                <span class="">Teléfono móvil:</span> &nbsp;
+                <input type="text" [ngClass]="[!formGroup2.controls['telefono'].valid && formGroup2.controls['telefono'].touched ? 'form-control-error':'form-control']  " class="form-control" formControlName="telefono" placeholder="Ingresa teléfono móvil" pKeyFilter="num"
+                    minlength="1" maxlength="10" aria-describedby="basic-addon1" />
+
+                <div *ngIf="!formGroup2.controls['telefono'].valid">
+
+                    <div *ngIf=" formGroup2.get('telefono').errors?.pattern && formGroup2.controls['telefono'].touched">
+                        <p class="error-class">
+                            El teléfono debe tener 10 dígitos.
+                    </div>
+
+                    <div *ngIf=" formGroup2.controls['telefono'].errors?.required && formGroup2.controls['telefono'].touched">
+                        <p class="error-class">Es necesario ingresar la información del campo marcado como obligatorio.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group" style="text-align: left;">
+                <span class="">Correo electrónico:</span> &nbsp;
+                <input type="text" 
+                       [ngClass]="[!formGroup2.controls['correoElectronico'].valid && formGroup2.controls['correoElectronico'].touched ? 'form-control-error':'form-control']  " 
+                       class="form-control" 
+                       formControlName="correoElectronico"
+                       [(ngModel)]="model.usuario" 
+                       placeholder="Ingresa correo electrónico "
+                       aria-describedby="basic-addon1" 
+                       oninput="this.value = this.value.toLowerCase()" />
+                <div *ngIf="!formGroup2.controls['correoElectronico'].valid">
+                    <div *ngIf=" formGroup2.get('correoElectronico').errors?.pattern && formGroup2.controls['correoElectronico'].touched">
+                        <p class="error-class">
+                            Asegúrate de que el correo electrónico tenga el símbolo @ y un punto.
+                    </div>
+                    <div *ngIf=" formGroup2.controls['correoElectronico'].errors?.required && formGroup2.controls['correoElectronico'].touched">
+                        <p class="error-class">Es necesario ingresar la información del campo marcado como obligatorio.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4" *ngIf="registro=='update'">
+            <br/>
+            <button type="button" 
+                    class="btn btn-primary" 
+                    (click)="cambiaDominio()">
+                    Modificar correo electrónico
+            </button>
+          </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4" *ngIf="registro=='create'">
+            {{model.usuario}}{{dominioCorreoAdmin}}
+          </div>
+          <div class="col-md-4" *ngIf="registro=='update' && !cambioDominio">
+            {{model.usuario}}{{dominioCorreoUsuario}}
+          </div>
+          <div class="col-md-4" *ngIf="registro=='update' && cambioDominio">
+            {{model.usuario}}{{dominioCorreoAdmin}}
+          </div>
+      </div>
+
+    <app-carga-documento></app-carga-documento>
+
+    <div class="row ">
+        <div class="col-md-6">
+            <div class="form-group">
+                <div>
+                    * Campos obligatorios
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6" style="text-align: right;">
+            <button type="button" class="btn btn-default" (click)="regresar()">Regresar
+            </button> &nbsp;&nbsp;&nbsp;
+            <button type="submit" class="btn btn-primary " [disabled]="(formGroup2.invalid)" (click)="confirmar()">{{ labelSubmit }}
+            </button>
+        </div>
+    </div>
+</form>
+
+
+
+<br />
+<br />
+<jw-modal id="carga">
+    <div class="jw-modal-titulo"> <b>Atención</b></div>
+    <div style="height:100%; width:100%">
+        <br>
+        <br>
+        <p style="text-align:center"><b>Cargando datos</b></p>
+        <div align="center">
+            <div class="preloader"></div>
+        </div>
+        <br>
+    </div>
+</jw-modal>
+
+
+
+<jw-modal id="autorizarRegistrarOperador">
+    <div class="jw-modal-titulo">Atención</div>
+    <div class="modal-body">
+        <p>{{ labelModal }}</p>
+        <div class="row">
+            <div class="col-md-12 text-right">
+                <button class="btn btn-default" (click)="cancelar()">Cancelar</button>&nbsp;&nbsp;
+                <button class="btn btn-primary" (click)="registrarCandidato()">Aceptar</button>
+            </div>
+        </div>
+    </div>
+</jw-modal>

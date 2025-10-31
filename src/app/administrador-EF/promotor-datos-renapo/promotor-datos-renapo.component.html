@@ -1,0 +1,31 @@
+<div class="row tarjeta">
+  <div class="row tarjeta-body">
+    <div class="row tarjeta-data-1-bold">
+      <div class="col-md-12">
+        {{ model.registrarPromotor.nombre}} {{ model.registrarPromotor.primerApellido}} {{ model.registrarPromotor.segundoApellido}}
+      </div>
+    </div>
+    <div class="row tarjeta-title-1">
+      <div class="col-md-4">
+        Sexo:
+      </div>
+      <div class="col-md-4">
+        Fecha de nacimiento:
+      </div>
+      <div class="col-md-4">
+        Entidad Federativa de nacimiento:
+      </div>
+    </div>
+    <div class="row tarjeta-data-1">
+      <div class="col-md-4">
+        {{model.registrarPromotor.sexoDescripcion | uppercase}}
+      </div>
+      <div class="col-md-4">
+        {{this.fecdate|date:'dd/MM/yyyy'}}
+      </div>
+      <div class="col-md-4">
+        {{model.registrarPromotor.entidadFederativaNacimiento}}
+      </div>
+    </div>
+  </div>
+</div>

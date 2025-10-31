@@ -1,0 +1,44 @@
+<app-header></app-header>
+<div class="row" style="margin-top: -60px;">
+    <app-menu-ux [rol]="this.rol"></app-menu-ux>
+</div>
+<div class="row" style="padding: 10px;">
+    <div class="col-md-8">
+    </div>
+    <app-user-profile></app-user-profile>
+</div>
+
+<div class="row ">
+    <div class="col-md-12">
+        <h4>Cartas recibo generadas</h4>
+        <hr class="red">
+    </div>
+</div>
+
+
+<div class="row" *ngIf="flagCartas == 0">
+    <div class="No-cuentas-con-prstamos-vigentes">No hay cartas generadas en el período ingresado.</div>
+</div>
+
+<div *ngFor="let item of cartas.cartas; let i = index">
+    <div class="row tarjeta">
+        <div class="row tarjeta-body">
+            <div class="row tarjeta-data-1-bold">
+                <div class="col-md-2"></div>
+                <div class="col-md-5">
+                    {{item.nomComercial}}
+                </div>
+                <div class="col-md-3" style="text-align: right;">
+                    {{item.altaRegistro}}
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-sm-12">
+    <br><button type="button" class="btn btn-secondary pull-right" (click)="regresar()">Regresar</button>
+</div>
+<br>
+<br>
+<br>

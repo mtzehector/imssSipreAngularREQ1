@@ -1,0 +1,141 @@
+<app-header></app-header>
+<div class="row ">
+    <div class="col-md-8">
+        <h4>Te damos la bienvenida</h4>
+        <div class="col-sm">
+            <p text-align="left">
+                Ponemos a tu disposición un simulador para orientarte respecto a las opciones que tienes y poder
+                solicitar un préstamo con la Entidad Financiera que te convenga más. <strong>Usar este simulador no te
+                    compromete a nada, hasta que formalices el préstamo con la
+                    Entidad Financiera elegida.</strong><br /><br /> Importante:
+                <br /><br /> 1) Cuando se te otorgue el préstamo, todos los pagos serán descontados directamente de tu
+                pensión mensual. Nunca se te solicitará hacer pagos en efectivo.<br />
+                <br> 2) En ningún momento se te solicitará tu contraseña o “nip” de la cuenta bancaria, ni datos que
+                pongan en riesgo tu seguridad financiera.
+            </p>
+        </div>
+
+
+    </div>
+    <div class="col-md-4">
+        <div class="row" style="margin-left: -50px;">
+            <app-user-profile></app-user-profile>
+        </div>
+        <div class="row" style="text-align: center;">
+            <app-seccion-ayuda></app-seccion-ayuda>
+        </div>
+    </div>
+</div>
+<br>
+<br>
+<div>
+    <button type="button" (click)="solicitudVigente(1);" class="btn btn-primary" style="border-radius: 15px;">Generar
+        nueva simulación</button>
+</div>
+<br>
+<br>
+<h4>Solicitudes de Préstamos</h4>
+<hr class="red" style="margin: 10px 0 40px;">
+
+<div *ngFor="let item of pageFolioVigente.content; let i = index">
+    <div class="row" *ngIf="!pageFolioVigente || !pageFolioVigente.content">
+        <div class="alert alert-info">
+            No existe informaci&oacute;n para mostrar
+        </div>
+    </div>
+    <div class="row tarjeta">
+        <div class="row tarjeta-body">
+
+            <div class="row tarjeta-data-1">
+                <div class="col-md-7">Entidad Financiera:
+                    <span class="tarjeta-data-1-bold"
+                        style="font-size: 18px;">{{item.prestamo.nomEntidadFinanciera}}</span>
+                </div>
+                <div class="col-md-5" style="text-align: right;">
+                    <div class="row">
+                        <img [src]="'/mclpe/auth/js/assets/img/GroupCS.png'" class="GroupCS">
+                        <span class="Cancelar-solicitud"
+                            (click)="validarEstadoFolio(item.solicitud.id, item.solicitud.cveEstadoSolicitud.id)">
+                            Cancelar Solicitud
+                        </span>
+                        <img [src]="'/mclpe/auth/js/assets/img/GroupVD.png'" class="GroupVD">
+                        <span class="Ver-detalle"
+                            (click)="buscarFolio(item.solicitud.numFolioSolicitud,item.solicitud.idSolPrFinanciero)">
+                            Ver Detalle
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="row tarjeta-title-1">
+                <div class="col-md-3">Estado de la solicitud:</div>
+                <div class="col-md-3">Fecha de inicio:</div>
+                <div class="col-md-3">Fecha de vigencia:</div>
+                <div class="col-md-3">CAT con IVA:</div>
+            </div>
+            <div class="row tarjeta-data-1">
+                <div class="col-md-3">{{item.solicitud.cveEstadoSolicitud.desPensionadoEstadoSolicitud}}</div>
+                <div class="col-md-3">{{item.solicitud.altaRegistro | slice:0:10}}</div>
+                <div class="col-md-3">{{item.solicitud.fecVigenciaFolio | slice:0:10}}</div>
+                <div class="col-md-3">{{item.prestamo.cat}} %</div>
+            </div>
+            <div class="row tarjeta-title-1">
+                <div class="col-md-3">Monto Solicitado:</div>
+                <div class="col-md-3">Descuento Mensual:</div>
+                <div class="col-md-3"></div>
+                <div class="col-md-3"></div>
+            </div>
+            <div class="row tarjeta-data-1">
+                <div class="col-md-3">$ {{item.prestamo.monto | number:'0.2-2'}}</div>
+                <div class="col-md-3">$ {{item.prestamo.descuentoMensual | number:'0.2-2'}}</div>
+                <div class="col-md-3"></div>
+                <div class="col-md-3"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-pager [pageModel]="pageFolioVigente" (paged)="onPaged($event)"></app-pager>
+<br>
+<br>
+<jw-modal id="carga">
+    <div class="jw-modal-titulo"> <b>Atención</b></div>
+    <div style="height:100%; width:100%">
+        <br>
+        <br>
+        <p style="text-align:center"><b>Cargando datos</b></p>
+        <div align="center">
+            <div class="preloader"></div>
+        </div>
+
+        <br>
+    </div>
+</jw-modal>
+<jw-modal id="cancelarFolio">
+    <div class="jw-modal-titulo"> <b>Atención</b></div>
+    <div style="height:100%; width:100%">
+        <br>
+        <p style="text-align:center"><b>La solicitud de préstamo que generaste se cancelará y si así lo deseas se deberá
+                iniciar una nueva solicitud. ¿Estás seguro?</b></p>
+        <p style="text-align:center">Debido a que el CAT es dinámico, al cancelar la simulación, puede cambiar sus condiciones</p>
+        <div class="col-md-12" style="text-align:right">
+            <button class="btn btn-default" (click)="closeModalCancelar();">Cancelar</button>&nbsp;&nbsp;&nbsp;
+
+            <button class="btn btn-primary " (click)="cancelarSimulacion();">Aceptar</button>&nbsp;&nbsp;
+
+        </div>
+    </div>
+</jw-modal>
+<jw-modal id="exitoCancelar">
+    <div class="jw-modal-titulo"> <b>Atención</b></div>
+    <div style="height:100%; width:100%">
+        <br>
+        <p style="text-align:center"><b>El folio ha sido cancelado con éxito.</b></p>
+        <br>
+        <div style="text-align:right">
+            <button type="button" class="btn btn-primary" (click)="closeModalExitoCancelar()">
+                <span class="oi oi-send glyphicon glyphicon-left"> </span>Aceptar
+            </button>&nbsp;
+
+        </div>
+    </div>
+</jw-modal>

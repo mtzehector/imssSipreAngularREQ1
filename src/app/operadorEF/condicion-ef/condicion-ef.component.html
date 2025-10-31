@@ -1,0 +1,598 @@
+<div class="row" style="padding: 10px;">
+  <div class="col-md-8">
+  </div>
+  <app-user-profile></app-user-profile>
+</div>
+<br>
+<br>
+<form #registrarCondicionEF="ngForm" autocomplete="off" class="form-horizontal" role="form">
+  <div class="col-md-12">
+    <div class="row">
+      <h2>Registrar Condiciones de la Entidad Financiera </h2>
+      <hr class="red" style="margin: 10px 0 40px;">
+
+    </div>
+  </div>
+
+  <div style="margin: 65px 0 65px;"></div>
+
+  <table class="table  table-bordered  table-striped">
+    <thead>
+      <tr>
+        <th colspan="2">
+          <strong>Información de la Entidad Financiera
+          </strong>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="width: 35%"><label>RFC : </label> <br>
+          {{model.registrarEntidadFinanciera.rfc}}
+        </td>
+        <td style="width: 35%"><label>Razón Social:
+          </label><br>{{model.registrarEntidadFinanciera.razonSocial}}
+        </td>
+      </tr>
+      <tr>
+        <td style="width: 35%">
+          <label>Nombre comercial: </label> <br>{{model.registrarEntidadFinanciera.nombreComercial}}
+        </td>
+        <td style="width: 35%">
+          <label>Registro Patronal: </label> <br>{{model.registrarEntidadFinanciera.registroPatronal}}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div style="margin: 35px 0 35px;"></div>
+  <table class="table  table-bordered  table-striped">
+    <thead>
+      <tr>
+        <th colspan="2">
+          <strong>Información del Representante Legal
+
+          </strong>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="width: 35%"><label>CURP: </label>
+          <br>{{model.registrarEntidadFinanciera.curpRepresentanteLegal}}
+        </td>
+        <td style="width: 35%"><label>Nombre: </label>
+
+          <br>{{model.registrarEntidadFinanciera.nombreLegal }}
+        </td>
+      </tr>
+      <tr>
+        <td style="width: 35%">
+          <label>Primer apellido : </label> <br>{{ model.registrarEntidadFinanciera.primerApeLegal }}
+        </td>
+        <td style="width: 35%">
+          <label>Segundo apellido: </label><br>{{ model.registrarEntidadFinanciera.segundoApeLegal }}
+        </td>
+      </tr>
+
+    </tbody>
+  </table>
+  <div style="margin: 65px 0 65px;"></div>
+  <!-- Datos de contacto-->
+
+  <table class="table  table-bordered  table-striped">
+    <thead>
+      <tr>
+        <th colspan="2">
+          <strong>Datos del contacto
+
+          </strong>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="width: 35%"><label>Teléfono : </label>
+          <br>{{ model.registrarEntidadFinanciera.numeroTelefono }}
+        </td>
+        <td style="width: 35%"><label>Teléfono de atención a clientes: </label>
+
+          <br>{{ model.registrarEntidadFinanciera.telefonoAtencionClientes }}
+        </td>
+      </tr>
+      <tr>
+        <td style="width: 35%">
+          <label>Página web: </label> <br>{{ model.registrarEntidadFinanciera.paginaWeb }}
+        </td>
+        <td style="width: 35%">
+          <label>Correo electrónico 1: </label><br>{{ model.registrarEntidadFinanciera.correoElectronico }}
+        </td>
+      </tr>
+      <tr>
+        <td *ngIf="model.registrarEntidadFinanciera.correo2 != null && model.registrarEntidadFinanciera.correo2 != ''">
+          <label>Correo electrónico 2:</label>
+          <br>{{model.registrarEntidadFinanciera.correo2}}
+        </td>
+        <td *ngIf="model.registrarEntidadFinanciera.correo3 != null && model.registrarEntidadFinanciera.correo3 != ''">
+          <label>Correo electrónico 3:</label>
+          <br>{{model.registrarEntidadFinanciera.correo3}}
+        </td>
+      </tr>
+      <tr>
+        <td style="width: 35%" colspan="2">
+          <label>Domicilio:
+          </label> <br>{{ model.registrarEntidadFinanciera.direccion }}
+        </td>
+
+      </tr>
+
+    </tbody>
+  </table>
+
+
+  <div style="margin: 65px 0 65px;"></div>
+
+
+  <table class="table  table-bordered  table-striped">
+    <thead>
+      <tr>
+        <th colspan="2">
+          <strong>Datos del convenio
+
+          </strong>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="width: 35%"><label>Fecha de firma :
+          </label>
+          <br>{{ model.registrarEntidadFinanciera.fecFirmaContra}}
+        </td>
+        <td style="width: 35%"><label>Fecha de inicio de convenio: </label>
+
+          <br>{{ model.registrarEntidadFinanciera.fecIniFirmaContra }}
+        </td>
+      </tr>
+      <tr>
+        <td style="width: 35%">
+          <label>Número de proveedor:
+          </label> <br>{{ model.registrarEntidadFinanciera.numeroProveedor }}
+        </td>
+        <td style="width: 35%">
+          &nbsp;
+        </td>
+      </tr>
+
+
+
+    </tbody>
+  </table>
+
+
+
+
+  <!-- Datos bancarios-->
+
+
+  <table class="table  table-bordered  table-striped">
+    <thead>
+      <tr>
+        <th colspan="2">
+          <strong>
+            Datos bancarios
+
+          </strong>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="width: 35%"><label>Cuenta CLABE:
+          </label> <br> {{model.registrarEntidadFinanciera.clabe}}
+
+        </td>
+        <td style="width: 35%"><label>Institución bancaria:
+          </label><br>{{model.registrarEntidadFinanciera.instBancaria}}
+        </td>
+      </tr>
+
+
+    </tbody>
+  </table>
+
+  <h3>Plazos y beneficios </h3>
+  <hr class="red" style="margin: 10px 0 40px;">
+  <p>A continuación debes elegir por cada plazo y CAT máximo establecido, los tres principales beneficios que tiene para
+    el Pensionado:
+  </p>
+
+
+  <table class="table table-striped"  >
+    <thead>
+     
+      <tr>
+        <th  style="text-align: center;  width: 5%;">
+          &nbsp;
+        </th>
+        <th style="text-align: center;  width: 15%;">
+          Plazo:
+        </th>
+        <th style="text-align: center;  width: 30%;">
+          % CAT máximo IMSS:
+          
+        </th>
+        <th style="text-align: center;  width: 20%;">
+          % CAT máximo EF*:
+
+          
+        </th>
+        <th style="text-align: center;  width: 30%;">
+          Beneficios
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+
+      
+    <tr *ngFor="let plazo of plazos; let i = index">
+        <td  style="text-align: center;" > {{plazo.indice}}  </td>
+        <td  style="text-align: center;" > {{plazo.plazo}} </td>
+        <td  style="text-align: center;" > {{plazo.cat}}</td>
+        <td style="text-align: center;"> 
+          <div class="form-group" >   
+            <div class="col-xs-12 " > 
+              <input type="number" class="form-control"   (change)="validarBeneficio(i)"  [(ngModel)]="plazo.catForm" size="4" maxlength="2" min="0" max="999.99" [ngModelOptions]="{standalone: true}"/>
+          </div>
+            </div>
+
+            <div class="form-group"
+            *ngIf="plazo.error" >
+        
+             <p class="error-class">{{plazo.mensajeError}}
+              </p>
+         
+         </div>
+
+        </td> 
+        <td  align="center" >
+          <div class="form-group" style=" width: 90%;">   
+            <div class="col-xs-14" > 
+            <input type="text" class="form-control"     [(ngModel)]="plazo.valorBeneficioA" size="4" maxlength="200" [ngModelOptions]="{standalone: true}"/>
+            </div>
+          </div>
+         
+          <div class="form-group" style=" width: 90%;">   
+            <div class="col-xs-14" > 
+            <input type="text" class="form-control"    [(ngModel)]="plazo.valorBeneficioB" size="4" maxlength="200" [ngModelOptions]="{standalone: true}"/>
+            </div>
+          </div>
+          
+          <div class="form-group" style="  width: 90%;"> 
+            <div class="col-xs-14 " >   
+            <input type="text" class="form-control"    [(ngModel)]="plazo.valorBeneficioC" size="4" maxlength="200" [ngModelOptions]="{standalone: true}"/>
+            </div>
+          </div>
+          
+        <br>
+        
+        </td>
+      </tr>
+
+    </tbody>
+  </table>
+
+  <div style="margin: 65px 0 65px;"></div>
+
+  <!-- Datos de Condiciones-->
+  <h3>Condiciones</h3>
+  <hr class="red" style="margin: 10px 0 40px;">
+  <p>Por último, es necesario ingresar las condiciones que establece la Entidad Financiera, por cada estado del país. 
+    Presiona Añadir Condición y agrega cuantas Entidades Federativas sean necesarias con sus respectivas condiciones:
+  </p>
+
+
+  <table class="table table-striped">
+
+    <tbody>
+      <tr>
+        <td>
+          <label> Entidad Federativa donde opera la Entidad Financiera:</label>
+
+        </td>
+        <td>
+          <div class="form-group">
+            <div class="col-xs-10">
+              <select id="entidadF" [(ngModel)]="condicionesForm.entidadFederativa" class="form-control select-style"
+                name="entidadF">
+               
+                <option [value]="item['id']" *ngFor="let item of items"> {{item["name"]}}</option>
+              </select>
+            </div>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <div class="form-group">
+
+            <label class="col-sm-5"> Sexo*: </label>
+            <div class="col-xs-4 ">
+              <select id="sexo" class="form-control select-style" name="condicionesForm.sexo"
+                [(ngModel)]="condicionesForm.sexo">
+                <option value="F">Femenino</option>
+                <option value="M">Masculino</option>
+              </select>
+
+            </div>
+          </div>
+
+        </td>
+        <td>
+          <div class="form-group">
+
+            <label class="col-sm-5"> Edad límite de préstamo*: </label>
+            <div class="col-xs-4 ">
+
+              <select id="edad" name="edad"  [(ngModel)]="condicionesForm.edad" class="form-control select-style"
+              >
+              <option [value]="item['id']" *ngFor="let item of itemsNum"> {{item["valor"]}}</option>
+            </select>
+              
+
+            </div>
+          </div>
+        </td>
+      </tr>
+
+
+      <tr>
+        <td>
+          <div class="form-group">
+            <label class="col-sm-5">
+              Monto mínimo*:
+            </label>
+            <div class="col-xs-4 ">
+              <input type="number" class="form-control" maxlength="12" min="0" max="9999999999.99" maxlength="20" [(ngModel)]="condicionesForm.mMinimo"
+                [ngModelOptions]="{standalone: true}">
+            </div>
+          </div>
+        </td>
+        <td>
+          <div class="form-group">
+            <label class="col-sm-5"> Monto máximo*:
+            </label>
+            <div class="col-xs-4 ">
+              <input type="number" class="form-control" maxlength="12" min="0" max="9999999999.99" maxlength="20"  [(ngModel)]="condicionesForm.mMax"
+                [ngModelOptions]="{standalone: true}">
+            </div>
+          </div>
+        </td>
+      </tr>
+
+
+      <tr>
+        <td>
+          <div class="form-group" *ngIf="!result">
+
+            <p class="error-class">{{mensajeErrorCondiciones}}
+            </p>
+
+          </div>
+
+        </td>
+
+        <td style="text-align: right ;">
+          <a (click)="agregar()"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Añadir otra
+            condición </a>
+
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+
+
+
+
+
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">Entidad Federativa </th>
+        <th scope="col">Sexo</th>
+        <th scope="col">Edad</th>
+        <th scope="col">Monto mínimo</th>
+        <th scope="col">Monto máximo</th>
+        <th scope="col">Borrar</th>
+        <th scope="col">Editar</th>
+
+      </tr>
+    </thead>
+    <tbody *ngFor="let condicion of condicionesArray">
+      <tr *ngIf="!condicion.editar">
+        <td>
+          <select id="entidadFederativaE" class="form-control select-style" name="entidadF"
+            [(ngModel)]="condicion.entidadFederativaE" [ngModelOptions]="{standalone: true}">
+            <option [value]="item['id']" *ngFor="let item of items">{{item["name"]}}</option>
+          </select>
+
+        </td>
+        <td>
+          <select id="sexo" [(ngModel)]="condicion.sexoE" class="form-control select-style"
+            [ngModelOptions]="{standalone: true}">
+            <option value="F" [selected]="condicion.sexoE=='F'">Femenino </option>
+            <option value="M" [selected]="condicion.sexoE=='M'">Masculino</option>
+          </select>
+        </td>
+        <td>
+
+         
+          <select id="edad" [(ngModel)]="condicion.edadE" class="form-control select-style" name="edadE"
+            [ngModelOptions]="{standalone: true}">
+            <option [value]="item['id']" *ngFor="let item of itemsNum"> {{item["valor"]}}</option>
+
+          </select>
+        </td>
+
+        <td>
+          <input type="number" class="form-control" [(ngModel)]="condicion.mMinimoE"
+            [ngModelOptions]="{standalone: true}">
+        </td>
+        <td>
+          <input type="number" class="form-control" [(ngModel)]="condicion.mMaxE" [ngModelOptions]="{standalone: true}">
+        </td>
+        <td>
+          &nbsp;
+        </td>
+        <td>
+
+          <a (click)="salvarEntidadModificada(condicion.id)">
+            <span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
+          </a>
+
+        </td>
+      </tr>
+      <tr *ngIf="condicion.editar">
+        <td>
+          {{condicion["nombreEF"]}}
+        </td>
+        <td>
+          {{condicion["sexoJ"]}}
+        </td>
+        <td>
+          {{condicion["edadJ"]}}
+        </td>
+
+        <td>
+          {{condicion["mMinimoJ"]}}
+        </td>
+        <td>
+          {{condicion["mMaxJ"]}}
+        </td>
+
+        <td>
+          <a (click)="borrarEntidad(condicion.id)">
+            <span class="glyphicon glyphicon-trash" style="color: #404041" aria-hidden="true"></span>
+          </a>
+        </td>
+        <td>
+          <a (click)="editarEntidad(condicion.id)">
+            <span class="glyphicon glyphicon-pencil" style="color: #404041" aria-hidden="true"></span>
+          </a>
+
+        </td>
+      </tr>
+
+    </tbody>
+  </table>
+
+  <div class="form-group" *ngIf="resultErrorEditar">
+    <p class="error-class">{{mensajeErrorCondicionesE}}
+   </p>
+ </div>
+
+
+  <div class="form-group">
+    <div class="col-sm-4">
+      <div>
+        * Campos obligatorios
+      </div>
+    </div>
+  </div>
+
+
+  <div style="margin: 65px 0 65px; text-align:right;"></div>
+  <div class="form-group">
+    <div class="col-sm-10">
+      <button class="btn btn-primary pull-right" (click)="location.back()">Regresar
+      </button>
+    </div>
+
+    <div class="col-sm-2">
+      <button type="submit" class="btn btn-primary pull-right" (click)="openModal('RegistrarEF')">Guardar
+      </button>
+    </div>
+
+
+
+  </div>
+
+</form>
+
+<jw-modal id="RegistrarEF">
+  <div class="jw-modal-titulo"> <b>Atención</b></div>
+  <div class="modal-body">
+    <p>¿Estás seguro de registrar las condiciones para la entidad financiera
+      {{model.registrarEntidadFinanciera.nombreComercial}}?</p>
+    <div class="row">
+      <div class="col-md-12 text-right">
+        <button class="btn btn-default" (click)="closeModal('RegistrarEF')" style="margin-right: 5px">Regresar</button>&nbsp;&nbsp;
+        <button class="btn btn-primary" (click)="continuar()">S&iacute;, estoy seguro</button>
+      </div>
+    </div>
+  </div>
+  <br>
+</jw-modal>
+
+<jw-modal id="eliminarCondicion">
+  <div class="jw-modal-titulo"> <b>Atención</b></div>
+  <div class="modal-body">
+    <p>¿Estás seguro de eliminar esta condici&oacute;n?</p>
+    <div class="row">
+      <div class="col-md-12 text-right">
+        <button class="btn btn-default" (click)="closeModal('eliminarCondicion')"
+          style="margin-right: 5px">Regresar</button>&nbsp;&nbsp;
+        <button class="btn btn-primary" (click)="borrarEntidad(this.idborrar)">S&iacute;, estoy seguro</button>
+      </div>
+    </div>
+  </div>
+  <br>
+</jw-modal>
+
+
+<jw-modal id="editarCondicion">
+  <div class="jw-modal-titulo"> <b>Atención</b></div>
+  <div class="modal-body">
+    <p>¿Estás seguro de editar esta condici&oacute;n?</p>
+    <div class="row">
+      <div class="col-md-12 text-right">
+        <button class="btn btn-default" (click)="closeModal('editarCondicion')"
+          style="margin-right: 5px">Regresar</button>&nbsp;&nbsp;
+        <button class="btn btn-primary" (click)="editarEntidad(this.idborrar)">S&iacute;, estoy seguro</button>
+      </div>
+    </div>
+  </div>
+  <br>
+</jw-modal>
+
+<jw-modal id="carga">
+  <div class="jw-modal-titulo"> <b>Atención</b></div>
+  <div style="height:100%; width:100%">
+    <br>
+    <br>
+    <p style="text-align:center"><b>Cargando datos</b></p>
+    <div align="center">
+      <div class="preloader"></div>
+    </div>
+
+    <br>
+  </div>
+</jw-modal>
+
+<jw-modal id="condicionDuplicada">
+  <div class="jw-modal-titulo"> <b>Condición Duplicada</b></div>
+  <div class="modal-body">
+    <br>
+
+    <p style="text-align:center"><b>{{mensajeErrorCondiciones}}</b></p>
+    <br>
+    <div class="col-md-12" align="right">
+      <button class="btn btn-default" (click)="closeModal('condicionDuplicada');">Aceptar</button>&nbsp;
+      </div>
+      <br>
+
+    </div>
+</jw-modal>
+
+

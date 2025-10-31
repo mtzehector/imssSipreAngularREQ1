@@ -1,0 +1,313 @@
+<app-header></app-header>
+<div class="row" style="margin-top: -60px;">
+    <app-menu-ux [rol]="rol"></app-menu-ux>
+</div>
+<div class="row" style="padding: 10px;">
+    <div class="col-md-8">
+    </div>
+    <app-user-profile></app-user-profile>
+</div>
+<div class="row ">
+    <div class="col-md-12">
+        <h4>Registrar préstamo</h4>
+        <hr class="red">
+    </div>
+</div>
+<form [formGroup]="formGroup" (ngSubmit)="confirmarMonto()" autocomplete="off" role="form">
+    <div class="row tarjeta">
+        <div class="row tarjeta-header">
+            Información del solicitante
+        </div>
+        <div class="row tarjeta-body">
+            <div class="row">
+
+                <div class="col-md-4">
+                    <label class="tituloPrestamo-span">Nombre:</label>
+                </div>
+                <div class="col-md-4">
+                    <label class="tituloPrestamo-span">CURP:</label>
+                </div>
+                <div class="col-md-4">
+                    <label class="tituloPrestamo-span">NSS:</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <label class="fontNombrePrestamo">{{ this.model.prestamoPromotor.pensionado.nomNombre }} {{
+                        this.model.prestamoPromotor.pensionado.nomApellidoPaterno }} {{
+                        this.model.prestamoPromotor.pensionado.nomApellidoMaterno }}</label>
+                </div>
+                <div class="col-md-4">
+                    <label class="fontNombrePrestamo">{{ this.model.prestamoPromotor.pensionado.cveCurp }}</label>
+                </div>
+                <div class="col-md-4">
+                    <label class="fontNombrePrestamo">{{ this.model.prestamoPromotor.pensionado.idNss }}</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-4">
+                        <label class="tituloPrestamo-span">Tipo de trabajador:</label>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="tituloPrestamo-span">Teléfono*:</label>&nbsp;
+                    </div>
+                    <div class="col-md-4">
+                        <label class="tituloPrestamo-span">Teléfono móvil*:</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <label class="fontNombrePrestamo" style="margin-top: 8px;">Pensionado</label>
+                    </div>
+                    <div class="col-md-4">
+                        <input *ngIf="this.flat != 'sinregistro'" type="text" class="form-control inputDatos" formControlName="telLocal" placeholder="Ingresa teléfono" aria-describedby="basic-addon1" disabled />
+                        <input *ngIf="this.flat == 'sinregistro'" type="text" [ngClass]="[!formGroup.controls['telLocal'].valid && formGroup.controls['telLocal'].touched ? 'form-control-error':'form-control']  " class="form-control inputDatos" formControlName="telLocal" placeholder="Ingresa teléfono"
+                            minlength="10" maxlength="10" aria-describedby="basic-addon1" pattern="{{regexTelefono}}" numbersOnly />
+                        <div *ngIf="!formGroup.controls['telLocal'].valid">
+                            <div *ngIf="formGroup.get('telLocal').errors.minlength">
+                                <small class="error-class">El teléfono debe tener 10 dígitos.</small>
+                            </div>
+                            <div *ngIf=" formGroup.controls['telLocal'].errors?.required && formGroup.controls['telLocal'].touched">
+                                <small class="error-class">Es necesario ingresar la información del campo marcado como
+                                    obligatorio.</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <input *ngIf="this.flat != 'sinregistro'" type="text" class="form-control inputDatos" formControlName="telCelular" placeholder="Ingresa teléfono móvil" aria-describedby="basic-addon1" disabled />
+                        <input *ngIf="this.flat == 'sinregistro'" type="text" [ngClass]="[!formGroup.controls['telCelular'].valid && formGroup.controls['telCelular'].touched ? 'form-control-error':'form-control']  " class="form-control inputDatos" formControlName="telCelular"
+                            placeholder="Ingresa teléfono móvil" minlength="10" maxlength="10" aria-describedby="basic-addon1" pattern="{{regexTelefono}}" numbersOnly />
+                        <div *ngIf="!formGroup.controls['telCelular'].valid">
+                            <div *ngIf="formGroup.get('telCelular').errors.minlength">
+                                <small class="error-class">El teléfono móvil debe tener 10 dígitos.</small>
+                            </div>
+                            <div *ngIf=" formGroup.controls['telCelular'].errors?.required && formGroup.controls['telCelular'].touched">
+                                <small class="error-class">Es necesario ingresar la información del campo marcado como
+                                    obligatorio.</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <label class="tituloPrestamo-span">Correo electrónico*:</label>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="tituloPrestamo-span">Delegación:</label>&nbsp;
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <input *ngIf="this.flat != 'sinregistro'" type="text" [ngClass]="[!formGroup.controls['correoElectronico'].valid && formGroup.controls['correoElectronico'].touched ? 'form-control-error':'form-control']  " class="form-control inputDatosSimple" formControlName="correoElectronico"
+                            placeholder="Ingresa correo electrónico " aria-describedby="basic-addon1" disabled />
+                        <input *ngIf="this.flat == 'sinregistro'" type="text" [ngClass]="[!formGroup.controls['correoElectronico'].valid && formGroup.controls['correoElectronico'].touched ? 'form-control-error':'form-control']  " class="form-control inputDatosSimple" formControlName="correoElectronico"
+                            placeholder="Ingresa correo electrónico " aria-describedby="basic-addon1" pattern="{{regexCorreo}}" oninput="this.value = this.value.toLowerCase()" (change)="validarCorreo(formGroup.controls['correoElectronico'].value);" />
+                        <div *ngIf="!formGroup.controls['correoElectronico'].valid">
+                            <div *ngIf=" formGroup.get('correoElectronico').errors?.pattern && formGroup.controls['correoElectronico'].touched">
+                                <small class="error-class">Asegúrate de que el correo electrónico tenga el símbolo @ y
+                                    un punto.</small>
+                            </div>
+                            <div *ngIf=" formGroup.controls['correoElectronico'].errors?.required && formGroup.controls['correoElectronico'].touched">
+                                <small class="error-class">Es necesario ingresar la información del campo marcado como
+                                    obligatorio.</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="fontNombrePrestamo" style="margin-top: 8px;">{{
+                            this.model.prestamoPromotor.pensionado.descDelegacion }}</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <br>
+    <app-prestamos-vigentes (prestamoVigenteSeleccionado)="onPrestamoVigenteSeleccionado($event)" [rol]="this.rol"></app-prestamos-vigentes>
+    <br>
+    <div class="row ">
+        <div class="col-md-12">
+            <h4>Condiciones del préstamo</h4>
+            <hr class="red">
+        </div>
+    </div>
+    <div class="row col-md-12" style="margin-bottom: 50px;">
+        <label class="capacidadCredito">Capacidad de crédito del pensionado: <strong style="color: black;">${{ this.model.capacidadPensionado | number:'0.2-2' }}</strong></label>
+        <br><br>
+        <label class="fontCondiciones">Ingresa la información solicitada:</label>
+    </div>
+
+    <div class="row ">
+        <div class="col-md-4">
+
+            <div class="form-group" style="text-align: left;">
+                <label class="fontCondiciones">Monto solicitado:</label> &nbsp;
+                <input type="text" [ngClass]="[!formGroup.controls['montoSolicitado'].valid && formGroup.controls['montoSolicitado'].touched ? 'form-control-error':'form-control']  " class="form-control inputSimple" formControlName="montoSolicitado" placeholder="Ingresa monto"
+                    minlength="1" maxlength="10" aria-describedby="basic-addon1" pKeyFilter="num" (change)="validarCondiciones();" />
+                <div *ngIf="!formGroup.controls['montoSolicitado'].valid">
+                    <div *ngIf=" formGroup.controls['montoSolicitado'].errors?.required && formGroup.controls['montoSolicitado'].touched">
+                        <p class="error-class">Es necesario ingresar la información del campo marcado como obligatorio.
+                        </p>
+                    </div>
+                    <div *ngIf="formGroup.get('montoSolicitado').errors?.pattern && formGroup.controls['montoSolicitado'].touched">
+                        <p class="error-class">
+                            Sólo se permiten caracteres numéricos y hasta 2 decimales.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-md-4">
+
+            <div class="form-group" style="text-align: left;">
+                <label class="fontCondiciones">Plazo:</label> &nbsp;
+
+
+                <select [ngClass]="[!formGroup.controls['plazo'].valid && formGroup.controls['plazo'].touched ? 'form-control-error':'form-control']  " class="form-control inputSimple" formControlName="plazo" (change)="validarCondiciones();">
+                    <option *ngFor="let plazoCondicion of  plazosCondiciones" [ngValue]="plazoCondicion.plazo">
+                        {{plazoCondicion.plazo.descripcion}}</option>
+                </select>
+                <div *ngIf="!formGroup.controls['plazo'].valid">
+                    <div *ngIf=" formGroup.controls['plazo'].errors?.required && formGroup.controls['plazo'].touched">
+                        <p class="error-class">Es necesario ingresar la información del campo marcado como obligatorio.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-4">
+
+            <div class="form-group" style="text-align: left;">
+                <label class="fontCondiciones">CAT con IVA:</label> &nbsp;
+                <input type="text" [ngClass]="[!formGroup.controls['cat'].valid && formGroup.controls['cat'].touched ? 'form-control-error':'form-control']  " class="form-control inputSimple" formControlName="cat" placeholder="Ingresa CAT" minlength="1" maxlength="13"
+                    aria-describedby="basic-addon1" pKeyFilter="num" (change)="validarCondiciones();" />
+
+                <div *ngIf="!formGroup.controls['cat'].valid">
+                    <div *ngIf=" formGroup.controls['cat'].errors?.required && formGroup.controls['cat'].touched">
+                        <p class="error-class">Es necesario ingresar la información del campo marcado como obligatorio.
+                        </p>
+                    </div>
+                    <div *ngIf="formGroup.get('cat').errors?.pattern && formGroup.controls['cat'].touched">
+                        <p class="error-class">
+                            Sólo se permiten caracteres numéricos y hasta 10 decimales.</p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <br>
+    <div class="row ">
+        <div class="col-md-4">
+            <div class="form-group" style="text-align: left;">
+                <label class="fontCondiciones">Descuento mensual:</label> &nbsp;
+                <input type="text" class="form-control inputSimple" formControlName="descuentoMensual" disabled/>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group" style="text-align: left;">
+                <label class="fontCondiciones">Monto total a pagar:</label> &nbsp;
+                <input type="text" class="form-control inputSimple" formControlName="montoPagar" disabled />
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group" style="text-align: left;">
+                <label class="fontCondiciones">Fecha de primer descuento:</label> &nbsp;
+                <input type="text" class="form-control inputSimple" disabled aria-describedby="basic-addon1" formControlName="fechaNominal" />
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="row ">
+        <div class="col-md-6">
+
+            <div class="form-group">
+
+
+            </div>
+
+        </div>
+        <div class="col-md-6" style="text-align: right;">
+
+            <div class="form-group">
+
+
+                <button type="button" class="btn btn-default inputBorder " (click)="regresar()">Regresar
+                </button> &nbsp;
+
+
+                <button type="button" class="btn btn-primary inputBorder " [disabled]="formGroup.invalid || !flatCorreo || this.model.buttonPrestamoPromotorEdit || this.model.flagMontoRenovacion" type="submit">Continuar
+                </button>
+
+
+            </div>
+
+        </div>
+    </div>
+</form>
+
+<jw-modal id="correoInvalido">
+    <div class="jw-modal-titulo"> <b>Atención</b></div>
+    <div style="height:100%; width:100%">
+        <br>
+        <br>
+        <p style="text-align:center"><b>El correo ingresado ya se encuentra registrado.</b></p>
+        <div style="text-align:right">
+            <button type="button" class="btn btn-primary inputBorder" (click)="cerrarModal()">
+                <span class="oi oi-send glyphicon glyphicon-left"> </span>Aceptar
+            </button>&nbsp;
+
+        </div>
+        <br>
+    </div>
+</jw-modal>
+
+<jw-modal id="saldoCapital">
+    <div class="jw-modal-titulo"> <b>Atención</b></div>
+    <div style="height:100%; width:100%">
+        <br>
+        <p style="text-align:center"><b>El monto solicitado debe superior a tu saldo capital, favor de verificar.</b>
+        </p>
+        <br>
+        <div class="col-md-12" align="right">
+            <button class="btn btn-default inputBorder" (click)="closeModal();">Cerrar</button>
+
+
+        </div>
+    </div>
+</jw-modal>
+
+<jw-modal id="carga">
+    <div class="jw-modal-titulo"> <b>Atención</b></div>
+    <div style="height:100%; width:100%">
+        <br>
+        <br>
+        <p style="text-align:center"><b>Cargando datos</b></p>
+        <div align="center">
+            <div class="preloader"></div>
+        </div>
+        <br>
+    </div>
+</jw-modal>
+<jw-modal id="preguntaRegistroMonto">
+    <div class="jw-modal-titulo"> <b>Atención</b></div>
+    <div style="height:100%; width:100%">
+        <br>
+        <br>
+        <p style="text-align:center"><b> ¿El monto capital $ {{montonuevo | number:'0.2-2'}} es correcto?</b></p>
+        <div style="text-align:right">
+            <button type="button" class="btn btn-primary" (click)="registrarPrestamo()">
+                <span class="oi oi-send glyphicon glyphicon-left"> </span>Si
+            </button>&nbsp;
+            <button type="button" class="btn btn-default" (click)="continuarNo()">
+                <span class="oi oi-send glyphicon glyphicon-left"> </span>No
+            </button>
+        </div>
+        <br>
+    </div>
+</jw-modal>

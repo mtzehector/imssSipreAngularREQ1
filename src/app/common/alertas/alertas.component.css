@@ -1,0 +1,13 @@
+div {
+    z-index: 100;
+    margin-top: 15px;
+}
+
+button {
+    z-index: 2001;
+}
+
+.alertaCont {
+    position: fixed;
+    margin-top: -14px;
+}

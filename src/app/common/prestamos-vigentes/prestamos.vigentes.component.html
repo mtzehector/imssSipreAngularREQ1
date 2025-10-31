@@ -1,0 +1,107 @@
+<span style="
+vertical-align: bottom;
+line-height: 1.428571429;
+vertical-align: top;
+font-weight: bold;
+"> Pr&eacute;stamos vigentes </span>
+<br>
+<br>
+<p style="border-bottom: 2px solid #ddd; ">Puedes seleccionar uno o varios pr&eacute;stamos vigentes para liquidar a
+    trav&eacute;s de un nuevo pr&eacute;stamo.</p>
+
+<div *ngIf="this.model.prestamosVigentesArreglo.length < 1" class="No-cuentas-con-prstamos-vigentes">
+    No cuentas con pr&eacute;stamos vigentes.
+</div>
+<div *ngFor="let item of model.prestamosVigentesArreglo;">
+
+    <div class="row tarjeta">
+  
+        <div class="row tarjeta-body">
+            <div class="row tarjeta-data-1-bold">
+                <div class="col-md-8">
+                    Entidad Financiera : {{item.nombreComercialEF}}
+                </div>
+                <div class="col-md-4" style="text-align: right;">
+                    Seleccionar : <input type="checkbox" id="{{item.idSolicitud}}" name="pra"
+                        (click)="seleccionPrestamo(item.idSolicitud)" value="{{item.idSolicitud}}">
+                </div>
+            </div>
+
+            <div class="row tarjeta-title-1">
+                <div class="col-md-2">
+                    CAT con IVA:<span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip"
+                        data-placement="bottom" title="
+Costo Anual Total:
+Monto total a pagar
+cada año, incluyendo
+la tasa de interés
+anual y otros costos
+del préstamo.">
+                    </span>
+                </div>
+                <div class="col-md-2">
+                    Monto solicitado:
+                </div>
+
+                <div class="col-md-3">
+                    Descuento mensual:
+                </div>
+
+                <div class="col-md-3">
+                    Descuentos / Plazo:
+                </div>
+
+                <div class="col-md-2">
+                    Saldo Capital:
+                </div>
+            </div>
+            <div class="row tarjeta-data-1-bold">
+                <div class="col-md-2">
+                    {{item.cat}}%
+                </div>
+                <div class="col-md-2">
+                    ${{item.montoSolicitado | number:'0.2-2'}}
+                </div>
+                <div class="col-md-3">
+                    ${{item.descuentoMensual |number:'0.2-2'}}
+                </div>
+                <div class="col-md-3">
+                    {{item.mensualidadesDescontadas}} de {{item.descripcionPlazo}}
+                </div>
+                <div *ngIf="!item.flagEditRen" class="col-md-2">
+                    ${{item.saldoCapital |number:'0.2-2'}} 
+                </div> 
+                <div *ngIf="item.flagEditRen" class="col-md-2">
+                    <input class="form-control inputSaldoCapital" [(ngModel)]="item.saldoCapital" (change)="validarMonto(item.idSolicitud, item.canDescuentoMensual);" placeholder="Ingresa monto" name="salCap" #salCap="ngModel" required appTwoDigitDecimalNumber>
+                    <div style="width: max-content;">
+                        <div *ngIf="salCap.invalid && salCap.touched">
+                            <div *ngIf="salCap.errors.required">
+                                <p class="error-class">El monto es obligatorio.</p>
+                            </div>
+                        </div>
+                        <div *ngIf="salCap.touched && salCap.dirty">
+                            <div *ngIf="this.flagErrorMonto && item.idSolicitud == this.solicitado">
+                                <p class="error-class">El monto ingresado<br>no puede superar la<br>suma de dos meses<br>de descuento.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<jw-modal id="cargaMontoMaximoPV">
+    <div class="jw-modal-titulo"> <b>Atención</b></div>
+    <div style="height:100%; width:100%">
+        <br>
+        <br>
+        <p style="text-align:center"><b>Cargando datos</b></p>
+        <div align="center">
+            <div class="preloader"></div>
+        </div>
+
+        <br>
+    </div>
+</jw-modal>

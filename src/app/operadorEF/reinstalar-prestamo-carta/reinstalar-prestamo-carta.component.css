@@ -1,0 +1,33 @@
+.Folio-34235346 {
+    width: 145px;
+    height: 22px;
+    margin: 20px 1px 57px 0.6px;
+    font-family: Montserrat;
+    font-size: 18px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
+    color: var(--ugly-blue);
+}
+
+.Folio-34235346 .text-style-1 {
+    color: #3c779a;
+}
+
+.Carta-de-instruccin {
+    width: 188px;
+    height: 22px;
+    margin: 20px 147px 57px 120px;
+    font-family: Montserrat;
+    font-size: 18px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
+    color: #3c779a;
+}

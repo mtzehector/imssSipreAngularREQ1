@@ -1,0 +1,72 @@
+<ol class="breadcrumb ">
+  <li><a href="#"><i class="icon icon-home"></i></a></li>
+  <li><a href="#">Inicio</a></li>
+  <li class="active">Préstamos a cuenta de pensión con Entidades Financieras </li>
+</ol>
+<div class="row" style="height: 15px;">
+  <div class="col-md-12">
+    <h4>Préstamos a cuenta de pensión con Entidades Financieras </h4>
+    <hr class="red">
+  </div>
+</div>
+<br><br>
+
+<app-menu></app-menu>
+<div class="row" style="padding: 10px;">
+  <div class="col-md-8">
+  </div>
+  <app-user-profile></app-user-profile>
+</div>
+
+
+<div class="row">
+
+  <div class="col-md-12">
+    <h4>Consulta de capacidad de crédito</h4>
+    <hr class="red" />
+
+    <h5> Lee con atención la siguiente información:</h5>
+    <p>La carta de capacidad de crédito y tu contraseña han sido enviadas a tu correo electrónico. También puedes
+      descargarla en este momento. Consérvala para cualquier aclaración.</p>
+  </div>
+</div>
+
+<app-descarga-imprime
+  [tipo]="'capacidad-credito'"
+  [idSolicitud]="model.cartaCapacidadCredito.solicitud.id"
+  [verDetalle]="0">
+
+</app-descarga-imprime>
+
+<div class="row">
+
+  <div class="col-md-12">
+    <h5> Siguientes pasos</h5>
+    <p>
+
+      1. La Entidad Financiera que elegiste te contactará para continuar con tu préstamo.<br>
+      2. Cuando te visite, te pedirá copia de los siguientes documentos:</p>
+    <ul>
+      <li>Identificación oficial (como credencial para votar, pasaporte o cédula profesional)</li>
+      <li>Documento que contenga la Clabe interbancaria <span class="glyphicon glyphicon-question-sign"
+          aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Puede ser el contrato
+      de la cuenta o un
+      estado de cuenta
+      bancario."></span>
+      </li>
+
+    </ul>
+
+
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm">
+    <div class="col-md-10"></div>
+    <div class="col-md-2">
+      <a class="btn btn-primary" routerLink="../home" role="button">Finalizar</a>
+      <br><br>
+    </div>
+  </div>
+</div>

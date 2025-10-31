@@ -1,0 +1,47 @@
+export class TipoBitacora {  
+  static GENERAR_INFORME_CAPACIDAD: number = 1;
+  static GENERAR_CARTA_CAPACIDAD_CREDITO: number = 2;
+  static INGRESA_MONTO_SOLICITADO_POR_MONTO: number = 3;
+  static SELECCIONA_PLAZO: number = 4;
+  static SELECCIONA_PROPUESTA_SIMULACION: number = 5;
+  static GENERAR_RESUMEN_SIMULACION: number = 6;
+  static SIMULACION_INICIADA: number = 7;
+  static SIMULAR_POR_MONTO_PRESTAMO_VIGENTE: number = 8;    
+  static INGRESA_MONTO_SOLICITADO_POR_DESCUENTO: number = 9;
+  static GENERAR_CARTA_INSTRUCCION: number = 11;
+  static TERMINOS_CONDICIONES_NO_ACEPTADAS: number = 12;
+  static DESCUENTO_MENSUAL_MAYOR_CAPACIDAD_FIJA: number = 13;
+  static DESCUENTO_MENSUAL_MAYOR_CAPACIDAD_TOTAL: number = 14;
+  static CAT_INCORRECTO: number = 15;
+  static GENERACION_CARTA_NO_ACEPTADA: number = 16;
+  static BUSCAR_FOLIO_ESTADO_PENDIENTE_MONTO_LIQUIDAR: number = 17;
+  static BUSCAR_FOLIO_ESTADO_DIFERENTE_INICIADO: number = 18;
+  static ANEXAR_COMPROBANTE: number = 19;
+  static AUTORIZAR_PRESTAMO: number = 20;
+  static AUTORIZACION_NO_CONFIRMADA: number = 21;
+  static CANCELACION_NO_CONFIRMADA: number = 22;
+  static CANCELAR_FOLIO_NEGOCIO: number = 23;
+  static CONSULTA_DATOS_PENSIONADO: number = 24;
+  static CONFIRMA_MONTO_LIQUIDAR: number = 25;
+  static CANCELACION_ACTUALIZACION_DATOS_CONTACTO = 26;
+  static CANCELAR_PRESTAMO: number = 27;
+  static SUSPENDER_PRESTAMO: number = 28;
+  static REANUDAR_PRESTAMO: number = 29;
+  static CARGA_CEP_CANCELADA: number = 30;
+  static ACTUALIZACION_NOMBRE_PENSIONADO_POR_DIFERENCIA_SISTRAP_RENAPO: number = 31;
+  static BAJA_OPERADOR_EF: number = 32;
+  static SUSPENSION_OPERADOR_EF: number = 33;
+  static REACTIVACION_OPERADOR_EF: number = 34;
+  static REGISTRO_OPERADOR_EF: number = 35;
+  static ACTUALIZACION_CAT_MAXIMO: number = 36;
+  static NUEVO_CAT_ENTIDAD_FINANCIERA: number = 37;
+  static ACTUALIZACION_CAT_ENTIDAD_FINANCIERA: number = 38;
+  static BAJA_CAT_ENTIDAD_FINANCIERA: number = 39;
+  static ACTIVACION_EF: number = 40;
+  static SUSPENCION_EF: number = 41;
+  static BAJA_EF: number = 42;
+  static GENERAR_CARTA_REINSTALACION: number = 43;
+  static CANCELACION_AUTOMATICA: number = 44;
+  static CONFIRMACION_AUTOMATICA_MONTO_LIQUIDAR: number = 45;
+}
+

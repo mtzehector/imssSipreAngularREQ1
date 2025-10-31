@@ -1,0 +1,206 @@
+<app-header></app-header>
+<div class="row" style="margin-top: -60px;">
+    <app-menu-ux [rol]="this.rol"></app-menu-ux>
+</div>
+<div class="row" style="padding: 10px;">
+    <div class="col-md-8">
+    </div>
+    <app-user-profile></app-user-profile>
+</div>
+<div class="row">
+    <div class="col-md-12">
+      <h4>Buscar período</h4>
+      <hr class="red">
+    </div>
+</div>
+<form class="form-horizontal" [formGroup]="formGroup" (ngSubmit)="obtenerListCartaReciboConFirma()" role="form" autocomplete="off">
+    <div class="row" style="margin-left: 0px !important;">
+        <div class="form-group">
+            <br>
+            <br>
+            
+            <div class="col-sm-4">
+                <label class="">Entidad Financiera: </label>
+                <select class="form-control" formControlName="entidadFinanciera" [(ngModel)]="conciliacion.cveEntidadFinanciera" style="width:320px!important">
+                    <option value="0">
+                        Todas
+                    </option>
+                    <option [value]="item.id" *ngFor="let item of listEntidadesFinancieras">
+                        {{item.nombreComercial}}
+                    </option>
+                </select>
+            </div>
+
+            <div class="col-sm-4">
+                <label class="">Período: </label>
+                <input type="text" class="form-control"
+                    formControlName="periodo"
+                    [(ngModel)]="conciliacion.periodo"
+                    name="periodo"
+                    pKeyFilter="pint" 
+                    placeholder="Ingresa el período (aaaamm)" 
+                    minlength="6" 
+                    maxlength="6"
+                    aria-describedby="basic-addon1" 
+                    autofocus 
+                    onkeypress='return event.charCode >= 48 && event.charCode <= 57'/>
+                <div *ngIf="formGroup.controls['periodo'].invalid">
+                    <div *ngIf=" formGroup.controls['periodo'].errors?.required && formGroup.controls['periodo'].touched">
+                        <p class="error-class">
+                          Es necesario ingresar la información del campo marcado como obligatorio. 
+                        </p>
+                    </div>
+                    <div *ngIf="formGroup.get('periodo').errors?.minlength && formGroup.controls['periodo'].touched">
+                        <p class="error-class">
+                            Formato incorrecto, debe contener 6 números
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <br>
+                <button type="submit" 
+                    style="height: 45px!important;" 
+                    class="btn btn-primary pull-right"
+                    [disabled]="consultaBloqueada || formGroup.get('periodo').errors?.minlength || formGroup.controls['periodo'].errors?.required">
+                    Buscar
+                </button>
+            </div>
+            <div class="col-sm-2">
+                <br>
+                <button type="button" 
+                        class="btn btn-secondary pull-right"
+                        (click)="limpiar()">
+                    Limpiar
+                </button>
+            </div>
+        </div>    
+    </div>
+</form>
+<br/>
+<div class="row" *ngIf="listCartaReciboConFirma.content != null && listCartaReciboConFirma.content.length > 0">
+    <div class="sin-info col-md-12">
+        <h4>Resultados de la b&uacute;squeda</h4>
+        <br>
+    </div>
+    <div class="col-md-12">
+        <table class="table table-striped">
+            <thead>
+                <th>Entidad Financiera</th>
+                <th>Fecha de Firma</th>
+                <th>Fecha de Descarga</th>
+                <th>Descargar</th>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of listCartaReciboConFirma.content; let i = index">
+                    <td>{{item.nombreComercial}}</td>
+                    <td>{{item.fechaFirma | date:'dd/MM/yyyy'}}</td>
+                    <td>{{item.fechaDescarga | date:'dd/MM/yyyy'}}</td>
+                    <td>
+                        <app-download 
+                        [documento]="item.documento" 
+                        (terminaDescarga)="guardarFechaDescarga($event, item, i)">
+                        </app-download>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <app-pager [pageModel]="listCartaReciboConFirma" 
+                   (paged)="onPaged($event)">
+        </app-pager>
+    </div>
+</div>
+<div class="row" *ngIf="listCartaReciboConFirma.content == null && busqueda">
+    <div class="sin-info col-md-12">
+        <h4>Resultados de la b&uacute;squeda</h4>
+        <br>
+    </div>
+    <div class="sin-info col-md-12">
+        <p>No existe información para mostrar</p>
+        <br>
+    </div>
+</div>
+
+<jw-modal id="carga">
+    <div class="jw-modal-titulo"> <b>Atención</b></div>
+    <div style="height:100%; width:100%">
+        <br>
+        <br>
+        <p style="text-align:center"><b>Cargando datos</b></p>
+        <div align="center">
+            <div class="preloader"></div>
+        </div>
+        <br>
+    </div>
+</jw-modal>
+
+<!--
+<div class="row">
+    <div class="col-md-12">
+      <h4>Buscar período</h4>
+      <hr class="red">
+      <p align="left">Para realizar tu búsqueda, ingresa el período solicitado:</p>
+    </div>
+</div>
+
+<form #cartaReciboForm="ngForm" autocomplete="off" class="form-horizontal" role="form">
+    <div class="row" style="margin-left: 0px !important;">
+        <div class="form-group">
+            <br>
+            <br>
+            <div class="col-sm-4"></div>
+            <div class="col-sm-4">
+                <label class="">Período: </label>
+                <input type="text" class="form-control" [(ngModel)]="cartaRecibo.periodo" name="periodo"
+                    #periodo="ngModel" pKeyFilter="pint" placeholder="Ingresa  el período (aaaamm)" minlength="6" maxlength="6"
+                    aria-describedby="basic-addon1" autofocus #validate='ngModel' required
+                    oninput="this.value = this.value.toUpperCase()" />
+            </div>
+            
+        </div>    
+    </div>
+    <div style="margin: 65px 0 65px; text-align:right;"></div>
+    <div class="form-group">
+        <div class="col-sm-6"></div>
+        <div class="col-sm-2">
+            <br><button type="button" class="btn btn-secondary pull-right" (click)="regresar()">Regresar</button>
+        </div>
+        <div class="col-sm-2">
+            <br><button type="button" class="btn btn-secondary pull-right" (click)="limpiar()">Limpiar</button>
+        </div>
+        <div class="col-sm-2">
+            <br>
+            <button type="submit" style="height: 45px!important;" class="btn btn-primary pull-right" (click)="buscar()"
+                [disabled]="!cartaReciboForm.valid || busqueda">Buscar
+            </button>
+        </div>
+    </div>
+</form>
+
+<jw-modal id="custom-modal-2">
+    <div class="jw-modal-titulo"> <b>Atención</b></div>
+    <br>
+    <br>
+    <br>
+    <div style="height:100%; width:100%; margin-top:-2%;">
+        <p style="text-align:center" class="popupPensionado">¿Está seguro de generar el reporte de conciliación del período {{cartaRecibo.periodo}}?</p>
+        <div class="col-md-12" style="margin-top: -2px!important;" align="right">
+            <button class="btn btn-default" (click)="closeModal();">No</button>&nbsp;&nbsp;
+            <button class="btn btn-primary "  (click)="generarCarta();">Si</button>&nbsp;&nbsp; &nbsp;&nbsp;
+        </div>
+    </div>
+</jw-modal>
+
+<jw-modal id="carga">
+    <div class="jw-modal-titulo"> <b>Atención</b></div>
+    <div style="height:100%; width:100%">
+        <br>
+        <br>
+        <p style="text-align:center"><b>Generando reporte de conciliación.</b></p>
+        <div align="center">
+            <div class="preloader"></div>
+        </div>
+        <br>
+    </div>
+</jw-modal>
+-->

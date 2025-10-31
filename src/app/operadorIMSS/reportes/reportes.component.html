@@ -1,0 +1,257 @@
+<app-header>
+</app-header>
+<div class="row" style="margin-top: -60px;">
+    <app-menu-ux [rol]="rol"></app-menu-ux>
+</div>
+<div class="row" style="padding: 10px;">
+    <div class="col-md-8">
+    </div>
+    <app-user-profile></app-user-profile>
+</div>
+<form role="form" [formGroup]="formGroup" (ngSubmit)="generarReporte()">
+    <div class="row">
+        <div class="row col-md-12" style="margin-bottom:-15px">
+            <h4>Reportes</h4>
+            <hr class="red">
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <label class=" control-label">Tipo de Reporte*:</label>
+                <div class="form-group">
+                    <select class="form-control inputSimple" formControlName="tipoReporte" [ngClass]="[!formGroup.controls['tipoReporte'].valid && formGroup.controls['tipoReporte'].touched ? 'form-control-error':'form-control']  ">
+                        <option value="-1" disabled><span>Selecciona reporte</span></option>
+                        <option value="1"><span>Conciliacion</span></option>
+                        <option value="3"><span>Descuentos Emitidos</span></option>
+                        <option value="5"><span>Reporte Estadístico</span></option>
+                        <option value="6"><span>Reporte Operativo</span></option>
+                    </select>
+                    <div *ngIf="!formGroup.controls['tipoReporte'].valid">
+                        <div *ngIf=" formGroup.controls['tipoReporte'].errors?.required && formGroup.controls['tipoReporte'].touched">
+                            <p class="error-class">El campo es obligatorio.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4" *ngIf="formGroup.controls['tipoReporte'].value == 5 || formGroup.controls['tipoReporte'].value == 6 ">
+                <label class=" control-label">Reporte*:</label>
+                <div class="form-group">
+                    <select class="form-control inputSimple" formControlName="subTipoReporte" [ngClass]="[!formGroup.controls['subTipoReporte'].valid && formGroup.controls['subTipoReporte'].touched ? 'form-control-error':'form-control']  ">
+                        <option value="-1" disabled><span>Selecciona subreporte</span></option>
+                        <option *ngFor="let rep of  subReportesArray" [value]="rep.id">
+                            <span>{{rep.desc}}</span>
+                        </option>
+                    </select>
+                    <div *ngIf="!formGroup.controls['subTipoReporte'].valid">
+                        <div *ngIf=" formGroup.controls['subTipoReporte'].errors?.required && formGroup.controls['subTipoReporte'].touched">
+                            <p class="error-class">El campo es obligatorio.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <div class="row" *ngIf="formGroup.controls['tipoReporte'].value == 1 || formGroup.controls['tipoReporte'].value == 3">
+        <div class="row col-md-12" style="margin-bottom:-20px">
+            <h5>Reporte de Conciliación</h5>
+            <hr class="red">
+        </div>
+        <div class="row col-md-12">
+            <label><strong>Período de nómina</strong></label>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <label class=" control-label">Año*:</label>
+                <div class="form-group">
+                    <select class="form-control inputSimple" formControlName="anioNominal" [ngClass]="[!formGroup.controls['anioNominal'].valid && formGroup.controls['anioNominal'].touched ? 'form-control-error':'form-control']  ">
+                        <option value="-1" disabled><span>Selecciona año</span></option>
+                        <option *ngFor="let anio of  anioNominalArray" [value]="anio">
+                            <span>{{anio}}</span>
+                        </option>
+                    </select>
+                    <div *ngIf="!formGroup.controls['anioNominal'].valid">
+                        <div *ngIf=" formGroup.controls['anioNominal'].errors?.required && formGroup.controls['anioNominal'].touched">
+                            <p class="error-class">El campo Año es obligatorio.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <label class=" control-label">Mes*:</label>
+                <div class="form-group">
+                    <select class="form-control inputSimple" formControlName="mesNominal" [ngClass]="[!formGroup.controls['mesNominal'].valid && formGroup.controls['mesNominal'].touched ? 'form-control-error':'form-control']  ">
+                        <option value="-1" disabled><span>Selecciona mes</span></option>
+                        <option *ngFor="let mes of  mesNominalArray;" [value]="mes.id">
+                            <span>{{mes.desc}}</span>
+                        </option>
+                    </select>
+                    <div *ngIf="!formGroup.controls['mesNominal'].valid">
+                        <div *ngIf=" formGroup.controls['mesNominal'].errors?.required && formGroup.controls['mesNominal'].touched">
+                            <p class="error-class">El campo Mes es obligatorio.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" id="fechas" name="fechas">
+        <div class="row col-md-12" style="margin-bottom:-20px">
+            <h5>{{ tituloReporte }}</h5>
+            <hr class="red">
+        </div>
+        <div class="row col-md-12">
+            <label><strong>Selecciona un rango de fecha</strong></label>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <label class=" control-label">De*:</label>
+                <div class="form-group datepicker-group">
+                    <input class="form-control inputSimple" type="text" formControlName="fechaDesde" [ngClass]="[!formGroup.controls['fechaDesde'].valid && formGroup.controls['fechaDesde'].touched ? 'form-control-error':'form-control']  " id="fechaDesde">
+                    <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+                    <div style="width: max-content;">
+                        <div *ngIf=" formGroup.controls['fechaDesde'].errors?.required && formGroup.controls['fechaDesde'].touched">
+                            <p class="error-class">Se debe asignar un rango de fechas para continuar</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label class=" control-label">Hasta*:</label>
+                <div class="form-group datepicker-group">
+                    <input class="form-control inputSimple" type="text" formControlName="fechaHasta" id="fechaHasta" [ngClass]="[!formGroup.controls['fechaHasta'].valid && formGroup.controls['fechaHasta'].touched ? 'form-control-error':'form-control']  ">
+                    <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+                    <div style="width: max-content;" *ngIf="!formGroup.controls['fechaHasta'].valid">
+                        <div *ngIf=" formGroup.controls['fechaHasta'].errors?.required && formGroup.controls['fechaHasta'].touched">
+                            <p class="error-class">Se debe asignar un rango de fechas para continuar</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row pull-right">
+        <div class="form-group">
+            <div class="col-sm-12">
+                <button type="button" routerLink="../home" class="btn btn-default inputBorder">
+                    Regresar
+                </button> &nbsp;&nbsp;
+                <button type="submit" class="btn btn-primary inputBorder" [disabled]="formGroup.invalid">
+                    Generar
+                </button>
+            </div>
+        </div>
+    </div>
+</form>
+<div class="row col-md-12" *ngIf="flagDescarga">
+    <div *ngIf="idTipoReporte==1">
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-3">
+                <label>Reporte Conciliacion IMSS.xlsx</label>
+            </div>
+            <div class="col-md-3">
+                <app-download [documento]="docConciliacion"></app-download>
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-3">
+                <label>Reporte de Inconsistencias.txt</label>
+            </div>
+            <div class="col-md-3">
+                <app-download [documento]="docInconsistencias"></app-download>
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+    </div>
+    <div *ngIf="idTipoReporte==3">
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-3">
+                <label>Reporte Descuentos Emitidos por EF</label>
+            </div>
+            <div class="col-md-3">
+                <app-download [documento]="doc19"></app-download>
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-3">
+                <label>Reporte Descuentos Emitidos por Delegación</label>
+            </div>
+            <div class="col-md-3">
+                <app-download [documento]="doc20"></app-download>
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-3">
+                <label>Reporte de Inconsistencias de Préstamos</label>
+            </div>
+            <div class="col-md-3">
+                <app-download [documento]="doc21"></app-download>
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-3">
+                <label>Reporte de Inconsistencias de Descuentos</label>
+            </div>
+            <div class="col-md-3">
+                <app-download [documento]="doc22"></app-download>
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+    </div>
+</div>
+
+<div class="row" *ngIf="flagDescarga">
+    <div class="pull-right">
+        <div class="col-sm-4">
+            <button type="button" class="btn btn-default inputBorder" (click)="confirmarAutorizar()">Autorizar</button>
+        </div>
+    </div>
+</div>
+
+<jw-modal id="carga">
+    <div class="jw-modal-titulo"> <b>Atención</b></div>
+    <div style="height:100%; width:100%">
+        <br>
+        <br>
+        <p style="text-align:center"><b>Cargando datos</b></p>
+        <div align="center">
+            <div class="preloader"></div>
+        </div>
+        <br>
+    </div>
+</jw-modal>
+<jw-modal id="autorizar">
+    <div class="jw-modal-titulo"><b>Atención</b></div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-12">
+                <p>¿Deseas autorizar el reporte?</p>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-12 text-right">
+                <button class="btn btn-default inputBorder" (click)="cancelarAutorizar()">Cancelar
+                </button> &nbsp;&nbsp;&nbsp;
+                <button class="btn btn-primary inputBorder" (click)="autorizar()">Aceptar
+                </button>
+            </div>
+        </div>
+    </div>
+</jw-modal>
+<br>
+<br><br>
+<br>

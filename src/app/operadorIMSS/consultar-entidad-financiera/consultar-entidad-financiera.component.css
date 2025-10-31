@@ -1,0 +1,11 @@
+.alert-info div{
+    margin-top: -5%!important; 
+  }
+
+  .alert.info{
+    margin-top: -5%!important; 
+  }
+
+  .alert{
+      margin-top: -5%;
+  }

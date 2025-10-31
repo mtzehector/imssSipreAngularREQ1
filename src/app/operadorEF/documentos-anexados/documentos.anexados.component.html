@@ -1,0 +1,29 @@
+<div class="col-md-12">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col"  style="width: 70%">Documento:</th>
+        <th scope="col">Ver documento</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>{{cartaInstruccion.tipoDocumentoEnum.descripcion}}</td>
+
+        <td><app-download [documento]="cartaInstruccion" ></app-download></td>
+      </tr>
+      <tr>
+        <td>{{identificacionOficial.tipoDocumentoEnum.descripcion}}</td>
+        <td><app-download [documento]="identificacionOficial" ></app-download></td>
+      </tr>
+      <tr>
+        <td>{{contratoCredito.tipoDocumentoEnum.descripcion}}</td>
+        <td><app-download [documento]="contratoCredito" ></app-download></td>
+      </tr>
+      <tr>
+        <td>{{tablaAmortizacion.tipoDocumentoEnum.descripcion}}</td>
+        <td><app-download [documento]="tablaAmortizacion" ></app-download></td>
+      </tr>
+    </tbody>
+  </table>
+</div>

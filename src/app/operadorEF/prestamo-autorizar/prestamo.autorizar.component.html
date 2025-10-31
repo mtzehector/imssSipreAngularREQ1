@@ -1,0 +1,99 @@
+<app-menu-ux [rol]="rol"></app-menu-ux>
+<div class="row" style="padding: 10px;">
+    <div class="col-md-8">
+    </div>
+    <app-user-profile></app-user-profile>
+</div>
+<div class="col-md-12">
+    <div class="row">
+        <h4>Informe de Préstamo</h4>
+        <hr class="red" />
+    </div>
+</div>
+
+<div class="row folio-header">
+    <div class="col-md-3">
+        Folio:&nbsp;<span>{{solicitud.numFolioSolicitud}}</span>
+    </div>
+    <div class="col-md-9">
+        Estado:&nbsp;<span>{{solicitud.cveEstadoSolicitud.desEstadoSolicitud}}</span>
+    </div>
+</div>
+
+<div class="row">
+    <app-pensionado-datos-autorizador></app-pensionado-datos-autorizador>
+    <app-entidad-financiera-datos-autorizar></app-entidad-financiera-datos-autorizar>
+</div>
+
+<app-promotor-datos-autorizador></app-promotor-datos-autorizador>
+
+<app-datos-simulacion-autorizador></app-datos-simulacion-autorizador>
+<app-prestamos-recuperacion-datos-autorizador></app-prestamos-recuperacion-datos-autorizador>
+
+<div class="row tarjeta">
+    <div class="row tarjeta-header">
+        Información bancaria
+    </div>
+    <div class="row tarjeta-body">
+        <div class="row">
+            <div class="col-md-2 tarjeta-title-1">
+                Cuenta CLABE:
+            </div>
+            <div class="col-md-4">
+                <input type="password" digitOnly maxlength="18" class="form-control "
+                    [(ngModel)]="model.informeCartaInstruccion.prestamo.refCuentaClabe">
+            </div>
+        </div>
+    </div>
+</div>
+
+<br>
+
+<div class="row" style="padding-bottom: 50px !important;">
+    <div class="col-md-5"></div>
+    <div class="col-md-2">
+        <a class="btn btn-default" routerLink="../buscarFolioAutorizar" role="button">Regresar</a>
+    </div>
+    <div class="col-md-3" style="margin-left: -20px;margin-right: 20px;">
+        <button (click)="openModal()" class="btn btn-danger">
+            <span class="oi oi-undefined glyphicon glyphicon-undefined"></span>Cancelar Préstamo
+        </button>
+    </div>
+    <div class="col-md-2">
+        <button [disabled]="!model.informeCartaInstruccion.prestamo.refCuentaClabe 
+        || model.informeCartaInstruccion.prestamo.refCuentaClabe.length < 10" (click)="proceder()" class="btn btn-primary">
+            <span  class="oi oi-undefined glyphicon glyphicon-undefined"></span>Autorizar Carta
+        </button>
+    </div>
+</div>
+
+<jw-modal id="cancelarCarta">
+    <div class="jw-modal-titulo">
+        Cancelar Autorización
+    </div>
+    <div class="modal-body">
+        <p>¿Estás seguro que deseas cancelar el préstamo?</p>
+    </div>
+    <div class="row">
+        <div class="col-md-12 text-right">
+            <button class="btn btn-default" (click)="closeModal();">Cancelar</button>&nbsp;&nbsp;
+            <button class="btn btn-primary" (click)="cancelarAutorizar();">Aceptar</button>
+        </div>
+    </div>
+</jw-modal>
+
+
+
+<jw-modal id="carga">
+    <div class="jw-modal-titulo"> <b>Atención</b></div>
+    <div style="height:100%; width:100%">
+        <br>
+        <br>
+        <p style="text-align:center"><b>Cargando datos</b></p>
+        <div align="center">
+            <div class="preloader"></div>
+        </div>
+
+        <br>
+    </div>
+</jw-modal>

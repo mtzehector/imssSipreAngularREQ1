@@ -1,0 +1,106 @@
+<div class="row" style="margin-left: 0%;">
+    <h4>Administrador del sistema</h4>
+    <hr class="red" style="margin: 10px 0 40px;">
+</div>
+
+<div class="row form-group">
+
+    <div class="col-sm-4" style="padding: 0px 50px 0px 35px;">
+        <div class="row">
+            <label>CURP*: </label>
+        </div>
+        <div class="row">
+            <input pInputText type="text" class="form-control" name="curpAdmin"
+                [ngClass]=" this.flat || curpAdmin.invalid && (curpAdmin.dirty && curpAdmin.touched || registrarForm.submitted) ? 'form-control-error' : 'form-control'"
+                [(ngModel)]="model.registrarEntidadFinanciera.curpAdmin" #curpAdmin="ngModel"
+                (ngModelChange)="model.registrarEntidadFinanciera.curpAdmin = $event.toUpperCase()"
+                (change)="consultarRenapo();" pattern="{{regexCurp}}" placeholder="Ingresa la CURP" minlength="18"
+                maxlength="18" required />
+            <div *ngIf="curpAdmin.invalid && (curpAdmin.dirty && curpAdmin.touched )">
+                <div *ngIf="curpAdmin.errors.required">
+                    <small class="form-text form-text-error">Es necesario ingresar la información del campo marcado
+                        como
+                        obligatorio.</small>
+                </div>
+                <div *ngIf="curpAdmin.errors.pattern">
+                    <small class="form-text form-text-error">La CURP ingresada no es correcta, por favor
+                        verifica.</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-4" style="padding: 0px 50px 0px 35px;">
+        <div class="row">
+            <label>Nombre:</label>
+        </div>
+        <div class="row">
+            <span style="min-width: 10%;">
+                {{model.registrarEntidadFinanciera.nombreAdmin}}&nbsp;
+                {{model.registrarEntidadFinanciera.primerApAdmin}}&nbsp;
+                {{model.registrarEntidadFinanciera.segundoApeAdmin}}
+            </span>
+        </div>
+    </div>
+
+    <div class="col-sm-4" style="padding: 0px 100px 0px 35px;">
+        <div class="row">
+            <label>Correo electrónico:</label>
+        </div>
+        <div class="row">
+            <input pInputText type="text" class="form-control" name="correoAdmin"
+                [ngClass]=" flat1 || correoAdmin.invalid && (correoAdmin.dirty && correoAdmin.touched || registrarForm.submitted) ? 'form-control-error' : 'form-control'"
+                [(ngModel)]="model.registrarEntidadFinanciera.correoAdmin" #correoAdmin="ngModel"
+                placeholder="Ingresa el correo electrónico" maxlength="200" pattern="{{regexCorreo}}"
+                oninput="this.value = this.value.toLowerCase()" (change)="validarCorreoAdminEF();"
+                (keydown.space)="$event.preventDefault()" required />
+            <div *ngIf="correoAdmin.invalid && (correoAdmin.dirty && correoAdmin.touched || registrarForm.submitted)">
+                <div *ngIf="correoAdmin.errors.required">
+                    <small class="form-text form-text-error">Es necesario ingresar la información del campo marcado como
+                        obligatorio.</small>
+                </div>
+                <div *ngIf="correoAdmin.errors.pattern">
+                    <small class="form-text form-text-error">El correo electr&oacute;nico ingresado no es correcto, por
+                        favor verifica.</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-4" style="padding: 0px 100px 0px 35px;">
+        <div class="row">
+            <label>R.F.C.*:</label>
+        </div>
+        <div class="row">
+            <input pInputText type="text" 
+                   class="form-control" 
+                   name="rfcAdmin"
+                   [ngClass]=" this.flat || rfcAdmin.invalid && (rfcAdmin.dirty && rfcAdmin.touched || registrarForm.submitted) ? 'form-control-error' : 'form-control'"
+                   [(ngModel)]="model.registrarEntidadFinanciera.adminRFC" 
+                   (ngModelChange)="model.registrarEntidadFinanciera.adminRFC = $event.toUpperCase()"
+                   placeholder="Ingresa el RFC"
+                   minlength="12" 
+                   maxlength="13"
+                   pattern="{{regexRfc}}"
+                   required
+                   #rfcAdmin="ngModel"/>
+            <div *ngIf="rfcAdmin.invalid && (rfcAdmin.dirty && rfcAdmin.touched )">
+                    <div *ngIf="rfcAdmin.errors.required">
+                        <small class="form-text form-text-error">
+                            Es necesario ingresar la información del campo marcado como obligatorio.
+                        </small>
+                    </div>
+                    <div *ngIf="rfcAdmin.errors.pattern">
+                        <small class="form-text form-text-error">
+                            EL RFC ingresado no es correcto, por favor verifica.
+                        </small>
+                    </div>
+            </div>
+            <div *ngIf="this.model.flatRfcAdminEF">
+                <small class="form-text form-text-error">
+                    EL RFC ingresado no es correcto, por favor verifica.
+                </small>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,46 @@
+<h4>Resultados de la b&uacute;squeda</h4>
+<hr class="red">
+<h4 *ngIf="(this.model.registrarPromotor.estatus == undefined) " style="text-align: center;">
+  Sin resultados para esta búsqueda.
+</h4>
+<div class="row tarjeta" style="padding:0px 28px 20px 30px !important;" *ngIf="!(this.model.registrarPromotor.estatus == undefined) ">
+  <div class="row tarjeta-body">
+    <div class="row">
+      <div class="col-md-5 tarjeta-data-1-bold">
+        &nbsp;&nbsp; {{promotor.nombre}} {{promotor.primerApellido}} {{promotor.segundoApellido}}
+      </div>
+      <div class="col-md-3">
+        <span class="tarjeta-data-1-bold">Estado: </span><span class="tarjeta-data-1-bold-blue"> {{promotor.estatus}}
+        </span>
+      </div>
+      <div class="col-md-2" style="margin-left: 15%!important;">
+        <span class="Ver-detalle" (click)="verDetalle()">
+          <img [src]="'/mclpe/auth/js/assets/img/GroupVD.png'" class="GroupVD">
+          Ver Detalle
+        </span>
+      </div>
+    </div>
+    <div class="row tarjeta-title-1">
+      <div class="col-md-5">
+        CURP:
+      </div>
+      <div class="col-md-3">
+        Correo electrónico:
+      </div>
+      <div class="col-md-2" style="margin-left: 15%!important;">
+        Teléfono móvil:
+      </div>
+    </div>
+    <div class="row tarjeta-data-1">
+      <div class="col-md-5">
+        {{promotor.curp}}
+      </div>
+      <div class="col-md-3">
+        {{promotor.correoElectronico}}
+      </div>
+      <div class="col-md-2" style="margin-left: 15%!important;">
+        {{promotor.telCelular}}
+      </div>
+    </div>
+  </div>
+</div>

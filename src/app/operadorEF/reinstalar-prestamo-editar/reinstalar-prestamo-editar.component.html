@@ -1,0 +1,292 @@
+<app-header></app-header>
+<div class="row" style="margin-top: -60px;">
+    <app-menu-ux [rol]="rol"></app-menu-ux>
+</div>
+<div class="row" style="padding: 10px;">
+    <div class="col-md-8">
+    </div>
+    <app-user-profile></app-user-profile>
+</div>
+<div class="row ">
+    <div class="col-md-12">
+        <h4>Registrar préstamo</h4>
+        <hr class="red">
+    </div>
+</div>
+<form [formGroup]="formGroup" (ngSubmit)="confirmarMonto()" autocomplete="off" role="form">
+
+    <div class="row tarjeta">
+        <div class="row tarjeta-header">
+            Información del solicitante
+        </div>
+        <div class="row tarjeta-body">
+            <div class="row">
+
+                <div class="col-md-4">
+                    <label class="tituloPrestamo-span">Nombre:</label>
+                </div>
+                <div class="col-md-4">
+                    <label class="tituloPrestamo-span">CURP:</label>
+                </div>
+                <div class="col-md-4">
+                    <label class="tituloPrestamo-span">NSS:</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <label class="fontNombrePrestamo">{{ this.model.prestamoPromotor.pensionado.nomNombre }} {{
+                        this.model.prestamoPromotor.pensionado.nomApellidoPaterno }} {{
+                        this.model.prestamoPromotor.pensionado.nomApellidoMaterno }}</label>
+                </div>
+                <div class="col-md-4">
+                    <label class="fontNombrePrestamo">{{ this.model.prestamoPromotor.pensionado.cveCurp }}</label>
+                </div>
+                <div class="col-md-4">
+                    <label class="fontNombrePrestamo">{{ this.model.prestamoPromotor.pensionado.idNss }}</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-4">
+                        <label class="tituloPrestamo-span">Tipo de trabajador:</label>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="tituloPrestamo-span">Teléfono*:</label>&nbsp;
+                    </div>
+                    <div class="col-md-4">
+                        <label class="tituloPrestamo-span">Teléfono móvil*:</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <label class="fontNombrePrestamo" style="margin-top: 8px;">Pensionado</label>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="fontNombrePrestamo">{{ this.model.prestamoPromotor.persona.telLocal }}</label>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="fontNombrePrestamo">{{ this.model.prestamoPromotor.persona.telCelular }}</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <label class="tituloPrestamo-span">Correo electrónico*:</label>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="tituloPrestamo-span">Delegación:</label>&nbsp;
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <label class="fontNombrePrestamo" style="margin-top: 8px;">{{
+                            this.model.prestamoPromotor.persona.correoElectronico }}</label>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="fontNombrePrestamo" style="margin-top: 8px;">{{
+                            this.model.prestamoPromotor.pensionado.descDelegacion }}</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br />
+    <div class="row ">
+        <div class="col-md-12">
+            <h4>Pr&eacute;stamo a reinstalar</h4>
+            <hr class="red">
+        </div>
+    </div>
+
+    <div class="row tarjeta">
+        <div class="row tarjeta-body">
+            <div class="row tarjeta-data-1-bold">
+                <div class="col-md-8">
+                    Entidad Financiera : {{this.model.prestamoPromotor.prestamoVigente.nombreComercialEF}}
+                </div>
+            </div>
+            <div class="row tarjeta-title-1">
+                <div class="col-md-2">
+                    CAT con IVA:
+                </div>
+                <div class="col-md-2">
+                    Monto solicitado:
+                </div>
+                <div class="col-md-2">
+                    Descuento mensual:
+                </div>
+                <div class="col-md-2">
+                    DNA / Plazo:
+                </div>
+                <div class="col-md-2">
+                    DNA Consecutivo:
+                </div>
+                <div class="col-md-2">
+                    Saldo Capital:
+                </div>
+            </div>
+            <div class="row tarjeta-data-1-bold">
+                <div class="col-md-2">
+                    {{this.model.prestamoPromotor.prestamoVigente.cat}}%
+                </div>
+                <div class="col-md-2">
+                    ${{this.model.prestamoPromotor.prestamoVigente.montoSolicitado | number:'0.2-2'}}
+                </div>
+                <div class="col-md-2">
+                    ${{this.model.prestamoPromotor.prestamoVigente.descuentoMensual |number:'0.2-2'}}
+                </div>
+                <div class="col-md-2">
+                    {{this.model.prestamoPromotor.prestamoVigente.mensualidadesSinDescuento}} /
+                    {{this.model.prestamoPromotor.prestamoVigente.descripcionPlazo}}
+                </div>
+                <div class="col-md-2">
+                    {{this.model.prestamoPromotor.prestamoVigente.numMesesConsecutivos}}
+                </div>
+                <div class="col-md-2">
+                    ${{this.model.prestamoPromotor.prestamoVigente.saldoCapital |number:'0.2-2'}}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br>
+    <div class="row ">
+        <div class="col-md-12">
+            <h4>Condiciones del préstamo</h4>
+            <hr class="red">
+        </div>
+    </div>
+
+    <div class="row col-md-12" style="margin-bottom: 50px;">
+        <label class="capacidadCredito">Capacidad de crédito del pensionado:
+            <!--<strong style="color: black;">${{ this.model.capacidadPensionado | number:'0.2-2' }}</strong>-->
+            <strong style="color: black;">${{ capacidadOriginal | number:'0.2-2' }}</strong>
+        </label>
+        <br><br>
+        <label class="fontCondiciones">Ingresa la información solicitada:</label>
+    </div>
+
+    <div class="row ">
+        <div class="col-md-4">
+            <div class="form-group" style="text-align: left;">
+                <label class="fontCondiciones">Monto solicitado:</label> &nbsp;
+                <input type="text"
+                    [ngClass]="[!formGroup.controls['montoSolicitado'].valid && formGroup.controls['montoSolicitado'].touched ? 'form-control-error':'form-control']  "
+                    class="form-control inputSimple" formControlName="montoSolicitado" placeholder="Ingresa monto"
+                    minlength="1" maxlength="10" aria-describedby="basic-addon1" pKeyFilter="num"
+                    (change)="validarCondiciones();" />
+                <div *ngIf="!formGroup.controls['montoSolicitado'].valid">
+                    <div
+                        *ngIf=" formGroup.controls['montoSolicitado'].errors?.required && formGroup.controls['montoSolicitado'].touched">
+                        <p class="error-class">Es necesario ingresar la información del campo marcado como obligatorio.
+                        </p>
+                    </div>
+                    <div
+                        *ngIf="formGroup.get('montoSolicitado').errors?.pattern && formGroup.controls['montoSolicitado'].touched">
+                        <p class="error-class">
+                            Sólo se permiten caracteres numéricos y hasta 2 decimales.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-group" style="text-align: left;">
+                <label class="fontCondiciones">Plazo:</label> &nbsp;
+                <select
+                    [ngClass]="[!formGroup.controls['plazoCondicion'].valid && formGroup.controls['plazoCondicion'].touched ? 'form-control-error':'form-control']  "
+                    class="form-control inputSimple" formControlName="plazoCondicion" (change)="validarCondiciones();">
+
+                    <option *ngFor="let plazoCondicion of  plazosCondiciones" [ngValue]="plazoCondicion">
+                        {{plazoCondicion.plazo.descripcion}}</option>
+                </select>
+                <div *ngIf="!formGroup.controls['plazoCondicion'].valid">
+                    <div
+                        *ngIf=" formGroup.controls['plazoCondicion'].errors?.required && formGroup.controls['plazoCondicion'].touched">
+                        <p class="error-class">Es necesario ingresar la información del campo marcado como obligatorio.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-group" style="text-align: left;">
+                <label class="fontCondiciones">CAT con IVA:</label> &nbsp;
+                <input type="text" class="form-control inputSimple" aria-describedby="basic-addon1"
+                    [(ngModel)]="catSeleccionado" [ngModelOptions]="{standalone: true}" disabled />
+            </div>
+
+        </div>
+    </div>
+    <br>
+    <div class="row ">
+        <div class="col-md-4">
+            <div class="form-group" style="text-align: left;">
+                <label class="fontCondiciones">Descuento mensual:</label> &nbsp;
+                <input type="text" class="form-control inputSimple" formControlName="descuentoMensual" disabled />
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group" style="text-align: left;">
+                <label class="fontCondiciones">Monto total a pagar:</label> &nbsp;
+                <input type="text" class="form-control inputSimple" formControlName="montoPagar" disabled />
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group" style="text-align: left;">
+                <label class="fontCondiciones">Fecha de primer descuento:</label> &nbsp;
+                <input type="text" class="form-control inputSimple" disabled aria-describedby="basic-addon1"
+                    formControlName="fechaNominal" />
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="row ">
+        <div class="col-md-6">
+            <div class="form-group">
+            </div>
+        </div>
+        <div class="col-md-6" style="text-align: right;">
+            <div class="form-group">
+                <button type="button" class="btn btn-default inputBorder " (click)="regresar()">Regresar
+                </button> &nbsp;
+                <button type="button" class="btn btn-primary inputBorder "
+                    [disabled]="formGroup.invalid || !this.validacionesPersonalizadasExitosas"
+                    type="submit">Continuar
+                </button>
+            </div>
+        </div>
+    </div>
+</form>
+
+<jw-modal id="carga">
+    <div class="jw-modal-titulo"> <b>Atención</b></div>
+    <div style="height:100%; width:100%">
+        <br>
+        <br>
+        <p style="text-align:center"><b>Cargando datos</b></p>
+        <div align="center">
+            <div class="preloader"></div>
+        </div>
+        <br>
+    </div>
+</jw-modal>
+
+<jw-modal id="preguntaRegistroMonto">
+    <div class="jw-modal-titulo"> <b>Atención</b></div>
+    <div style="height:100%; width:100%">
+        <br>
+        <br>
+        <p style="text-align:center"><b> ¿Estás de acuerdo con los datos del préstamo?</b></p>
+        <div style="text-align:right">
+            <button type="button" class="btn btn-primary" (click)="registrarPrestamo()">
+                <span class="oi oi-send glyphicon glyphicon-left"> </span>Si
+            </button>&nbsp;
+            <button type="button" class="btn btn-default" (click)="continuarNo()">
+                <span class="oi oi-send glyphicon glyphicon-left"> </span>No
+            </button>
+        </div>
+        <br>
+    </div>
+</jw-modal>

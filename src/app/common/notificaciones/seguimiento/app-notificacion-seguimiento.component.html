@@ -1,0 +1,26 @@
+<div class="row">
+    <div class="col-md-12">
+        <h4>Seguimiento notificación</h4>
+        <hr class="red">
+        <p></p>
+    </div>
+</div>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Estado notificación</th>
+            <th scope="col">Fecha movimiento</th>
+            <th scope="col">Usuario movimiento</th>
+            <th scope="col">Fecha de vencimiento</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of notificacionDetalle.notificacion.setBitacora; let i = index">
+            <td>{{item.estadoNotificacion.desEstadoNotificacion}}</td>
+            <td>{{item.altaRegistro | slice:0:10}}</td>
+            <td>{{item.curp}}</td>
+            <td>{{item.fecNuevoVencimiento | slice:0:10}}</td>
+        </tr>
+    </tbody>
+</table>

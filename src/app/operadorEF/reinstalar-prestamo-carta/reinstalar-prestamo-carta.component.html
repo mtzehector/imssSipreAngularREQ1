@@ -1,0 +1,40 @@
+<app-header></app-header>
+<div class="row" style="margin-top: -60px;">
+    <app-menu-ux [rol]="rol"></app-menu-ux>
+</div>
+<div class="row" style="padding: 10px;">
+    <div class="col-md-8">
+    </div>
+    <app-user-profile></app-user-profile>
+</div>
+
+<div class="row ">
+    <div class="col-md-12">
+        <h4>Reinstalar Préstamo</h4>
+        <hr class="red">
+    </div>
+</div>
+
+<div class="row col-md-12" style="margin-bottom: 60px;">
+    <span>La Carta de Reinstalación del préstamo ha sido enviada al correo electrónico del pensionado</span>
+</div>
+<br>
+<div class="row">
+    <div class="col-sm-4 tarjeta-data-1-bold"><strong>Folio:</strong> <span class="tarjeta-data-1-bold-blue">{{this.model.documento.numFolioSolicitud}}</span></div>
+    <div class="col-sm-4 tarjeta-data-1-bold-blue">{{this.model.documento.tipoDocumentoEnum.descripcion}}</div>
+    <div class="col-sm-4 tarjeta-data-1-bold" style="cursor:pointer;" (click)="downloadFile()">
+        <span>
+    <span class="glyphicon glyphicon-save" aria-hidden="true" style="color:#373130"></span>
+        </span>&nbsp; Descargar PDF
+    </div>
+</div>
+<div class="row ">
+    <div class="col-md-12" style="text-align: right;">
+        <div class="form-group">
+            <button type="button" (click)="finalizar()" class="btn btn-primary ">
+                Finalizar
+            </button>
+        </div>
+    </div>
+</div>
+<br>

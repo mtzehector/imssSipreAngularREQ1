@@ -1,0 +1,27 @@
+<div class="row tarjeta">
+  <div class="row tarjeta-header">
+    Información de la simulación
+  </div>
+  <div class="row tarjeta-body">
+    <div class="row">
+      <div class="col-md-6 tarjeta-data-1-bold-blue">
+        {{Titulo}}: <span class="tarjeta-data-1-bold">${{model.simulacion.prestamo.monto | number:'0.2-2'}}</span>
+      </div>
+      <div class="col-md-6 tarjeta-data-1-bold-blue">
+        Plazo: <span class="tarjeta-data-1-bold">{{model.simulacion.prestamo.oferta.plazo.descripcion}}</span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 tarjeta-data-1-bold-blue">
+        Fecha del primer
+        descuento:<span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip"
+          data-placement="bottom" title="Esta fecha está sujeta
+de cambio, conforme a 
+la fecha de autorización
+del préstamo."></span>
+        &nbsp;<span class="tarjeta-data-1-bold">{{fecha}}</span>
+      </div>
+
+    </div>
+  </div>
+</div>

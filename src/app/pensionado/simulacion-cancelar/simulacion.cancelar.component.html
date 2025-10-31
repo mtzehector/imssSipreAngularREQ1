@@ -1,0 +1,249 @@
+<ol class="breadcrumb ">
+    <li><a href="#"><i class="icon icon-home"></i></a></li>
+    <li><a href="#">Inicio</a></li>
+    <li class="active">Préstamos a cuenta de pensión con Entidades Financieras </li>
+</ol>
+<div class="row" style="height: 15px;">
+    <div class="col-md-12">
+        <h4>Préstamos a cuenta de pensión con Entidades Financieras </h4>
+        <hr class="red">
+    </div>
+</div>
+<br><br>
+
+<app-menu></app-menu>
+<div class="row" style="padding: 10px;">
+  <div class="col-md-8">
+  </div>
+  <app-user-profile></app-user-profile>
+</div>
+
+<div class="row">
+
+    <div class="col-md-12">
+        <h4>Cancelación de folio</h4>
+        <hr class="red" />
+        <p></p>
+    </div>
+</div>
+
+
+
+<br>
+<div class="row">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th style="width: 50%;">Folio: {{resumenSimulacion.solicitud.numFolioSolicitud}}</th>
+                <th style="width: 50%;">Lugar y Fecha: {{pensionado.entidadFederativa.descEntidadFederativa}} a {{resumenSimulacion.solicitud.altaRegistro |slice:0:10 }}</th>
+            </tr>
+        </thead>
+    </table>
+</div>
+
+
+<table  class="table table-striped" >
+    <thead>
+  <tr>
+    <th scope="col" colspan="7"> Información del solicitante</th>
+  </tr>
+    <tr>
+     
+        <th scope="col" style="text-align: left; width: 33%;">Nombre(s):  </th>
+        <th scope="col" style="text-align: left; width: 33%;">Primer apellido:</th>
+        <th scope="col" style="text-align: left; width: 33%;">Segundo apellido:</th>
+        
+      </tr>
+    </thead>
+    <tbody> 
+       
+        <tr > 
+          
+            <td>{{resumenSimulacion.pensionado.nombre}}</td>
+            <td>{{resumenSimulacion.pensionado.primerApellido}} </td>
+            <td>{{resumenSimulacion.pensionado.segundoApellido}}</td>
+        </tr> 
+  
+          
+      <tr>
+        <th scope="col" style="text-align: left; width: 33%;">CURP:</th>
+        <th scope="col" style="text-align: left; width: 33%;">NSS:  </th>
+        <th scope="col" style="text-align: left; width: 33%;">Delegación:</th>
+     
+        
+      </tr>
+  
+      <tr > 
+          <td>{{resumenSimulacion.pensionado.curp}}</td>
+          <td> {{resumenSimulacion.pensionado.nss}} </td>
+          <td>{{pensionado.delegacion.descDelegacion}}</td>
+  
+       </tr> 
+       <tr>
+        <th scope="col" style="text-align: left; width: 33%;">Correo electr&oacute;nico:</th>
+        <th scope="col" style="text-align: left; width: 33%;">Tel&eacute;fono m&oacute;vil:  </th>
+        <th scope="col" style="text-align: left; width: 33%;"></th>
+     
+        
+      </tr>
+  
+      <tr > 
+          <td>{{this.model.persona.correoElectronico}}</td>
+          <td>{{this.model.persona.telefono}} </td>
+          <td></td>
+  
+       </tr> 
+    </tbody>
+  </table>
+
+<table class="table table-striped">
+    
+    <table  class="table table-striped" >
+        <thead>
+      <tr>
+        <th scope="col" colspan="7"> Entidad Financiera elegida</th>
+      </tr>
+      
+      
+          <tr>
+            <th scope="col" style="text-align: left; width: 33%;">Nombre comercial:</th>
+            <th scope="col" style="text-align: left; width: 33%;">Teléfono:</th>
+            <th scope="col" style="text-align: left; width: 33%;">Página web:</th>
+            
+          </tr>
+        </thead>
+    <tbody>
+        <tr>
+            <!--td>Nombre comercial: {{model.ofertaDatos.nombreComercial}}</td-->
+            <td style="text-align: left; width: 33%;">{{resumenSimulacion.oferta.entidadFinanciera.nombreComercial}}</td>
+            <!--td>Razón social: {{model.ofertaDatos.razonSocial}}</td-->
+      
+            <!--td>Tel&eacute;fono: {{model.ofertaDatos.numTelefono}}</td-->
+            <td style="text-align: left; width: 33%;">{{resumenSimulacion.oferta.entidadFinanciera.numTelefono}} </td>
+            <!--td>Web:<a> {{model.ofertaDatos.paginaWeb}}</a></td-->
+            <td style="text-align: left; width: 33%;"><a href="https://{{resumenSimulacion.oferta.entidadFinanciera.paginaWeb}}">{{resumenSimulacion.oferta.entidadFinanciera.paginaWeb}} </a></td>
+        </tr>
+    </tbody>
+</table>
+
+
+
+
+
+
+<table  class="table table-striped" >
+    <thead>
+  <tr>
+    <th scope="col" colspan="7"> Información de la simulación</th>
+  </tr>
+  
+  
+      <tr>
+        <th scope="col" style="text-align: left; width: 33%;">CAT con IVA: 
+          <span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="
+Costo Anual Total:
+Monto total a pagar
+cada año, incluyendo
+la tasa de interés
+anual y otros costos
+del préstamo.">
+
+          </span></th>
+        <th scope="col" style="text-align: left; width: 33%;">Monto solicitado:</th>
+        
+        <th scope="col" style="text-align: left; width: 33%;">Descuento
+          mensual: <span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip" data-placement="bottom"
+           title="
+Es el monto que se
+te descontará
+mensualmente a lo
+largo del préstamo."></span></th>
+        
+      </tr>
+    </thead>
+    <tbody> 
+       
+        <tr > 
+          <td> {{resumenSimulacion.oferta.cat}}% </td>
+
+            <td>${{resumenSimulacion.prestamo.monto | number:'0.2-2'}}</td>
+            <td>${{resumenSimulacion.prestamo.impDescNomina | number:'0.2-2'}}</td>
+        </tr> 
+  
+          
+      <tr>
+        <th scope="col" style="text-align: left; width: 33%;">Plazo:</th>
+
+        <th scope="col" style="text-align: left; width: 33%;">Importe
+          total a pagar:  <span class="glyphicon glyphicon-question-sign" aria-hidden="true" 
+          data-toggle="tooltip" data-placement="bottom"
+           title="
+Es el importe total
+del préstamo más
+los intereses y costos
+cubiertos durante la
+vida del crédito."></span> </th>
+
+        
+        <th scope="col" style="text-align: left; width: 33%;">Fecha del primer
+          descuento:</th>
+        
+      </tr>
+  
+      <tr > 
+        <td>{{resumenSimulacion.oferta.plazo.descripcion}}</td>
+
+        <td>${{resumenSimulacion.prestamo.impTotalPagar | number:'0.2-2'}}</td>
+
+          <td>{{this.fecha}}</td>
+       </tr> 
+
+       <tr>
+        <th scope="col" style="text-align: left; width: 33%;">Fecha de vigencia del folio:</th>
+
+        <th scope="col" style="text-align: left; width: 33%;"></th>
+      
+        
+        <th scope="col" style="text-align: left; width: 33%;"></th>
+        
+      </tr>
+  
+      <tr > 
+        <td>{{resumenSimulacion.solicitud.fecVigenciaFolio| slice:0:10}}</td>
+
+        <td></td>
+
+          <td></td>
+       </tr>
+    </tbody>
+  </table>
+<div class="row">
+    <div class="col-md-8"></div>
+  
+    <div class="col-md-2" style="margin-right: 10px;">
+        <a class="btn btn-default" routerLink="/pensionado/buscarFolioCancelar" role="button">Regresar</a>
+
+    </div>
+    <div class="col-md-2">
+        <button (click)="folioCancelar(solicitud)" class="btn btn-primary ">
+      <span class="oi oi-undefined glyphicon glyphicon-undefined"></span>Cancelar folio
+    </button>
+
+    </div>
+
+</div>
+<br>
+<jw-modal id="cancelarFolio">
+    <div class="jw-modal-titulo"> <b>Atención</b></div>
+    <div style="height:100%; width:100%">
+        <br>
+        <p style="text-align:center"><b>¿Deseas cancelar el folio de simulación de préstamo {{resumenSimulacion.solicitud.numFolioSolicitud}}?</b></p>
+        <br>
+        <div class="col-md-12" align="right">
+            <button class="btn btn-default" (click)="closeModal();">Cancelar</button>
+
+            <button class="btn btn-primary " (click)="cancelarSimulacion();">Aceptar</button>&nbsp;&nbsp;
+
+        </div>
+    </div>
+</jw-modal>

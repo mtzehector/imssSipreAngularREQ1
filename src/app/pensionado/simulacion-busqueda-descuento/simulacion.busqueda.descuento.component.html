@@ -1,0 +1,50 @@
+<div class="col-md-12">
+    <div class="row">
+        <h2>Simulación por Monto</h2>
+        <hr class="red" />
+    </div>
+    <app-prestamos-vigentes [rol]="this.rol"></app-prestamos-vigentes>
+
+    <div class="container">
+        <div class="col-md-4"></div>
+        <div class="col-md-6"> <label>Elija cómo desea hacer su simulación:</label><br><br></div>
+        <div class="row"></div>
+        <div class="col-md-3"></div>
+        <div class="col-md-4">
+            <label class="radio-inline"><input type="radio" name="optradio" checked>Simular Monto Solicitado </label> </div>
+        <div class="col-md-4">
+            <label class="radio-inline"><input type="radio" name="optradio">Simular Por Descuento Mensual</label>
+        </div>
+    </div> <br> <br>
+
+    <div class="formulario">
+        <div class="row">
+            <div class="col-md-4">
+                <label>Ingresa monto solicitado*</label>
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon1">$</span>
+                    <input type="text" class="form-control" placeholder="Ingresa monto mensual" aria-describedby="basic-addon1">
+                </div><br>
+                <div class="select-box">
+                    <label for="sel1">Elegir Plazo*</label>
+                    <select class="form-control" id="sel1">
+                      <option>Selcione un plazo</option>
+                      <option>3 meses</option>
+                      <option>6 meses</option>
+                      <option>12 meses</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm">
+            <div class="row">
+                <div class="col-md-8"></div>
+                <div class="col-md-2">
+                    <a class="btn btn-default" routerLink="../home" role="button">Regresar</a>
+                </div>
+                <div class="col-md-2">
+                    <a class="btn btn-primary" routerLink="../simulacionSelecionar" role="button">Continuar</a>
+                </div>
+            </div>
+        </div>

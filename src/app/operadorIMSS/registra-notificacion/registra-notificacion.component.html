@@ -1,0 +1,289 @@
+<app-header>
+</app-header>
+<div class="row" style="margin-top: -60px;">
+    <app-menu-ux [rol]="rol"></app-menu-ux>
+</div>
+<div class="row" style="padding: 10px;">
+    <div class="col-md-8">
+    </div>
+    <app-user-profile></app-user-profile>
+</div>
+<form role="form" [formGroup]="formGroupNot" (ngSubmit)="guardarCambios()">
+
+    <div class="row">
+        <div class="col-md-12">
+            <h4>Registrar notificación</h4>
+            <hr class="red">
+            <p>Ingresa la información que se te solicita para registrar una notificación:
+            </p>
+        </div>
+
+    </div>
+
+    <br>
+
+    <div class="row">
+        <div class="col-md-4">
+            <label class=" control-label">Entidad Financiera*:</label>
+            <div class="form-group">
+                <select class="form-control inputSimple" formControlName="entidadFinanciera" [ngClass]="[!formGroupNot.controls['entidadFinanciera'].valid && formGroupNot.controls['entidadFinanciera'].touched ? 'form-control-error':'form-control']  ">
+              <option value="-1" disabled><span>Selecciona Entidad Financiera</span></option>
+              <option *ngFor="let entidad of  catalogoEntidadFinanciera" [value]="entidad.id">
+                <span>{{entidad.nombreComercial}}</span>
+              </option>
+            </select>
+                <div *ngIf="!formGroupNot.controls['entidadFinanciera'].valid">
+                    <div *ngIf=" formGroupNot.controls['entidadFinanciera'].errors?.required && formGroupNot.controls['entidadFinanciera'].touched">
+                        <p class="error-class">El campo Entidad Financiera es obligatorio.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <label class=" control-label">Tipo de notificación*:</label>
+            <div class="form-group">
+                <select class="form-control inputSimple" formControlName="tipoNotificacion" [ngClass]="[!formGroupNot.controls['tipoNotificacion'].valid && formGroupNot.controls['tipoNotificacion'].touched ? 'form-control-error':'form-control']  ">
+                <option value="-1" disabled><span>Selecciona tipo</span></option>
+                <option *ngFor="let tipoNotificacion of  catalogoTipoNotificacion" [value]="tipoNotificacion.id">
+                  <span>{{tipoNotificacion.descripcion}}</span>
+                </option>
+            </select>
+                <div *ngIf="!formGroupNot.controls['tipoNotificacion'].valid">
+                    <div *ngIf=" formGroupNot.controls['tipoNotificacion'].errors?.required && formGroupNot.controls['tipoNotificacion'].touched">
+                        <p class="error-class">El campo Tipo de notificación es obligatorio.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <label class=" control-label">Tipo secundario*:</label>
+            <div class="form-group">
+                <select class="form-control inputSimple" formControlName="tipoSecundario" [attr.disabled]="tempSubTipoNotificacion.length == 0 ? '' : null" [ngClass]="[formGroupNot.controls['tipoSecundario'].touched && formGroupNot.controls['tipoSecundario'].value == -1  ? 'form-control-error':'form-control']  ">
+                <option value="-1" disabled><span></span></option>
+                  <option  *ngFor="let subTipoNotificacion of  tempSubTipoNotificacion" [value]="subTipoNotificacion.id">
+                    <span>{{subTipoNotificacion.descripcion}}</span>
+                  </option>
+            </select>
+                <div *ngIf="formGroupNot.controls['tipoSecundario'].touched && formGroupNot.controls['tipoSecundario'].value == -1">
+                    <p class="error-class">El campo Tipo secundario es obligatorio.</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <br>
+
+    <div class="row">
+        <div class="col-md-4" id="fv" name="fv">
+            <label *ngIf="formGroupNot.controls['tipoNotificacion'].value == 5" class=" control-label">Fecha de vencimiento:</label>
+            <label *ngIf="formGroupNot.controls['tipoNotificacion'].value != 5" class=" control-label">Fecha de vencimiento*:</label>
+            <div class="form-group datepicker-group">
+                <input id="fechaVencimiento" name="fechaVencimiento" autocomplete="off" class="form-control inputSimple" formControlName="fechaVencimiento" placeholder="Ingresa fecha inicio" [ngClass]="[!formGroupNot.controls['fechaVencimiento'].valid && formGroupNot.controls['fechaVencimiento'].touched  ? 'form-control-error':'form-control']  ">
+                <span class="glyphicon glyphicon-calendar" aria-hidden="true" style="margin-right:10px; margin-top:5px;"></span>
+            </div>
+            <div *ngIf="formGroupNot.controls['fechaVencimiento'].touched && !formGroupNot.controls['fechaVencimiento'].valid">
+                <p class="error-class" style="margin-top: -15px;">El campo Fecha vencimiento es obligatorio.</p>
+            </div>
+        </div>
+        <div class="col-md-8" *ngIf="renderDesc">
+            <label class=" control-label">Descripción*:</label>
+            <div class="form-group">
+                <div style="text-align: left;">
+                    <input class="form-control inputSimple" [ngClass]="[!formGroupNot.controls['desc'].valid && (formGroupNot.controls['desc'].touched || formGroupNot.controls['desc'].dirty ) ? 'form-control-error':'form-control']  " formControlName="desc" placeholder="Ingresa la descripción general de la notificación sin requerimientos"
+                        maxlength='50'>
+                    <div *ngIf="!formGroupNot.controls['desc'].valid">
+                        <div *ngIf="formGroupNot.controls['desc'].errors?.required && formGroupNot.controls['desc'].touched">
+                            <p class="error-class">El campo Descripción es obligatorio. </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+
+    <div class="row" *ngIf="!renderDesc">
+        <div class="col-md-2">
+            <label class=" control-label">Descripción*:</label>
+        </div>
+        <div class="form-group">
+            <div class="col-md-10" style="text-align: left;">
+                <input class="form-control inputSimple" [ngClass]="[!formGroupNot.controls['desc'].valid && (formGroupNot.controls['desc'].touched || formGroupNot.controls['desc'].dirty ) ? 'form-control-error':'form-control']  " formControlName="desc" placeholder="Ingresa la descripción general de la notificación sin requerimientos"
+                    maxlength='50'>
+                <div *ngIf="!formGroupNot.controls['desc'].valid">
+                    <div *ngIf="formGroupNot.controls['desc'].errors?.required && formGroupNot.controls['desc'].touched">
+                        <p class="error-class">El campo Descripción es obligatorio.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+
+    <div class="row" *ngIf="renderRequerimiento">
+        <div class="col-md-2">
+            <label class=" control-label">Requerimiento*:</label>
+        </div>
+        <div class="form-group">
+            <div class="col-md-10" style="text-align: left;">
+                <input class="form-control inputSimple" [ngClass]="[!formGroupNot.controls['req'].valid && formGroupNot.controls['req'].touched ? 'form-control-error':'form-control']  " formControlName="req" placeholder="Ingresa lo que la Entidad Financiera debe cumplir antes de la fecha de vencimiento"
+                    maxlength='250'>
+                <div *ngIf="formGroupNot.controls['req'].invalid && formGroupNot.controls['req'].touched">
+                    <div *ngIf="formGroupNot.controls['req'].errors?.required">
+                        <p class="error-class">El campo Requerimiento es obligatorio.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <div class="row">
+        <div class="col-md-12">
+            <h4>Préstamos</h4>
+            <hr class="red">
+            <p>Busca préstamos para agregarlos a la notificación:</p>
+        </div>
+
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-4 form-group">
+            <label class="control-label">Folio del Préstamo:</label>
+            <input class="form-control inputSimple" formControlName="folio" placeholder="Ingresa 13 dígitos" maxlength="13" type="text" [ngClass]="[!formGroupNot.controls['folio'].valid && formGroupNot.controls['folio'].touched ? 'form-control-error':'form-control']  ">
+            <div style="width: max-content;">
+                <div *ngIf="formGroupNot.controls['folio'].touched && formGroupNot.get('folio').errors?.pattern">
+                    <p class="error-class">El folio no tiene la estructura correcta. </p>
+                </div>
+                <div *ngIf=" formGroupNot.get('folio').errors?.minlength && formGroupNot.controls['folio'].touched">
+                    <p class="error-class">El folio debe de tener un maximo de 13 dígitos. </p>
+                </div>
+                <div *ngIf="folioRequerido">
+                    <p class="error-class">Es necesario ingresar el folio del préstamo. </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="pull-right" style="margin-top: 30px;">
+                <div class="form-group">
+                    <div class="col-sm-6">
+                        <button type="button" (click)="limpiarPrestamo();" class="btn btn-default inputBorder" [disabled]="!formGroupNot.controls['folio'].valid || !formGroupNot.controls['entidadFinanciera'].valid">Limpiar</button>
+                    </div>
+                    <div class="col-sm-6">
+                        <button type="button" (click)="buscarPrestamo();" class="btn btn-primary inputBorder" [disabled]="!formGroupNot.controls['folio'].valid || !formGroupNot.controls['entidadFinanciera'].valid">Buscar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="col-md-10">
+        <app-prestamos [visible]="verPrestamo"></app-prestamos>
+    </div>
+    <br>
+    <div *ngIf=verPrestamo>
+        <button type="button" (click)="agregarPrestamo();" class="btn btn-primary pull-right inputBorder">Agregar préstamo
+    </button>
+    </div>
+    <br>
+    <!-- Agregamos prestamos  -->
+    <div class="row col-md-12" *ngIf="notificaionPrestamo.prestamoList.length  > 0 ">
+        <span class='tituloPrestamo' style="text-align: left;">Préstamos agregados</span>
+        <div class="col-md-12">
+            <br>
+            <br>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th style="width: 25%">Folio del préstamo</th>
+                        <th style="width: 30%">Pensionado:</th>
+                        <th style="width: 30%">Plazo:</th>
+                        <th style="width: 15%; text-align: center;">Eliminar</th>
+                    </tr>
+                </thead>
+                <tbody *ngFor="let prestamo of notificaionPrestamo.prestamoList">
+                    <tr>
+                        <td style="width: 25%"> {{prestamo.numSolicitud}}</td>
+                        <td style="width: 30%">
+                            {{prestamo.pensionado.nombre}} {{prestamo.pensionado.primerApellido}} {{prestamo.pensionado.segundoApellido}}
+                        </td>
+                        <td style="width: 30%;">{{prestamo.desPlazo}}</td>
+                        <td style="width: 15%; text-align: center;">
+                            <a (click)="openModalPrestamo(prestamo.id)">
+                                <span class="glyphicon glyphicon-remove-circle" style="color: #404041; cursor:pointer;" aria-hidden="true"></span>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- Codigo para agregar los archivos adjuntos  -->
+    <br>
+    <app-archivos-adjuntos></app-archivos-adjuntos>
+
+    <br>
+
+    <div class="row">
+
+        <div class="pull-right">
+            <div class="form-group">
+                <div class="col-sm-4">
+
+                    <button type="button" routerLink="../consultarNotificacion" class="btn btn-default inputBorder">Regresar
+    </button>
+                </div>
+                <div class="col-sm-8">
+                    <button type="submit" class="btn btn-primary inputBorder" [disabled]="formGroupNot.invalid || formGroupNot.controls['tipoSecundario'].value == -1">Guardar notificación
+    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</form>
+<div style="margin: 65px 0 65px; text-align:right;"></div>
+<jw-modal id="eliminarPrestamo">
+    <div class="jw-modal-titulo"> <b>Atención</b></div>
+    <div class="modal-body">
+        <p style="text-align: center;">
+            ¿Deseas eliminar el préstamo?</p>
+        <div class="row">
+            <div class="col-md-12 text-right">
+                <button class="btn btn-default inputBorder" (click)="closeModalPrestamo()">Cancelar</button>
+                <button class="btn btn-primary inputBorder" (click)="borrarPrestamo(this.idborrarPrestamo)" style="margin-right: 5px">Aceptar </button>
+            </div>
+        </div>
+    </div>
+    <br>
+</jw-modal>
+
+<jw-modal id="carga">
+    <div class="jw-modal-titulo"> <b>Atención</b></div>
+    <div style="height:100%; width:100%">
+        <br>
+        <br>
+        <p style="text-align:center"><b>Cargando datos</b></p>
+        <div align="center">
+            <div class="preloader"></div>
+        </div>
+        <br>
+    </div>
+</jw-modal>
+
+<jw-modal id="noExistenDatos">
+    <div class="jw-modal-titulo"> <b>Atención</b></div>
+    <div class="modal-body">
+        <p>El folio ingresado no existe</p>
+        <div class="row">
+            <div class="col-md-12 text-right">
+                <button class="btn btn-default" (click)="closeModalNoExistenDatos()" style="margin-right: 5px">Aceptar</button>
+            </div>
+        </div>
+    </div>
+    <br>
+</jw-modal>

@@ -1,0 +1,314 @@
+<app-header></app-header>
+<app-menu-ux [rol]="rol"></app-menu-ux>
+
+<div class="row" style="padding: 10px;">
+  <div class="col-md-8">
+  </div>
+  <app-user-profile></app-user-profile>
+</div>
+
+<div class="row ">
+  <div class="col-md-12">
+    <h4>Informe de préstamo</h4>
+    <hr class="red">
+  </div>
+
+
+</div>
+
+
+<br>
+
+<!-- DATOS DEL PENSIONADO-->
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Información del pensionado</th>
+      <th scope="col"></th>
+      <th scope="col"></th>
+
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Nombre(s): </th>
+      <th>Primer apellido: </th>
+      <th> Segundo apellido: </th>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <th>CURP: </th>
+      <th>NSS: </th>
+      <th>Delegación:</th>
+
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td> &nbsp;</td>
+      <td>&nbsp; </td>
+
+    </tr>
+    <tr>
+
+      <th>Teléfono fijo:</th>
+      <th>Teléfono móvil:</th>
+      <th>Correo electrónico:</th>
+    </tr>
+    <tr>
+      <td> &nbsp; </td>
+      <td>&nbsp; </td>
+      <td>&nbsp; </td>
+    </tr>
+
+    <tr>
+
+      <th>Tipo de crédito:</th>
+      <th>Tipo de pensión:</th>
+      <th>Tipo de trabajador:</th>
+    </tr>
+    <tr>
+      <td> &nbsp; </td>
+      <td> &nbsp; </td>
+      <td> &nbsp; </td>
+    </tr>
+
+  </tbody>
+</table>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col" colspan="7"> Entidad Financiera </th>
+    </tr>
+
+
+    <tr>
+      <th scope="col" style="text-align: left; width: 13%;">Nombre comercial:</th>
+      <th scope="col" style="text-align: left; width: 13%;">Razón Social: </th>
+      <th scope="col" style="text-align: left; width: 13%;">Teléfono:</th>
+      <th scope="col" style="text-align: left; width: 13%;">Página web:</th>
+
+    </tr>
+  </thead>
+  <tbody>
+
+    <tr>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+
+
+
+
+
+  </tbody>
+</table>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col" colspan="4">Información del personal operativo</th>
+
+    </tr>
+    <tr>
+      <th scope="col" style="width: 50%;">Nombre(s):</th>
+      <th scope="col" style="width: 25%;">Primer apellido:</th>
+      <th scope="col" style="width: 25%;">Segundo apellido:</th>
+
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <th scope="col" style="width: 50%;">Entidad Financiera: </th>
+      <th scope="col" style="width: 25%;">Número de empleado: </th>
+      <th scope="col" style="width: 25%;">CURP: </th>
+
+    </tr>
+
+    <tr>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+  </tbody>
+</table>
+
+
+<!--TABLA DATOS DEL PRESTAMO A LIQUIDAR  -->
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col" colspan="4">Información del préstamo a liquidar</th>
+
+    </tr>
+  </thead>
+  <tbody>
+    <td></td>
+    <tr>
+      <th>Razón Social:</th>
+      <th> Folio: </th>
+      <th>Descuento mensual: <span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip"
+          data-placement="bottom" title="
+Es el monto que se
+te descontará
+mensualmente a lo
+largo del préstamo."></span></th>
+      <th>Monto prestado:</th>
+
+    </tr>
+
+    <tr>
+      <td>&nbsp;</td>
+      <td> &nbsp;</td>
+      <td> &nbsp;</td>
+      <td> &nbsp;</td>
+
+    </tr>
+    <tr>
+      <th>CAT: <span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip"
+          data-placement="bottom" title="
+Costo Anual Total: 
+Monto total a pagar
+cada año, incluyendo
+la tasa de interés 
+anual y otros costos
+del préstamo."></span></th>
+      <th>Mensualidades descontadas / Plazo:</th>
+      <th>Monto a liquidar: </th>
+      <th>&nbsp;</th>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>
+        &nbsp;
+      </td>
+      <td> &nbsp;</td>
+    </tr>
+
+  </tbody>
+</table>
+<form [formGroup]="formGroup" autocomplete="off" class="form-inline" role="form">
+
+  <div class="row ">
+
+    <div class="col-md-4">
+      <div class="form-group">
+        <label class="control-label" for="cuenta-cable">Banco de la cuenta* :</label>
+        <select
+          [ngClass]="[!formGroup.controls['cuentaBanco'].valid && formGroup.controls['cuentaBanco'].touched ? 'form-control-error':'form-control']  "
+          id="sexo" style="width: 300px;" formControlName="cuentaBanco" class="form-control select-style">
+          <option value="F">Banamex </option>
+          <option value="M">Bancomer </option>
+        </select>
+        <div *ngIf="!formGroup.controls['cuentaBanco'].valid">
+          <div *ngIf=" formGroup.controls['cuentaBanco'].errors?.required && formGroup.controls['cuentaBanco'].touched">
+            <p class="error-class"> Es necesario ingresar la información del campo marcado como obligatorio. </p>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group">
+        <label class="control-label" for="cuenta-cable">Cuenta CLABE*:</label>
+        <input
+          [ngClass]="[!formGroup.controls['cuentaCable'].valid && formGroup.controls['cuentaCable'].touched ? 'form-control-error':'form-control']  "
+          class="form-control" style="width: 300px;" id="cuenta-cable" formControlName="cuentaCable"
+          placeholder="Cuenta CLABE" type="text">
+        <div *ngIf="!formGroup.controls['cuentaCable'].valid">
+          <div *ngIf=" formGroup.controls['cuentaCable'].errors?.required && formGroup.controls['cuentaCable'].touched">
+            <p class="error-class"> Es necesario ingresar la información del campo marcado como obligatorio. </p>
+          </div>
+
+
+        </div>
+
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group">
+        <label class="control-label" for="cuenta-cable-confirmar">Confirmar cuenta CLABE*:</label>
+        <input
+          [ngClass]="[!formGroup.controls['cuentaCableConfirmar'].valid && formGroup.controls['cuentaCableConfirmar'].touched ? 'form-control-error':'form-control']  "
+          class="form-control" style="width: 300px;" id="cuentaCableConfirmar" formControlName="cuentaCableConfirmar"
+          placeholder="Confirmar cuenta CLABE" type="text">
+
+        <div *ngIf="!formGroup.controls['cuentaCableConfirmar'].valid">
+          <div
+            *ngIf=" formGroup.controls['cuentaCableConfirmar'].errors?.required && formGroup.controls['cuentaCableConfirmar'].touched">
+            <p class="error-class"> Es necesario ingresar la información del campo marcado como obligatorio. </p>
+          </div>
+
+          <div
+            *ngIf=" formGroup.get('cuentaCableConfirmar').errors?.mustMatch && formGroup.controls['cuentaCableConfirmar'].touched">
+            <p class="error-class">
+              Asegúrate de capturar la contraseña exactamente igual que el campo anterior.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <br>
+  <div class="row ">
+    <h5>Documentos a anexar</h5>
+    <p>
+      Carga los siguientes documentos: Carta de Libranza, identificación oficial, contrato y tabla de amortización de
+      crédito.
+      Para revisar que el documento cargado sea el correcto, presiona Ver documento.
+      Si es necesario reemplazar el archivo, selecciónalo desde tu computadora y presiona nuevamente el botón Cargar.
+    </p>
+  </div>
+
+  <app-autorizar-documento></app-autorizar-documento>
+
+  <div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-9" style="text-align: right;">
+      <a class="btn btn-default" routerLink="../home" role="button">Regresar</a>
+      &nbsp;
+      <button routerLink="../home" class="btn btn-default">
+        <span class="oi oi-undefined glyphicon glyphicon-undefined">
+        </span>
+        Cancelar Carta de Libranza
+      </button>&nbsp;
+      <button (click)="openModalCartaAut()" class="btn btn-primary" [disabled]="!formGroup.valid">
+        <span class="oi oi-undefined glyphicon glyphicon-undefined">
+        </span>
+        Autorizar Carta de Libranza
+      </button>
+    </div>
+  </div><br><br>
+</form>
+
+<jw-modal id="modalCartaAutorizada">
+  <div class="jw-modal-titulo"> <b>Atención</b></div>
+  <div style="height:100%; width:100%">
+    <br>
+    <br>
+    <p style="text-align:center"><b> La Carta de Libranza ha sido autorizada.</b></p>
+    <div align="center">
+      <button type="button" class="btn btn-primary" (click)="registroGuardado()">
+        <span class="oi oi-send glyphicon glyphicon-left"> </span>Aceptar
+      </button>&nbsp;
+
+    </div>
+    <br>
+  </div>
+</jw-modal>

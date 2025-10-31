@@ -1,0 +1,288 @@
+<div class="row">
+    <div class="col-sm-12">Ingresa o actualiza la información de la Entidad Financiera a registrar:</div>
+</div>
+
+<div style="margin: 20px 0 20px;"></div>
+<strong>Informe de la Entidad Financiera</strong>
+<br><br>
+<div class="editarRegistarEF">
+
+    <table>
+        <tr *ngIf="model.enabledModificarEntidad">
+            <td rowspan="8"><img [src]="imgEFUrl" style="    max-width: 270px;
+            margin-left: -20px;
+            margin-right: 10px;" alt="Sin imagen">
+            </td>
+        </tr>
+
+        <tr>
+
+            <td style="width: 20%; vertical-align: super;"><label>RFC: </label>
+                <br>{{model.registrarEntidadFinanciera.rfc}}
+            </td>
+            <td style="width: 20%;vertical-align: super;"><label>Registro Patronal:</label>
+                <br>{{model.registrarEntidadFinanciera.registroPatronal}}
+            </td>
+            <td style="margin-top: 6%;width: 30%"><label>Nombre comercial:</label>
+                <!-- <br>{{model.registrarEntidadFinanciera.nombreComercial}} -->
+                <input pInputText type="text" class="inputRegEditEF" name="nombreComercial"
+                    [ngClass]="nombreComercial.invalid && (nombreComercial.dirty && nombreComercial.touched || registrarForm.submitted) ? 'form-control-error' : 'form-control'"
+                    [(ngModel)]="model.registrarEntidadFinanciera.nombreComercial" #nombreComercial="ngModel"
+                    placeholder="Ingresa el nombre comercial" maxlength="100"
+                    oninput="this.value = this.value.toUpperCase()" required />
+            </td>
+        </tr>
+        <tr>
+
+            <td colspan="2"><label>Razón social: </label>
+                <br>{{model.registrarEntidadFinanciera.razonSocial}}
+            </td>
+            <td style="margin-top: 6%;width: 30%">
+                <div *ngIf="model.enabledModificarEntidad">
+
+                    <label>Estado: </label><br>
+                    <select class="inputRegEditEF" name="estadoInstitucion"
+                        [ngClass]="estadoInstitucion.invalid && (estadoInstitucion.dirty && estadoInstitucion.touched || registrarForm.submitted) ? 'form-control-error' : 'form-control'"
+                        [(ngModel)]="model.registrarEntidadFinanciera.mclcEstadoEf.id" (change)="validarEstadoEntidad()"
+                        #estadoInstitucion="ngModel" required>
+                        <option *ngFor="let estado of  catalogoEstado" [value]="estado.id">
+                            {{estado.descripcion}}</option>
+                    </select>
+                    <div
+                        *ngIf="estadoInstitucion.invalid && (estadoInstitucion.dirty && estadoInstitucion.touched || registrarForm.submitted) ">
+                        <div *ngIf="estadoInstitucion.errors.required">
+                            <small class="form-text form-text-error">Es necesario ingresar la información del campo
+                                marcado como
+                                obligatorio.</small>
+                        </div>
+                    </div>
+                </div>
+
+            </td>
+
+        </tr>
+        <tr>
+
+            <td colspan="3">
+                <div class="row form-group">
+                    <label class="col-sm-2">Domicilio: </label><br>
+                    <div class="col-sm-12">
+                        <input pInputText type="text" class="inputRegEditEF" style="width: 100%!important;"
+                            name="direccion"
+                            [ngClass]="direccion.invalid && (direccion.dirty && direccion.touched || registrarForm.submitted) ? 'form-control-error' : 'form-control'"
+                            [(ngModel)]="model.registrarEntidadFinanciera.direccion" #direccion="ngModel"
+                            placeholder="Ingresa: calle, número exterior, número interior, colonia, municipio o alcaldía, estado, código postal."
+                            maxlength="200" required />
+                        <div
+                            *ngIf="direccion.invalid && (direccion.dirty && direccion.touched || registrarForm.submitted)">
+                            <div *ngIf="direccion.errors.required">
+                                <small class="form-text form-text-error">Es necesario ingresar la información del campo
+                                    marcado como
+                                    obligatorio.</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+
+
+            <td style="width: 30%;">
+                <label>Teléfono*: </label><br>
+                <div>
+                    <input pInputText type="text" class="inputRegEditEF" name="numeroTelefono"
+                        [ngClass]="numeroTelefono.invalid && (numeroTelefono.dirty && numeroTelefono.touched || registrarForm.submitted) ? 'form-control-error' : 'form-control'"
+                        [(ngModel)]="model.registrarEntidadFinanciera.numeroTelefono" #numeroTelefono="ngModel"
+                        placeholder="Ingresa el teléfono" minlength="10" maxlength="10" pKeyFilter="num" numbersOnly
+                        required />
+                    <div
+                        *ngIf="numeroTelefono.invalid && (numeroTelefono.dirty && numeroTelefono.touched || registrarForm.submitted)">
+                        <div *ngIf="numeroTelefono.errors.required">
+                            <small class="form-text form-text-error">Es necesario ingresar la información del campo
+                                marcado como
+                                obligatorio.</small>
+                        </div>
+                        <div *ngIf="numeroTelefono.errors.minlength">
+                            <small class="form-text form-text-error">El teléfono debe tener 10 dígitos.</small>
+                        </div>
+                        <div *ngIf="numeroTelefono.errors.pattern">
+                            <small class="form-text form-text-error">El teléfono debe contener solo números.</small>
+                        </div>
+                    </div>
+
+                </div>
+            </td>
+            <td colspan="2" style="width: 30%;">
+                <label>Teléfono de atención a clientes*:</label><br>
+                <div>
+                    <input pInputText type="text" class="inputRegEditEF" name="telefonoAtencionClientes"
+                        [ngClass]="telefonoAtencionClientes.invalid && (telefonoAtencionClientes.dirty && telefonoAtencionClientes.touched || registrarForm.submitted) ? 'form-control-error' : 'form-control'"
+                        [(ngModel)]="model.registrarEntidadFinanciera.telefonoAtencionClientes"
+                        #telefonoAtencionClientes="ngModel" placeholder="Ingresa el teléfono" minlength="10"
+                        maxlength="10" pKeyFilter="num" numbersOnly required />
+                    <div
+                        *ngIf="telefonoAtencionClientes.invalid && (telefonoAtencionClientes.dirty && telefonoAtencionClientes.touched || registrarForm.submitted)">
+                        <div *ngIf="telefonoAtencionClientes.errors.required">
+                            <small class="form-text form-text-error">Es necesario ingresar la información del campo
+                                marcado como
+                                obligatorio.</small>
+                        </div>
+                        <div *ngIf="telefonoAtencionClientes.errors.minlength">
+                            <small class="form-text form-text-error">El teléfono debe tener 10 dígitos.</small>
+                        </div>
+                        <div *ngIf="telefonoAtencionClientes.errors.pattern">
+                            <small class="form-text form-text-error">El teléfono debe contener solo números.</small>
+                        </div>
+                    </div>
+                </div>
+
+
+            </td>
+        </tr>
+        <tr>
+
+            <td style="width: 30%;">
+                <label>Correo electrónico 1*:</label>
+                <div>
+                    <input pInputText type="text" class="inputRegEditEF" name="correoElectronico1"
+                        [ngClass]="correoElectronico1.invalid && (correoElectronico1.dirty && correoElectronico1.touched || registrarForm.submitted) ? 'form-control-error' : 'form-control'"
+                        [(ngModel)]="model.registrarEntidadFinanciera.correoElectronico" #correoElectronico1="ngModel"
+                        placeholder="Ingresa el correo electrónico" maxlength="200" pattern="{{regexCorreo}}"
+                        oninput="this.value = this.value.toLowerCase()" (keydown.space)="$event.preventDefault()"
+                        required />
+                    <div
+                        *ngIf="correoElectronico1.invalid && (correoElectronico1.dirty && correoElectronico1.touched || registrarForm.submitted)">
+                        <div *ngIf="correoElectronico1.errors.required">
+                            <small class="form-text form-text-error">Es necesario ingresar la información del campo
+                                marcado como
+                                obligatorio.</small>
+                        </div>
+                        <div *ngIf="correoElectronico1.errors.pattern">
+                            <small class="form-text form-text-error">El correo electr&oacute;nico ingresado no es
+                                correcto, por favor verifica.</small>
+                        </div>
+                    </div>
+                </div>
+            </td>
+
+            <td colspan="2" style="width: 30%;">
+
+                <label>Correo electrónico 2:</label>
+                <div>
+                    <input pInputText type="text" class="inputRegEditEF" name="correoElectronico2"
+                        [(ngModel)]="model.registrarEntidadFinanciera.correo2" #correoElectronico2="ngModel"
+                        [ngClass]="correoElectronico2.invalid && (correoElectronico2.dirty && correoElectronico2.touched || registrarForm.submitted) ? 'form-control-error' : 'form-control'"
+                        placeholder="Ingresa el correo electrónico" minlength="3" maxlength="200"
+                        pattern="{{regexCorreo}}" oninput="this.value = this.value.toLowerCase()"
+                        (keydown.space)="$event.preventDefault()" />
+                    <div
+                        *ngIf="correoElectronico2.invalid && (correoElectronico2.dirty && correoElectronico2.touched || registrarForm.submitted)">
+                        <div *ngIf="correoElectronico2.errors.pattern">
+                            <small class="form-text form-text-error">El correo electr&oacute;nico ingresado no es
+                                correcto, por favor verifica.</small>
+                        </div>
+                    </div>
+                </div>
+
+            </td>
+
+
+
+        </tr>
+
+        <tr>
+
+            <td colspan="3"><label>Correo electrónico 3:</label><br>
+                <div>
+                    <input pInputText type="text" class="inputRegEditEF" name="correoElectronico3"
+                        [(ngModel)]="model.registrarEntidadFinanciera.correo3" #correoElectronico3="ngModel"
+                        [ngClass]="correoElectronico3.invalid && (correoElectronico3.dirty && correoElectronico3.touched || registrarForm.submitted) ? 'form-control-error' : 'form-control'"
+                        placeholder="Ingresa el correo electrónico" minlength="3" maxlength="200"
+                        pattern="{{regexCorreo}}" oninput="this.value = this.value.toLowerCase()"
+                        (keydown.space)="$event.preventDefault()" />
+                    <div
+                        *ngIf="correoElectronico3.invalid && (correoElectronico3.dirty && correoElectronico3.touched || registrarForm.submitted)">
+                        <div *ngIf="correoElectronico3.errors.pattern">
+                            <small class="form-text form-text-error">El correo electr&oacute;nico ingresado no es
+                                correcto, por favor verifica.</small>
+                        </div>
+                    </div>
+                </div>
+            </td>
+
+
+        </tr>
+
+
+
+        <tr>
+
+            <td colspan="3"><label>Página web*: </label><br>
+                <div>
+                    <input pInputText type="text" style="width: 100%!important;" class="inputRegEditEF" name="paginaWeb"
+                        [ngClass]="paginaWeb.invalid && (paginaWeb.dirty && paginaWeb.touched || registrarForm.submitted) ? 'form-control-error' : 'form-control'"
+                        [(ngModel)]="model.registrarEntidadFinanciera.paginaWeb" #paginaWeb="ngModel"
+                        placeholder="Ingresa la página web" maxlength="200" pattern="{{regexURL}}"
+                        oninput="this.value = this.value.toLowerCase()" required />
+                    <div *ngIf="paginaWeb.invalid && (paginaWeb.dirty && paginaWeb.touched || registrarForm.submitted)">
+                        <div *ngIf="paginaWeb.errors.required">
+                            <small class="form-text form-text-error">Es necesario ingresar la información del campo
+                                marcado como
+                                obligatorio.</small>
+                        </div>
+                        <div *ngIf="paginaWeb.errors.pattern">
+                            <small class="form-text form-text-error">La URL ingresada no tiene un formato correcto, por
+                                favor verifica.</small>
+                        </div>
+                    </div>
+                </div>
+            </td>
+
+
+        </tr>
+    </table>
+</div>
+
+
+<br>
+<div class="row" style="margin-left: 0%;">
+    <div style="margin: 10px 0 40px;">
+        <h4>Representante Legal</h4>
+        <hr class="red" style="margin: 10px 0 40px;">
+    </div>
+
+    <div class="" style="height: 101px!important;">
+
+        <label class="col-sm-2">CURP*: </label><br>
+        <div class="col-sm-4" style="margin-left: -17%; margin-top: 1%;">
+            <input pInputText type="text" class="inputRegEditEF" name="curpRepresentanteLegal"
+                [ngClass]="flat || curpRepresentanteLegal.invalid && (curpRepresentanteLegal.dirty && curpRepresentanteLegal.touched && registrarForm.submitted) ? 'form-control-error' : 'form-control'"
+                [(ngModel)]="model.registrarEntidadFinanciera.curpRepresentanteLegal" #curpRepresentanteLegal="ngModel"
+                (change)="consultarRenapo()" placeholder="Ingresa la CURP" maxlength="18" pKeyFilter="alphanum" required
+                pattern="{{regexCurp}}"
+                (ngModelChange)="model.registrarEntidadFinanciera.curpRepresentanteLegal = $event.toUpperCase()"
+                autofocus />
+            <div
+                *ngIf="curpRepresentanteLegal.invalid && (curpRepresentanteLegal.dirty && curpRepresentanteLegal.touched || registrarForm.submitted)">
+                <div *ngIf="curpRepresentanteLegal.errors.required">
+                    <small class="form-text form-text-error">Es necesario ingresar la información del campo marcado como
+                        obligatorio.</small>
+                </div>
+                <div *ngIf="curpRepresentanteLegal.errors.pattern">
+                    <small class="form-text form-text-error">La CURP ingresada no es correcta, por favor
+                        verifica.</small>
+                </div>
+            </div>
+        </div>
+
+        <label class="col-sm-2" style="margin-top:-2%;">Nombre:</label><br>
+        <div class="col-sm-4">
+            <span> {{model.registrarEntidadFinanciera.nombreLegal}} {{model.registrarEntidadFinanciera.primerApeLegal}}
+                {{model.registrarEntidadFinanciera.segundoApeLegal}}</span>
+
+        </div>
+
+    </div>
+
+    <br><br>

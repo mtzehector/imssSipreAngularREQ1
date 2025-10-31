@@ -1,0 +1,165 @@
+
+<ol class="breadcrumb ">
+  <li><a href="#"><i class="icon icon-home"></i></a></li>
+  <li><a href="#">Inicio</a></li>
+  <li class="active">Préstamos a cuenta de pensión con Entidades Financieras </li>
+</ol>
+<div class="row" style="height: 15px;">
+  <div class="col-md-12" >
+      <h4>Préstamos a cuenta de pensión con Entidades Financieras </h4>
+      <hr class="red">
+  </div>
+</div>
+<br><br>
+
+<app-menu></app-menu>
+<div class="row" style="padding: 10px;">
+  <div class="col-md-8">
+  </div>
+  <app-user-profile></app-user-profile>
+</div>
+
+<div class="col-md-12">
+    <h4>Cancelar Capacidad de Cr&eacute;dito </h4>
+    <hr class="red" />
+</div>
+
+<br>
+<div class="container">
+  <table class="table table-striped" >
+    <thead>
+      <tr >
+        <th scope="col">&nbsp;</th>
+        <th scope="col">&nbsp;</th>
+        <th scope="col">&nbsp;</th>
+        <th scope="col">&nbsp;</th>
+      </tr>
+      <tr >
+        <th scope="col" style="text-align: right;">Folio :</th>
+        <th scope="col" style="text-align: left;">{{resumenCartaCapacidad.solicitud.numFolioSolicitud}}</th>
+        <th scope="col" style="text-align: right;">Lugar y fecha:</th>
+        <th scope="col" style="text-align: left;">{{resumenCartaCapacidad.pensionado.entidadFederativa.descEntidadFederativa}} {{this.diaActual}}</th>
+      </tr>
+    </thead>
+  </table>
+
+</div>
+<br>
+<div class="container">
+<!-- DATOS DEL PENSIONADO-->
+<table class="table table-striped" >
+  <thead>
+    <tr>
+      <th scope="col">Información del solicitante</th>
+      <th scope="col"></th>
+      <th scope="col"></th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Tipo de trabajador: </td>
+      <td>Nombre(s): </td>
+      <td>Primer apellido: </td>
+      <td> Segundo apellido: </td>
+    </tr>
+    <tr>
+      <td>{{resumenCartaCapacidad.solicitud.refTrabajador}}</td>
+      <td>{{resumenCartaCapacidad.pensionado.nombre}}</td>
+      <td>{{resumenCartaCapacidad.pensionado.primerApellido}}</td>
+      <td>{{resumenCartaCapacidad.pensionado.segundoApellido}}</td>
+    </tr>
+    <tr>
+      <td>CURP: </td>
+      <td>NSS: </td>
+      <td>Teléfono:</td>
+      <td>Correo electrónico:</td>
+    </tr>
+    <tr>
+      <td>{{resumenCartaCapacidad.pensionado.curp}}</td>
+      <td> {{resumenCartaCapacidad.solicitud.nss}}</td>
+      <td>{{this.persona.telCelular}}</td>
+      <td>{{this.persona.correoElectronico}}</td>
+    </tr>
+   
+  </tbody>
+</table>
+
+<!-- FIN DEL  DATOS DEL PENSIONADO-->
+<br>
+
+<!-- DATOS DEL PENSIONADO-->
+
+<table class="table table-striped" >
+  <thead>
+    <tr>
+      <th scope="col">Capacidad de crédito vigente</th>
+      <th scope="col"></th>
+      <th scope="col"></th>
+     
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center; width: 33%;">Capacidad fija: 
+        <span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Es la cantidad de dinero
+fija que recibes
+mes a mes." ></span>
+      </td>
+      <td style="text-align: center; width: 33%;">Capacidad variable: 
+        <span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Es la cantidad de dinero
+adicional que, como 
+beneficio, recibes 
+por otros conceptos." ></span>
+      </td>
+      <td style="text-align: center; width: 33%;">Capacidad total: 
+        <span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Es la suma de la capacidad
+fija y la capacidad 
+variable. Puede variar." ></span>
+      </td>
+     
+    </tr>
+    <tr>
+      <td style="text-align: center; width: 33%;">$ {{resumenCartaCapacidad.capacidadCredito.impCapacidadFija | number:'3.2-2' }}</td>
+      <td style="text-align: center; width: 33%;">$ {{resumenCartaCapacidad.capacidadCredito.impCapacidadVariable | number:'3.2-2' }}</td>
+      <td style="text-align: center; width: 33%;">$ {{resumenCartaCapacidad.capacidadCredito.impCapacidadTotal | number:'3.2-2' }}</td>
+     
+    </tr>
+   
+ 
+
+   
+  </tbody>
+</table>
+
+<!-- FIN DEL  DATOS DEL PENSIONADO-->
+</div>
+
+<div class="container">
+  <div class="col-md-6"></div>
+  <div class="col-md-6" style="text-align: right;">
+    <button (click)="folioCancelar(solicitud)" class="btn btn-primary">
+      <span class="oi oi-undefined glyphicon glyphicon-undefined"></span>Cancelar folio 
+    </button>
+    &nbsp;
+    <a class="btn btn-default" routerLink="/pensionado/buscarFolioCancelar" role="button">Regresar</a>
+  &nbsp;
+  
+    <br><br>
+  </div>
+  <jw-modal id="cancelarFolio">
+    <div class="jw-modal-titulo"> <b>Atención</b></div>
+    <div style="height:100%; width:100%">
+      <br>
+      <p style="text-align:center"><b>
+¿Estás de acuerdo en cancelar el folio.?</b></p>
+      <br>
+      <div class="col-md-12" align="right">
+        <button class="btn btn-primary " (click)="cancelarCapacidad();">Si</button>
+        <button class="btn btn-default" (click)="closeModal();">No</button>&nbsp;
+        
+    
+      </div>
+    </div>
+  </jw-modal>
+</div>

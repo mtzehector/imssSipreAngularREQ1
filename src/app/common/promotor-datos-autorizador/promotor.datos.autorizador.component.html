@@ -1,0 +1,40 @@
+<div class="row tarjeta">
+    <div class="row tarjeta-header">
+        Personal operativo
+    </div>
+    <div class="row tarjeta-body">
+        <div class="col-md-4">
+            <img [src]="imgPromotorUrl" alt="Sin imagen" style="max-width: 250px; max-height: 150px;">
+        </div>
+        <div class="col-md-8">
+            <div class="row tarjeta-title-1">
+                <div class="col-md-6">
+                    Nombre:
+                </div>
+                <div class="col-md-6">
+                    Teléfono móvil:
+                </div>
+            </div>
+            <div class="row tarjeta-data-1">
+                <div class="col-md-6">
+                    {{model.informeCartaInstruccion.personaEf.nombre}}&nbsp;
+                    {{model.informeCartaInstruccion.personaEf.primerApellido}}&nbsp;
+                    {{model.informeCartaInstruccion.personaEf.segundoApellido}}
+                </div>
+                <div class="col-md-6">
+                    {{ model.informeCartaInstruccion.promotor.telefono}}
+                </div>
+            </div>
+            <div class="row tarjeta-title-1">
+                <div class="col-md-12">
+                    Correo Electrónico:
+                </div>
+            </div>
+            <div class="row tarjeta-data-1">
+                <div class="col-md-12">
+                    {{ model.informeCartaInstruccion.promotor.correoElectronico}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

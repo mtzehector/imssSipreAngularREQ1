@@ -1,0 +1,96 @@
+<div class="row">
+    <div class="col-md-12">
+      <h4>Detalle de conciliación</h4>
+      <hr class="red">
+    </div>
+</div>
+<form class="form-horizontal" [formGroup]="formGroup" (ngSubmit)="generarConciliacion()" role="form" autocomplete="off">
+    <div class="row" style="margin-left: 0px !important;">
+        <div class="form-group">
+            <br>
+            <br>
+            <div class="col-sm-2"></div>
+            <div class="col-sm-4">
+                <label class="">Período: </label>
+                <input type="text" class="form-control"
+                    formControlName="periodo"
+                    [(ngModel)]="conciliacion.periodo"
+                    name="periodo"
+                    pKeyFilter="pint" 
+                    placeholder="Ingresa  el período (aaaamm)" 
+                    minlength="6" 
+                    maxlength="6"
+                    aria-describedby="basic-addon1" 
+                    autofocus 
+                    onkeypress='return event.charCode >= 48 && event.charCode <= 57'/>
+                <div *ngIf="formGroup.controls['periodo'].invalid">
+                    <div *ngIf=" formGroup.controls['periodo'].errors?.required && formGroup.controls['periodo'].touched">
+                        <p class="error-class">
+                          Es necesario ingresar la información del campo marcado como obligatorio. 
+                        </p>
+                    </div>
+                    <div *ngIf="formGroup.get('periodo').errors?.minlength && formGroup.controls['periodo'].touched">
+                        <p class="error-class">
+                            Formato incorrecto, debe contener 6 números
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <br>
+                <button type="submit" 
+                    style="height: 45px!important;" 
+                    class="btn btn-primary pull-right">
+                    Generar
+                </button>
+            </div>
+            <div class="col-sm-2">
+                <br>
+                <button type="button" 
+                        class="btn btn-secondary pull-right"
+                        (click)="limpiar()">
+                    Limpiar
+                </button>
+            </div>
+        </div>    
+    </div>
+</form>
+<br/>
+<div class="row">
+    <div class="sin-info col-md-12">
+        <h4>Resultados de la b&uacute;squeda</h4>
+        <br>
+    </div>
+    <div *ngIf="documento != null" class="col-md-12">
+        <table class="table table-striped">
+            <thead>
+                <th>Reporte</th>
+                <th>Período</th>
+                <th>Archivo adjunto</th>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Detalle de la conciliación</td>
+                    <td>{{conciliacion.periodo}}</td>
+                    <td>
+                        <app-download [documento]="documento">
+                        </app-download>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<jw-modal id="carga">
+    <div class="jw-modal-titulo"> <b>Atención</b></div>
+    <div style="height:100%; width:100%">
+        <br>
+        <br>
+        <p style="text-align:center"><b>Cargando datos</b></p>
+        <div align="center">
+            <div class="preloader"></div>
+        </div>
+        <br>
+    </div>
+</jw-modal>

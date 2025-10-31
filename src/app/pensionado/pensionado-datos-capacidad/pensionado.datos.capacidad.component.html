@@ -1,0 +1,42 @@
+
+<table  class="table table-striped" >
+  <thead>
+<tr>
+  <th scope="col" colspan="7"> Información del solicitante</th>
+</tr>
+
+
+    <tr>
+      <th scope="col" style="text-align: left; width: 20%;">Tipo de trabajador:</th>
+      <th scope="col" style="text-align: left; width: 35%;">Nombre(s):  </th>
+      <th scope="col" style="text-align: left; width: 22%;">Primer apellido:</th>
+      <th scope="col" style="text-align: left; width: 22%;">Segundo apellido:</th>
+      
+    </tr>
+  </thead>
+  <tbody> 
+     
+      <tr > 
+          <td>Pensionado</td>
+          <td>{{persona.nombre}}</td>
+          <td>{{persona.primerApellido}} </td>
+          <td>{{persona.segundoApellido}}</td>
+      </tr> 
+
+        
+    <tr>
+      <th scope="col" style="text-align: left; width: 13%;">CURP:</th>
+      <th scope="col" style="text-align: left; width: 13%;">NSS:  </th>
+      <th scope="col" style="text-align: left; width: 13%;">Teléfono:</th>
+      <th scope="col" style="text-align: left; width: 13%;">Correo electrónico:</th>
+      
+    </tr>
+
+    <tr > 
+        <td>{{pensionado.curp}}</td>
+        <td>{{pensionado.nss}} </td>
+        <td>{{persona.telefono}}</td>
+        <td>{{persona.correoElectronico}}</td>
+     </tr> 
+  </tbody>
+</table>

@@ -1,0 +1,16 @@
+#global {
+	height: 300px;
+	width: 100%;
+	border: 1px solid #ddd;
+	background: #ffffff;
+    overflow-y: scroll;
+    padding:4px;
+    text-align: left;
+}
+
+table {
+    border: solid 0px;
+    width: 95%;
+ 
+    
+}
