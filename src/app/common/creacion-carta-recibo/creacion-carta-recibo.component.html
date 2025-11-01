@@ -1,0 +1,233 @@
+<div class="row">
+    <div class="col-md-12">
+      <h4>Carta Recibo</h4>
+      <hr class="red">
+    </div>
+</div>
+<form class="form-horizontal" [formGroup]="formGroup" (ngSubmit)="existeCartaRecibo()" role="form" autocomplete="off">
+    <div class="formulario">
+        <div class="row">
+            <div class="col-sm-4 form-group">
+                <label class="">Entidad Financiera: </label>
+                    <input type="text" class="form-control"
+                    formControlName="entidadFinanciera"
+                    [(ngModel)]="conciliacion.nombreEntidad"
+                    disabled="true"
+                    aria-describedby="basic-addon1"
+                    style="width:320px!important"/>
+            </div>
+        
+            <div class="col-sm-4 form-group">
+                <label class="">Período: </label>
+                <input type="text" class="form-control"
+                    formControlName="periodo"
+                    [(ngModel)]="conciliacion.periodo"
+                    name="periodo"
+                    pKeyFilter="pint" 
+                    placeholder="Ingresa el período (aaaamm)" 
+                    minlength="6" 
+                    maxlength="6"
+                    aria-describedby="basic-addon1" 
+                    autofocus 
+                    style="width:320px!important"
+                    onkeypress='return event.charCode >= 48 && event.charCode <= 57'/>
+                <div *ngIf="formGroup.controls['periodo'].invalid">
+                    <div *ngIf=" formGroup.controls['periodo'].errors?.required && formGroup.controls['periodo'].touched">
+                        <p class="error-class">
+                          Es necesario ingresar la información del campo marcado como obligatorio. 
+                        </p>
+                    </div>
+                    <div *ngIf="formGroup.get('periodo').errors?.minlength && formGroup.controls['periodo'].touched">
+                        <p class="error-class">
+                            Formato incorrecto, debe contener 6 números
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-2">
+                <br>
+                <button type="submit" 
+                        style="height: 45px!important;" 
+                        class="btn btn-primary pull-right"
+                        [disabled]="consultaBloqueada || formGroup.get('periodo').errors?.minlength || formGroup.controls['periodo'].errors?.required">
+                    Buscar
+                </button>
+            </div>
+
+            <div class="col-sm-2">
+                <br>
+                <button type="button" 
+                        class="btn btn-secondary pull-right"
+                        (click)="limpiar()">
+                    Limpiar
+                </button>
+            </div>
+        </div>
+    </div>
+    <!--
+    <div class="row" style="margin-left: 0px !important;">
+        <div class="form-group">
+            <br>
+            <br>
+            <div class="col-sm-2"></div>
+            <div class="col-sm-4">
+                <label class="">Período: </label>
+                <input type="text" class="form-control"
+                    formControlName="periodo"
+                    [(ngModel)]="conciliacion.periodo"
+                    name="periodo"
+                    pKeyFilter="pint" 
+                    placeholder="Ingresa el período (aaaamm)" 
+                    minlength="6" 
+                    maxlength="6"
+                    aria-describedby="basic-addon1" 
+                    autofocus 
+                    onkeypress='return event.charCode >= 48 && event.charCode <= 57'/>
+                <div *ngIf="formGroup.controls['periodo'].invalid">
+                    <div *ngIf=" formGroup.controls['periodo'].errors?.required && formGroup.controls['periodo'].touched">
+                        <p class="error-class">
+                          Es necesario ingresar la información del campo marcado como obligatorio. 
+                        </p>
+                    </div>
+                    <div *ngIf="formGroup.get('periodo').errors?.minlength && formGroup.controls['periodo'].touched">
+                        <p class="error-class">
+                            Formato incorrecto, debe contener 6 números
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <br>
+                <button type="submit" 
+                    style="height: 45px!important;" 
+                    class="btn btn-primary pull-right">
+                    Generar
+                </button>
+            </div>
+            <div class="col-sm-2">
+                <br>
+                <button type="button" 
+                        class="btn btn-secondary pull-right"
+                        (click)="limpiar()">
+                    Limpiar
+                </button>
+            </div>
+        </div>    
+    </div>
+    -->
+</form>
+<br/>
+<div *ngIf="documento.id != null" class="row">
+    <div class="sin-info col-md-12">
+        <h4>Resultados de la b&uacute;squeda</h4>
+        <br>
+    </div>
+    <div class="col-md-12">
+        <table class="table table-striped">
+            <thead>
+                <th>Nombre del archivo</th>
+                <th>Archivo adjunto</th>
+                <th *ngIf="documento.tipoDocumento == 28 && (model.rol=='adminEF' || model.rol=='adminEFSinConvenio')">
+                    Firmar Documento
+                </th>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{documento.tipoDocumentoEnum == null? "" : documento.tipoDocumentoEnum.descripcion}}</td>
+                    <td><app-download *ngIf="documento.tipoDocumento != null" [documento]="documento"></app-download></td>
+                    <td *ngIf="documento.tipoDocumento == 28 && (model.rol=='adminEF' || model.rol=='adminEFSinConvenio')">
+                        <button type="button" class="btn btn-secondary" (click)="showCHFECyN()">
+                            Firma FIEL
+                        </button>
+                    </td>
+                    <td *ngIf="documento.tipoDocumento == 29 && model.rol=='operadorEF'">
+                        <button type="button" class="btn btn-secondary" (click)="showCHFECyN()">
+                            Firma FIEL
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<br/>
+<div>
+    <form action="this.serviceURL"
+          method="post"
+          target="firmaIframe"
+          (ngSubmit)="submitForm($event)"
+          #form>
+            <input id="params" 
+                   name="params"
+                   type="hidden"
+                   value='{"operacion":"firmaCMS","aplicacion":"SIPRE2.0","rfc":"${rfc}","acuse":"AcuseSIPRE2.0","cad_original":`Rfc:${rfc}|IdEF:${model.entidadFinanciera.id}|periodo:${conciliacion.periodo}|fecha:${fechaFormato}`,"salida":"rfc, firma"}'/>
+                   <!-- 
+                        rfc
+                        id EF
+                        periodo
+                        fecha yyyy-mm-dd hh:mm:ss
+                   -->
+                   <!-- value='{"operacion":"firmaCMS","aplicacion":"TSPI","rfc":"AAA010101AAA","acuse":"GENERICO_ACUSE","cad_original":"|Rfc:MUM061006RV7|Tipo de trámite:Notificación Buzón IMSS|UUID:0cda5ad0-e953-4e85-9cbd-718b54fe3845|Folio de FD:8cafe4c5-b6c0-4009-be88-13f92f104533|Fecha y hora:202010152225|v1.0|Instituto Mexicano del Seguro Social, Órgano de Operación Administrativa Desconcentrada: REGIONAL BAJA CALIFORNIA|MANAGER UNION DE MEXICO SA DE CV|Y3739432106|RESOLUCIÓN PARA CUBRIR LA PRIMA MEDIA|","salida":"cert,rfc,curp,rfc_rl,curp_rl,contenedores,vigIni,vigFin,cadori,serie_cert,acuse,firmas,archivosFirmados,nombreRazonSocial"}' -->
+         
+    </form>
+</div>
+
+<jw-modal id="carga">
+    <div class="jw-modal-titulo"> <b>Atención</b></div>
+    <div style="height:100%; width:100%">
+        <br>
+        <br>
+        <p style="text-align:center"><b>Cargando datos</b></p>
+        <div align="center">
+            <div class="preloader"></div>
+        </div>
+        <br>
+    </div>
+</jw-modal>
+
+<jw-modal id="generarCartaRecibo">
+    <div class="jw-modal-titulo"> <b>Atención</b></div>
+    <br>
+    <br>
+    <br>
+    <div style="height:100%; width:100%; margin-top:-2%;">
+        <p *ngIf="model.rol=='adminEF' || model.rol=='adminEFSinConvenio'" style="text-align:center" class="popupPensionado">
+            ¿Carta Recibo aún no generada, desea generarla?
+        </p>
+        <p *ngIf="model.rol=='operadorEF'" style="text-align:center" class="popupPensionado">
+            Carta Recibo aún no generada
+        </p>
+        <div class="col-md-12" style="margin-top: -2px!important;" align="right">
+            <button *ngIf="model.rol=='operadorEF'" class="btn btn-default" (click)="closeModal();">
+                Cerrar
+            </button>&nbsp;&nbsp;
+            <button *ngIf="model.rol=='adminEF' || model.rol=='adminEFSinConvenio'" class="btn btn-default" (click)="closeModal();">
+                No
+            </button>&nbsp;&nbsp;
+            <button *ngIf="model.rol=='adminEF' || model.rol=='adminEFSinConvenio'" class="btn btn-primary" (click)="generarCartaReciboInicial();">
+                Si
+            </button>&nbsp;&nbsp; &nbsp;&nbsp;
+        </div>
+    </div>
+</jw-modal>
+
+<jw-modal id="modal-firma">
+    <div class="jw-modal-titulo"><b>Firma Electrónica</b></div>
+    <br>
+    <div style="height:100%; width:100%">
+        <iframe width="650" 
+                height="350"  
+                id="firmaIframe" 
+                name="firmaIframe" 
+                class="custom-frame">
+        </iframe>
+    </div>
+    <div class="col-md-12" align="right">
+        <br>
+        <button type="button" class="btn btn-secondary pull-right" (click)="cancelar()">
+            Cancelar
+        </button>
+    </div>
+</jw-modal>

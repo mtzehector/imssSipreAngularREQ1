@@ -1,0 +1,295 @@
+<br><br>
+<div class="alert alert-success" *ngIf="cambiosGuardado">
+    El registro se ha realizado con éxito
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <h3>Préstamos a cuenta de pensión con Entidades Financieras </h3>
+        <hr class="red">
+        <h4> Registro de Usuario Pensionado </h4>
+
+        <div *ngIf="cambiosGuardado">
+            <p>El registro fue guardado. Se te ha enviado un correo electrónico con instrucciones y un código de
+                confirmación disponible solamente por los siguientes 3 horas para activar tu usuario.</p>
+        </div>
+
+        <div class="row pull-right" *ngIf=cambiosGuardado>
+            <div>
+                <div class="col-sm-7">
+                    <button type="button" (click)="navegarRegPassword()" class="btn btn-primary">Registar contraseña
+                    </button>
+                    <br>
+                </div>
+                <br>
+            </div>
+            <br>
+        </div>
+        <br>
+        <div *ngIf="!cambiosGuardado">
+            <p> Ingresa los siguientes datos:</p>
+        </div>
+    </div>
+</div>
+<br>
+<div *ngIf="!cambiosGuardado">
+    <form role="form" class="form-horizontal" [formGroup]="formGroup"
+     autocomplete="off">
+        <div class="row">
+            <div class="col-sm-4">
+                <span style="font-weight: bold;">CURP*:</span>
+                <div>
+                    <input
+                        [ngClass]="[!formGroup.controls['curp'].valid && formGroup.controls['curp'].touched  && captchaValueVerificado != true ? 'form-control-error':'form-control']  "
+                        class=" form-control" formControlName="curp" maxlength="18" type="text"
+                        oninput="this.value = this.value.toUpperCase()" placeholder="Ingresa CURP de 18 caracteres">
+
+                    <div *ngIf="!formGroup.controls['curp'].valid">
+                        <div *ngIf="formGroup.get('curp').errors?.pattern && formGroup.controls['curp'].touched">
+                            <p class="error-class">
+                                No se permiten caracteres especiales.</p>
+                        </div>
+                        <div
+                            *ngIf="formGroup.get('curp').value.length < 18 && formGroup.controls['curp'].touched && formGroup.get('curp').value.length > 0 && !formGroup.get('curp').errors?.pattern">
+                            <p class="error-class">
+                                La CURP debe tener 18 caracteres.</p>
+                        </div>
+                        <div *ngIf=" formGroup.controls['curp'].errors?.required && formGroup.controls['curp'].touched">
+                            <p class="error-class">
+                                Es necesario ingresar la información del campo marcado como obligatorio.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-sm-4">
+                <span style="font-weight: bold;">NSS*:</span>
+                <div>
+                    <input
+                        [ngClass]="[!formGroup.controls['nss'].valid && formGroup.controls['nss'].touched && captchaValueVerificado != true ? 'form-control-error':'form-control']  "
+                        class="form-control" formControlName="nss" maxlength="11" type="text"
+                        placeholder="Ingresa NSS de 11 dígitos">
+
+                    <div *ngIf="!formGroup.controls['nss'].valid">
+
+
+                        <div *ngIf="!formGroup.controls['nss'].valid">
+                            <div *ngIf="formGroup.get('nss').errors?.pattern && formGroup.controls['nss'].touched">
+                                <p class="error-class">
+                                    Sólo se permiten caracteres numéricos.</p>
+                            </div>
+                            <div
+                                *ngIf="formGroup.get('nss').value.length < 11 && formGroup.controls['nss'].touched && formGroup.get('nss').value.length > 0 && !formGroup.get('nss').errors?.pattern">
+                                <p class="error-class">
+                                    El NSS debe tener 11 dígitos.
+                                </p>
+                            </div>
+                            <div
+                                *ngIf=" formGroup.controls['nss'].errors?.required && formGroup.controls['nss'].touched">
+                                <p class="error-class">
+                                    Es necesario ingresar la información del campo marcado como obligatorio.
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-4">
+                <span style="font-weight: bold;">Teléfono móvil*:</span>
+                <div>
+                    <input
+                        [ngClass]="[!formGroup.controls['numTelefono'].valid && formGroup.controls['numTelefono'].touched && captchaValueVerificado != true ? 'form-control-error':'form-control']"
+                        class="form-control" formControlName="numTelefono" maxlength="10" type="input"
+                        placeholder="Ingresa teléfono móvil de 10 dígitos">
+
+                    <div *ngIf="!formGroup.controls['numTelefono'].valid">
+                        <div
+                            *ngIf="formGroup.get('numTelefono').errors?.pattern && formGroup.controls['numTelefono'].touched">
+                            <p class="error-class">
+                                Sólo se permiten caracteres numéricos.</p>
+                        </div>
+                        <div
+                            *ngIf="formGroup.get('numTelefono').value.length < 10 && formGroup.controls['numTelefono'].touched && formGroup.get('numTelefono').value.length > 0 && !formGroup.get('numTelefono').errors?.pattern">
+                            <p class="error-class">
+                                El teléfono debe tener 10 dígitos.
+                            </p>
+                        </div>
+                        <div
+                            *ngIf=" formGroup.controls['numTelefono'].errors?.required && formGroup.controls['numTelefono'].touched">
+                            <p class="error-class">
+                                Es necesario ingresar la información del campo marcado como obligatorio.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <br>
+        <div class="row">
+            <div class="col-sm-12">
+                <span style="font-weight: bold;">Ingresa tu correo electrónico y confírmalo*:</span>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-sm-4">
+                <input
+                    [ngClass]="[!formGroup.controls['correo'].valid && formGroup.controls['correo'].touched && captchaValueVerificado != true ? 'form-control-error':'form-control']  "
+                    class="form-control" formControlName="correo" type="text" placeholder="Ingresa correo electrónico"
+                    oninput="this.value = this.value.toLowerCase()" autocomplete="disabled" appBlockCopyPaste>
+
+                <div *ngIf="!formGroup.controls['correo'].valid">
+                    <div *ngIf=" formGroup.get('correo').errors?.pattern && formGroup.controls['correo'].touched">
+                        <p class="error-class">Asegúrate de que tu correo tenga el símbolo @ y un punto.
+                    </div>
+
+                    <div *ngIf=" formGroup.controls['correo'].errors?.required && formGroup.controls['correo'].touched">
+                        <p class="error-class">Es necesario ingresar la información del campo marcado como
+                            obligatorio. </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <input
+                    [ngClass]="[!formGroup.controls['correoConfirmar'].valid && formGroup.controls['correoConfirmar'].touched && captchaValueVerificado != true ? 'form-control-error':'form-control']  "
+                    class="form-control" formControlName="correoConfirmar" type="text"
+                    placeholder="Confirma correo electrónico" oninput="this.value = this.value.toLowerCase()"
+                    autocomplete="disabled" appBlockCopyPaste>
+
+                <div *ngIf="!formGroup.controls['correoConfirmar'].valid">
+
+
+                    <div
+                        *ngIf=" formGroup.controls['correoConfirmar'].errors?.required && formGroup.controls['correoConfirmar'].touched">
+                        <p class="error-class">Es necesario ingresar la información del campo marcado como
+                            obligatorio. </p>
+                    </div>
+                    <div
+                        *ngIf="formGroup.get('correoConfirmar').errors?.email  && formGroup.controls['correoConfirmar'].touched">
+                        <p class="error-class">
+                            Asegúrate de que tu correo tenga el símbolo @ y un punto.
+                        </p>
+                    </div>
+                    <div *ngIf=" formGroup.get('correoConfirmar').errors?.pattern && formGroup.controls['correoConfirmar'].touched">
+                        <p class="error-class">Asegúrate de que tu correo tenga el símbolo @ y un
+                            punto.
+                    </div>
+
+                    <div
+                        *ngIf=" formGroup.get('correoConfirmar').errors?.mustMatch && formGroup.controls['correoConfirmar'].touched">
+                        <p class="error-class">
+                            El correo ingresado es distinto al campo anterior.
+                        </p>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <br> <br>
+        <div class="row">
+
+
+            <div class="col-sm-4">
+                <img [src]="captchaImageInBase64" width="100%" height="100%" alt="Captcha" />
+
+            </div>
+            <div class="col-sm-1">
+                <div class="btn" (click)="consultarServicioGenerarCaptcha()">
+                    <svg class="bi bi-arrow-repeat" width="2em" height="2em" viewBox="0 0 16 16" fill="currentColor"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                            d="M2.854 7.146a.5.5 0 0 0-.708 0l-2 2a.5.5 0 1 0 .708.708L2.5 8.207l1.646 1.647a.5.5 0 0 0 .708-.708l-2-2zm13-1a.5.5 0 0 0-.708 0L13.5 7.793l-1.646-1.647a.5.5 0 0 0-.708.708l2 2a.5.5 0 0 0 .708 0l2-2a.5.5 0 0 0 0-.708z" />
+                        <path fill-rule="evenodd"
+                            d="M8 3a4.995 4.995 0 0 0-4.192 2.273.5.5 0 0 1-.837-.546A6 6 0 0 1 14 8a.5.5 0 0 1-1.001 0 5 5 0 0 0-5-5zM2.5 7.5A.5.5 0 0 1 3 8a5 5 0 0 0 9.192 2.727.5.5 0 1 1 .837.546A6 6 0 0 1 2 8a.5.5 0 0 1 .501-.5z" />
+                    </svg>
+                </div>
+            </div>
+
+            <div class="col-sm-3">
+                <input
+                    [ngClass]="[!formGroup.controls['captchaTyped'].valid && formGroup.controls['captchaTyped'].touched && captchaValueVerificado != true ? 'form-control-error':'form-control']  "
+                    class=" form-control" formControlName="captchaTyped" type="text" [(ngModel)]="captchaValueTyped"
+                    ngModel maxlength="7" (ngModelChange)="resetVerificarCaptcha()" placeholder="Ingresa CAPTCHA">
+                <div *ngIf="(formGroup.controls['captchaTyped'].errors?.required && formGroup.controls['captchaTyped'].touched)
+                                 || (!this.captchaIsValid && !this.captchaValidando && this.captchaValueVerificado)">
+                    <p class="error-class">Es necesario ingresar la información del campo marcado como
+                        obligatorio.
+                    </p>
+                </div>
+                <div
+                    *ngIf="formGroup.get('captchaTyped').errors?.pattern  && formGroup.controls['captchaTyped'].touched">
+                    <p class="error-class">
+                        El captcha debe tener 7 caracteres.
+                    </p>
+                </div>
+                <div
+                    *ngIf="(formGroup.controls['captchaTyped'].valid && captchaIsValid == false && captchaValueVerificado == true) && captchaValidando == false">
+                    <p class="error-class">El CAPTCHA que ingresaste no corresponde con la imagen.</p>
+                </div>
+
+                <div *ngIf="captchaCapturadoErroneo == true">
+                    <div>
+                        <p class="error-class">El Captcha ingresado es incorrecto, vuelva a intentarlo.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-4">
+                <button type="button" [ngClass]="{'btn-success' : captchaIsValid}" class="btn btn-default"
+                    (click)="validarCaptcha()" [disabled]="captchaIsValid == true || captchaValidando">
+                    <span *ngIf="!captchaIsValid && !captchaValidando">Validar</span>
+                    <span *ngIf="captchaValidando && !captchaIsValid">Validando...</span>
+                    <span *ngIf="captchaIsValid && !captchaValidando">Es Correcto</span>
+                </button>
+            </div>
+
+
+        </div><br>
+        <br> * Campos obligatorios
+        <br>
+        <div class="row pull-right">
+            <div>
+
+                <div class="col-sm-12">
+                    <button type="button" routerLink="../login" class="btn btn-default">Regresar
+                    </button>
+                    &nbsp;&nbsp;&nbsp;
+                    <button type="button" (click)="limpiarForm()" class="btn btn-default">Limpiar
+                    </button>
+                    &nbsp;&nbsp;&nbsp;
+                    <button appPrevieneDobleClick type="submit" [disabled]="formGroup.invalid || buttonSubmitStatus"
+                        class="btn btn-primary" (throttledClick)="guardarCambios()">
+                        Registrar
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+
+    </form>
+
+
+</div>
+<br>
+<br>
+<br>
+<jw-modal id="modalRegistroPensionado">
+    <div class="jw-modal-titulo"> <b>Atención</b></div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-12">
+                <p style="text-align: center;">Cargando datos.</p>
+                <div align="center">
+                    <div class="preloader"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</jw-modal>

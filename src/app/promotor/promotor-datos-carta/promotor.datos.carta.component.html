@@ -1,0 +1,49 @@
+
+
+<div class="container">
+  <table  class="table table-striped" >
+     <thead>
+       <tr>
+         <th scope="col">Información del personal operativo</th>
+         <th scope="col"></th>
+         <th scope="col"></th>
+       </tr>
+     </thead>
+     <tbody>
+       <tr>
+         <th>Entidad Financiera: </th>
+         <th colspan="2">Matr&iacute;cula: </th>
+       </tr>
+ 
+       <tr>
+         <td>{{personaEF.entidadFinanciera.nombreComercial}} </td>
+         <td colspan="2"> {{personaEF.numEmpleado}}</td>
+       </tr>
+       <tr>
+         <th>Nombre(s): </th>
+         <th>Primer apellido: </th>
+         <th> Segundo apellido: </th>
+      
+       </tr>
+ 
+       <tr>
+         <td> {{personaEF.nombre}} </td>
+         <td>{{personaEF.primerApellido}}</td>
+         <td>  {{personaEF.segundoApellido}}</td>
+      
+       </tr>
+       <tr>
+         <th>NSS:</th>
+         <th>CURP:</th>
+        
+         <th> </th>
+       </tr>
+       <tr>
+         <td>{{this.model.user.numNss}}</td>
+         <td>{{personaEF.curp}} </td>
+        
+         <td> </td>
+       </tr>
+     </tbody>
+   </table>
+ </div>

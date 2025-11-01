@@ -1,0 +1,271 @@
+<app-breadcrumb-ux></app-breadcrumb-ux>
+<br><br>
+<app-menu-ux [rol]="rol"></app-menu-ux>
+<div class="row" style="padding: 10px;">
+    <div class="col-md-8">
+    </div>
+    <app-user-profile></app-user-profile>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <h4>Informe de simulación de préstamo </h4>
+        <hr class="red" />
+
+    </div>
+</div>
+<app-registrar-prestamo-infome-detalle></app-registrar-prestamo-infome-detalle>
+
+<!--app-folio></app-folio>>
+<div class="container">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>&nbsp; </th>
+            </tr>
+            <tr>
+                <th>Folio: {{cartaInstruccion.solicitud.numFolioSolicitud}} </th>
+            </tr>
+        </thead>
+    </table>
+</div>
+<div class="container">
+    <  TABLA DE DATOS GENERALES >
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Información del solicitante</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th>Nombre(s): </th>
+                <th>Primer apellido: </th>
+                <th> Segundo apellido: </th>
+            </tr>
+
+            <tr>
+                <td>{{cartaInstruccion.pensionado.nombre}}</td>
+                <td>{{cartaInstruccion.pensionado.primerApellido}}</td>
+                <td>{{cartaInstruccion.pensionado.segundoApellido}}</td>
+            </tr>
+            <tr>
+                <th>CURP: </th>
+                <th>NSS: </th>
+                <th>Tel&eacute;fono: </th>
+            </tr>
+
+            <tr>
+                <td>{{cartaInstruccion.solicitud.curp}}</td>
+                <td>{{cartaInstruccion.solicitud.nss}}</td>
+                <td> {{cartaInstruccion.persona.telCelular}}</td>
+            </tr>
+
+            <tr>
+                <th colspan="3">Correo electr&oacute;nico:</th>
+
+            </tr>
+
+            <tr>
+                <td colspan="3">{{cartaInstruccion.persona.correoElectronico}}</td>
+            </tr>
+
+
+            <tr>
+
+                <th>Tipo de trabajador:</th>
+                <th>Tipo de pensi&oacute;n: </th>
+                <th> Tipo de cr&eacute;dito: </th>
+            </tr>
+            <tr>
+
+                <td> {{cartaInstruccion.solicitud.refTrabajador}}</td>
+                <td> {{cartaInstruccion.pensionado.tipoPension}}</td>
+                <td> {{cartaInstruccion.prestamo.tipoCreditoEnum.descripcion}}</td>
+            </tr>
+
+        </tbody>
+    </table>
+
+    < FIN  TABLA DE DATOS GENERALES >
+
+</div>
+
+
+<div class="container">
+    <div class="col-md-12">
+        <div class="row">
+
+
+            < TABLA DE ENTIDAD FNANCIERA >
+
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Entidad Financiera</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>Nombre comercial: </th>
+
+                        < <th>Raz&oacute;n Social: </th> >
+
+                        <th>Tel&eacute;fono: </th>
+
+                        <th>P&aacute;gina web:</th>
+
+                    </tr>
+                    <tr>
+
+                        <td>{{personaEF.entidadFinanciera.nombreComercial}}</td>
+
+                        < <td>{{personaEF.entidadFinanciera.razonSocial}}</td> >
+
+                        <td>{{personaEF.entidadFinanciera.telefonoAtencionClientes}} </td>
+
+                        <td><a href="https://{{personaEF.entidadFinanciera.paginaWeb}}" target="_blank">{{personaEF.entidadFinanciera.paginaWeb}}</a></td>
+
+                    </tr>
+                </tbody>
+            </table>
+
+            < TABLA DE ENTIDAD FNANCIERA FIN >
+        </div>
+    </div>
+</div>
+
+<app-promotor-datos-carta></app-promotor-datos-carta>
+<div class="container">
+
+
+    <TABLA DE CONDICIONES DE LA SIMULACION >
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col" colspan="4">Condiciones de la Simulaci&oacute;n</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <td></td>
+            <tr>
+                <th> CAT con IVA: </th>
+                <th>Monto solicitado:</th>
+                <th>Descuento mensual:</th>
+                <th>&nbsp;</th>
+
+            </tr>
+
+            <tr>
+                <td> {{cartaInstruccion.oferta.cat}} %</td>
+                <td>$ {{cartaInstruccion.prestamo.monto | number:'0.2-2'}}</td>
+                <td>$ {{cartaInstruccion.prestamo.impDescNomina | number:'0.2-2'}}</td>
+                <td>&nbsp;</td>
+
+            </tr>
+            <tr>
+                <th>Total de descuentos a aplicar: </th>
+                <th>Plazo: </th>
+                <th>Importe total a pagar: </th>
+                <th>Fecha del primer descuento:</th>
+            </tr>
+            <tr>
+                <td>{{cartaInstruccion.oferta.plazo.numPlazo}}</td>
+                <td>{{cartaInstruccion.oferta.plazo.descripcion}}</td>
+                <td> $ {{cartaInstruccion.prestamo.impTotalPagar | number:'0.2-2'}}</td>
+                <td>{{fecha}}</td>
+            </tr>
+
+        </tbody>
+    </table>
+
+    <  FIN DE LA TABLA DE CONDICIONES DE LA SIMULACION >
+
+
+</div>
+
+<div class="container" *ngIf="this.prestamoRecuperacion.numSolicitudSipre !== undefined ">
+
+    <TABLA DATOS DEL PRESTAMO A LIQUIDAR>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col" colspan="4">Datos del préstamo a liquidar</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <td></td>
+            <tr>
+                <th>Nombre Comercial:</th>
+                <th> Folio: </th>
+                <th>Descuento mensual:</th>
+                <th>Monto prestado:</th>
+
+            </tr>
+
+            <tr>
+                <td>{{this.prestamoRecuperacion.razonSocial}}</td>
+                <td>{{this.prestamoRecuperacion.numSolicitudSipre}}</td>
+                <td>{{this.prestamoRecuperacion.canDescuentoMensual}}</td>
+                <td> {{this.prestamoRecuperacion.impRealPrestamo}}</td>
+
+            </tr>
+            <tr>
+                <th>CAT con IVA:</th>
+                <th>Mensualidades descontadas / Plazo:</th>
+                <th>Monto a liquidar: </th>
+                <th>&nbsp;</th>
+            </tr>
+            <tr>
+                <td>{{this.prestamoRecuperacion.canCatPrestamo}}</td>
+                <td>{{this.prestamoRecuperacion.numMesRecuperado}} / {{this.prestamoRecuperacion.numPlazoPrestamo}}</td>
+                <td>{{this.prestamoRecuperacion.canMontoSol}}</td>
+                <td> &nbsp;</td>
+            </tr>
+
+        </tbody>
+    </table>
+
+    < FIN DE LA TABLA DE CONDICIONES DE LA SIMULACION >
+</div-->
+<br>
+
+
+<div class="col-md-6"></div>
+<div class="col-md-6" style="text-align: right;">
+    <a class="btn btn-default" routerLink="../condicionesPrestamos" role="button">Regresar</a> &nbsp;&nbsp;
+    <button type="button" (click)="navegarTerminosCondiciones();" class="btn btn-primary ">
+      <span class="oi oi-send glyphicon glyphicon-left"> </span>Continuar</button>
+    <br><br>
+</div>
+<jw-modal id="confirmarCartaCap">
+    <div class="jw-modal-titulo"> <b>Atención</b></div>
+    <div style="height:100%; width:100%">
+        <br>
+        <p style="text-align:center"><b>¿El pensionado est&aacute; de acuerdo con la generaci&oacute;n de la Carta de Libranza?.</b>
+        </p>
+        <br>
+        <div class="col-md-12" align="right">
+            <button class="btn btn-default" (click)="closeModal();">Cancelar</button>&nbsp;&nbsp;
+            <button class="btn btn-primary " (click)="guardarCartaInstruccion()">Aceptar</button>
+        </div>
+    </div>
+</jw-modal>
+
+<jw-modal id="carga">
+    <div class="jw-modal-titulo"> <b>Atención</b></div>
+    <div style="height:100%; width:100%">
+        <br>
+        <br>
+        <p style="text-align:center"><b>Cargando datos</b></p>
+        <div align="center">
+            <div class="preloader"></div>
+        </div>
+
+        <br>
+    </div>
+</jw-modal>

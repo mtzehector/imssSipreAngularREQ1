@@ -1,0 +1,21 @@
+<h3>Documentos del Operador</h3>
+<hr class="red" style="margin: 10px 0 40px;">
+<p>Carga el siguiente documento del Operador:</p>
+<br>
+<table class="table">
+  <tbody>
+    <tr>
+      <td>
+        Identificación oficial
+        <i class="glyphicon glyphicon-question-sign"
+          title="La identificación oficial puede ser credencial para votar, pasaporte vigente o credencial de afiliación al IMSS. Debe estar en un solo archivo, en formato .pdf con un peso máximo de 400 KB."></i>
+      </td>
+      <td>
+        <app-upload [documento]="model.operador.documentoIdentOficial" [idSolicitud]="1"></app-upload>
+      </td>
+      <td>
+        <app-download [documento]="model.operador.documentoIdentOficial"></app-download>
+      </td>
+    </tr>
+  </tbody>
+</table>

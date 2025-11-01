@@ -1,0 +1,87 @@
+<app-menu></app-menu>
+<div class="row" style="padding: 10px;">
+  <div class="col-md-8">
+  </div>
+  <app-user-profile></app-user-profile>
+</div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<div class="formulario">
+  <div class="row">
+    <div class="col-md-12">
+      <h2>Cancelaci&oacute;n de folio</h2>
+      <hr class="red" />
+    </div>
+  </div>
+
+  <div class="col-md-12" style="padding-left: 0px;">
+    <p>Ingresa un folio de simulación de Préstamo realizado con anterioridad y presiona el botón Continuar:</p>  <br>     <br>     
+    </div>
+  <div class="row">
+    <div class="col-md-3">
+      <label>Folio*</label>
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col-md-3">
+      <div [ngClass]="
+        { 'has-error form-group' : (folioSolicitado.dirty || folioSolicitado.touched) && folioSolicitado.invalid }
+        ">
+
+        <div class="input-group">
+          <input required minlength="13"  placeholder="Ingresa número de folio " maxlength="13" #folioSolicitado="ngModel" [(ngModel)]="numFolioSolicitud"
+            id="folio" class="form-control" (keyup)="activarBoton();" name="folio" type="text">
+
+        </div>
+        <div *ngIf="folioSolicitado.invalid && (folioSolicitado.dirty || folioSolicitado.touched)">
+
+          <span class="text-danger" *ngIf="folioSolicitado.errors.required">
+            El folio es requerido
+          </span>
+          <span class="text-danger" *ngIf="folioSolicitado.errors.minlength">
+            El folio debe ser de 13 caracteres
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+  <div class="col-sm">
+    <div class="row">
+      <div class="col-md-8"></div>
+      <div class="col-md-2">
+        <a class="btn btn-default" routerLink="/pensionado/home" role="button">Regresar</a>
+      </div>
+      <div class="col-md-2">
+        <button type="button" id="continuarCancelarBusqueda" [disabled]="!disabled" (click)="buscarFolio()" class="btn btn-primary ">
+          <span class="oi oi-send glyphicon glyphicon-left"> </span>Continuar
+        </button> </div>
+    </div>
+  </div>
+  <br>
+  <br>
+  <div class="row">
+    <div class="col-md-12">
+    </div>
+  </div>
+</div>
+
+
+
+<jw-modal id="carga">
+  <div class="jw-modal-titulo"> <b>Atención</b></div>
+  <div style="height:100%; width:100%">
+      <br>
+      <br>
+      <p style="text-align:center"><b>Cargando datos</b></p>
+      <div align="center">
+          <div class="preloader"></div>
+      </div>
+
+      <br>
+  </div>
+</jw-modal>

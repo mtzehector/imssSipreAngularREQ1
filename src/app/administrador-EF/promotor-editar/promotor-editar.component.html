@@ -1,0 +1,114 @@
+<ol class="breadcrumb ">
+  <li><a href="#"><i class="icon icon-home"></i></a></li>
+  <li><a href="#">Inicio</a></li>
+  <li class="active" *ngIf="!model.enabledModificarPromotor">Registrar datos del personal operativo</li>
+  <li class="active" *ngIf="model.enabledModificarPromotor && !model.enabledBajaPromotor">Modificar datos del personal operativo
+  </li>
+  <li class="active" *ngIf="model.enabledBajaPromotor">Baja del personal operativo</li>
+</ol>
+<div class="row" style="height: 50px;">
+  <div class="col-md-12">
+    <h4>Préstamos a cuenta de pensión con Entidades Financieras </h4>
+    <hr class="red">
+  </div>
+</div><br>
+<app-menu-ux [rol]="rol"></app-menu-ux>
+<div class="row" style="padding: 10px;">
+  <div class="col-md-8">
+  </div>
+  <app-user-profile></app-user-profile>
+</div>
+
+<div class="row ">
+  <div class="col-md-12">
+    <h4 *ngIf="!model.enabledModificarPromotor">Registrar personal operativo</h4>
+    <h4 *ngIf="model.enabledModificarPromotor && !model.enabledBajaPromotor">Modificar personal operativo</h4>
+    <h4 *ngIf="model.enabledBajaPromotor">Baja del personal operativo</h4>
+    <hr class="red">
+  </div>
+</div>
+
+<form [formGroup]="myFormFather" (ngSubmit)="validarRegistrar()" autocomplete="off" class="form-horizontal" role="form">
+
+  <app-promotor-datos-renapo></app-promotor-datos-renapo>
+
+  <div style="margin: 65px 0 65px;"></div>
+
+  <app-promotor-editar-info-complementaria 
+  [infoForm]="myFormFather" 
+  [dominioCorreoAdmin]="dominioCorreoAdmin"
+  [dominioCorreoUsuario]="dominioCorreoUsuario"
+  (cambiarCorreo)="cambiarDominio($event)">
+</app-promotor-editar-info-complementaria>
+
+  <div style="margin: 65px 0 65px;"></div>
+
+  <app-promotor-editar-documentos></app-promotor-editar-documentos>
+
+  <div class="form-group">
+    <div class="col-sm-4">
+      <div>
+        * Campos obligatorios
+      </div>
+    </div>
+  </div>
+
+  <br />
+  <div class="row" style="text-align: right;">
+
+    <button class="btn btn-secondary" (click)="regresar();">Regresar
+    </button>
+    &nbsp;&nbsp;&nbsp;
+    <button *ngIf="!model.enabledModificarPromotor" type="submit" [disabled]="myFormFather.invalid" class="btn btn-primary" >
+      <span>
+        Registrar
+      </span>
+    </button>
+    <button *ngIf="model.enabledModificarPromotor && !model.enabledBajaPromotor" type="submit"  class="btn btn-primary" >
+      <span>
+        Guardar
+      </span>
+
+      <span *ngIf="model.enabledBajaPromotor">
+        Baja
+      </span>
+    </button>
+  </div>
+  <br />
+  <br />
+</form>
+
+<jw-modal id="autorizarRegistrarPromotor">
+  <div class="jw-modal-titulo">Atención</div>
+  <div class="modal-body">
+    <p *ngIf="!model.enabledModificarPromotor">¿Estás seguro de registrar a {{model.registrarPromotor.nombre}}
+      {{model.registrarPromotor.primerApellido}}
+      {{model.registrarPromotor.segundoApellido}}?</p>
+    <p *ngIf="model.enabledModificarPromotor && !model.enabledBajaPromotor">¿Estás seguro de modificar a
+      {{model.registrarPromotor.nombre}} {{model.registrarPromotor.primerApellido}}
+      {{model.registrarPromotor.segundoApellido}}?</p>
+    <p *ngIf="model.enabledModificarPromotor && model.enabledBajaPromotor">¿Estás seguro dar de baja a
+      {{model.registrarPromotor.nombre}} {{model.registrarPromotor.primerApellido}}
+      {{model.registrarPromotor.segundoApellido}}?</p>
+    <div class="row">
+      <div class="col-md-12 text-right">
+        <button class="btn btn-default" (click)="closeModalRegistro()"
+          style="margin-right: 5px">Regresar</button>&nbsp;&nbsp;
+        <button class="btn btn-primary" (click)="registrar()">Aceptar</button>
+      </div>
+    </div>
+  </div>
+</jw-modal>
+
+<jw-modal id="carga">
+  <div class="jw-modal-titulo"> <b>Atención</b></div>
+  <div style="height:100%; width:100%">
+    <br>
+    <br>
+    <p style="text-align:center"><b>Cargando datos</b></p>
+    <div align="center">
+      <div class="preloader"></div>
+    </div>
+    <br>
+  </div>
+</jw-modal>

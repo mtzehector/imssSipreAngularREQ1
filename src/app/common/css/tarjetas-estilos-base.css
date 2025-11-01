@@ -1,0 +1,183 @@
+.folio-header {
+    font-family: Montserrat;
+    font-size: 22px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
+    padding-bottom: 15px;
+}
+
+.folio-header div span {
+    color: #2f6e93;
+}
+
+.tarjeta {
+    padding: 20px 15px 20px 15px;
+}
+
+.tarjeta-header {
+    font-family: Montserrat;
+    font-size: 21px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
+    color: #282828;
+    padding: 0px 0px 10px 0px;
+}
+
+.tarjeta-body {
+    border-radius: 15px;
+    box-shadow: 3px 4px 20px 0 rgba(0, 0, 0, 0.18);
+    border: solid 1px #dcdcdc;
+    background-color: #fbfbfb;
+    padding: 20px 30px 20px 21px;
+}
+
+.tarjeta-title-1 {
+    font-family: Montserrat;
+    font-size: 18px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
+    color: #2f6e93;
+    margin: 0px 0px 6px 0px;
+}
+
+.tarjeta-data-1 {
+    font-size: 18px;
+    font-weight: normal !important;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
+    color: #464646;
+    margin: 0px 0px 10px 0px;
+}
+
+.tarjeta-data-1-bold {
+    font-size: 18px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
+    color: #464646;
+    margin: 0px 0px 10px 0px;
+}
+
+.tarjeta-data-1-bold-blue {
+    font-size: 18px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
+    color: #2f6e93;
+    margin: 0px 0px 10px 0px;
+}
+
+
+.tab-click-detalle:hover{
+    cursor: pointer;
+}
+
+.borderInput {
+    width: 323px!important;
+    height: 47px!important;
+    padding: 12px 113.2px 13px 18px!important;
+    border-radius: 10px!important;
+    font-size: 16px !important;
+
+    border: solid 1px #afaeae!important;
+  }
+ .TituloGrande{
+    width: 436px;
+    height: 34px;
+    flex-grow: 0;
+    margin: 0 127.8px 5.4px 0px;
+    font-family: Montserrat;
+    font-size: 28px;
+    font-weight: 800;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
+    color: #282828;
+ }
+
+ .mover div{
+    width: 111.2%!important;
+ }
+
+ 
+ .mover{
+    width: 111.2%!important;
+ }
+
+  .buttonRedText{
+    height: 50px !important;
+    font-family: Montserrat !important;
+    font-size: 18px !important;
+    font-weight: normal !important;
+    font-stretch: normal !important;
+    font-style: normal !important;
+    line-height: normal !important;
+    letter-spacing: normal !important;
+    text-align: center !important;
+    margin-left:40% !important;
+  }
+ .sinResultados{
+    width: 386px;
+    height: 26px;
+    margin: 51px 45px 61px 33%;
+    font-family: Montserrat;
+    font-size: 21px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: center;
+    color: #3c3c3a;
+ }
+
+ .tarjeta-info-pensionado .tarjeta-body{
+    height: 420px;
+    
+ }
+ 
+
+ .tarjeta-info-ef .tarjeta-body{
+    height: 420px;
+    margin-left: 10px;
+ }
+
+ .tarjeta-info-ef .tarjeta-header{
+    margin-left: 10px;
+ }
+
+ .tarjeta-info-ef img{
+    width: auto;
+    padding-bottom: 10px;
+    max-height: 200px;
+    max-width: 450px;
+ }
+
+.sin-info{
+    text-align: center;
+    height: 150px;
+    padding: 50px 0px 100px 0px;
+}

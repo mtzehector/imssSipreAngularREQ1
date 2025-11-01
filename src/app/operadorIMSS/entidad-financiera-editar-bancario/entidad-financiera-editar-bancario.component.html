@@ -1,0 +1,77 @@
+<div class="row" style="margin-left: 0%;">
+    <h4>Cuenta CLABE para liquidación por compra de cartera</h4>
+    <hr class="red" style="margin: 10px 0 40px;">
+</div>
+
+<div class="row form-group">
+    <label style="padding-left: 15px;">Institución bancaria: </label> <br>
+    <div class="col-sm-3">
+        <select style="width: 110%;" class="form-control" name="nombreInstitucion"
+            [ngClass]="nombreInstitucion.invalid && (nombreInstitucion.dirty && nombreInstitucion.touched || registrarForm.submitted) ? 'form-control-error' : 'form-control'"
+            [(ngModel)]="model.registrarEntidadFinanciera.instBancaria" (change)="validarClabe()"
+            #nombreInstitucion="ngModel" style="width: 355px;" required>
+            <option [value]="null" selected disabled>Seleccionar</option>
+            <option *ngFor="let banco of  catalogoBancos" [value]="banco.clave">
+                {{banco.descripcion}}</option>
+        </select>
+        <div
+            *ngIf="nombreInstitucion.invalid && (nombreInstitucion.dirty && nombreInstitucion.touched || registrarForm.submitted) ">
+            <div *ngIf="nombreInstitucion.errors.required">
+                <small class="form-text form-text-error">Es necesario ingresar la información del campo marcado como
+                    obligatorio.</small>
+            </div>
+        </div>
+    </div>
+
+    <div style="margin-top: -2.5%;margin-left: 35%;">
+        <label>Cuenta CLABE:</label> <br>
+        <div class="col-sm-4" style="width: 36%;margin-left: 1%;">
+            <input style="    width: 140%;
+        margin-left: -11%;" pInputText type="text" class="form-control" name="clabe"
+                [ngClass]="clabe.invalid && (clabe.dirty && clabe.touched || registrarForm.submitted) ? 'form-control-error' : 'form-control'"
+                [(ngModel)]="model.registrarEntidadFinanciera.clabe" #clabe="ngModel" placeholder="Ingresa CLABE"
+                minlength="18" maxlength="18" pKeyFilter="alphanum" (change)="validarClabe();" required />
+            <div *ngIf="clabe.invalid && (clabe.dirty && clabe.touched || registrarForm.submitted)">
+                <div *ngIf="clabe.errors.required">
+                    <small style="margin-left: -5%;" class="form-text form-text-error">Es necesario ingresar la
+                        información del campo marcado como
+                        obligatorio.</small>
+                </div>
+                <div *ngIf="clabe.errors.minlength">
+                    <small style="margin-left: -5%;" class="form-text form-text-error">La Clabe debe contener 18
+                        dígitos.</small>
+                </div>
+            </div>
+            <div *ngIf="msjErrorClabe != null && msjErrorClabe != ''">
+                <small style="margin-left: -5%;" class="form-text form-text-error">{{msjErrorClabe}}</small>
+            </div>
+        </div>
+    </div>
+    <div style="margin-top: -2.5%;margin-left: 68%;">
+
+        <label>Confirmar cuenta CLABE:</label> <br>
+        <div class="col-sm-3" style="width: 85%;margin-left: 20%;">
+            <input style="
+        margin-left: -31%;" pInputText type="text" class="form-control" name="confClabe" appBlockCopyPaste
+                [ngClass]="confClabe.invalid && (confClabe.dirty && confClabe.touched || registrarForm.submitted) ? 'form-control-error' : 'form-control'"
+                [(ngModel)]="model.registrarEntidadFinanciera.confClabe" #confClabe="ngModel"
+                placeholder="Confirmar CLABE" minlength="18" maxlength="18" pKeyFilter="alphanum"
+                (change)="validarClabe();" required />
+            <div *ngIf="confClabe.invalid && (confClabe.dirty && confClabe.touched || registrarForm.submitted)">
+                <div style="width: fit-content;" *ngIf="confClabe.errors.required">
+                    <span style="margin-left: -30%;" class="form-text-error">Es necesario ingresar la información del
+                        campo marcado como
+                        obligatorio.</span>
+                </div>
+                <div *ngIf="confClabe.errors.minlength">
+                    <small style="margin-left: -30%;" class="form-text form-text-error">La Clabe debe contener 18
+                        dígitos.</small>
+                </div>
+            </div>
+            <div *ngIf="msjErrorClabe != null && msjErrorClabe != ''">
+                <small style="margin-left: -30%;" class="form-text form-text-error">{{msjErrorClabe}}</small>
+            </div>
+        </div>
+    </div>
+
+</div>

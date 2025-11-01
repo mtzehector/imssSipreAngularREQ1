@@ -1,0 +1,187 @@
+<ol class="breadcrumb ">
+    <li><a href="#"><i class="icon icon-home"></i></a></li>
+    <li><a href="#">Inicio</a></li>
+    <li class="active">Préstamos a cuenta de pensión con Entidades Financieras </li>
+</ol>
+
+<div class="row">
+    <div class="col-md-12">
+        <h4>Préstamos a cuenta de pensión con Entidades Financieras </h4>
+        <hr class="red">
+    </div>
+</div>
+<app-menu-ux [rol]="rol"></app-menu-ux>
+<div class="row" style="padding: 10px;">
+    <div class="col-md-8">
+    </div>
+    <app-user-profile></app-user-profile>
+</div>
+<div class="col-md-12">
+    <div class="row">
+        <h3>Informe de préstamo</h3>
+        <hr class="red" />
+    </div>
+</div>
+
+<div class="row folio-header">
+    <div class="col-md-3">
+        Folio:&nbsp;<span>{{model.informeCartaInstruccion.solicitud.numFolioSolicitud}}</span>
+    </div>
+    <div class="col-md-9">
+        Estado:&nbsp;<span>{{model.informeCartaInstruccion.solicitud.cveEstadoSolicitud.desEstadoSolicitud}}</span>
+    </div>
+</div>
+
+<div class="row">
+    <app-pensionado-datos-autorizador></app-pensionado-datos-autorizador>
+    <app-entidad-financiera-datos-autorizar></app-entidad-financiera-datos-autorizar>
+</div>
+
+<app-promotor-datos-autorizador></app-promotor-datos-autorizador>
+
+<app-datos-simulacion-autorizador></app-datos-simulacion-autorizador>
+<app-prestamos-recuperacion-datos-autorizador></app-prestamos-recuperacion-datos-autorizador>
+
+<div class="row tarjeta">
+    <div class="row tarjeta-header">
+        Información bancaria
+    </div>
+    <div class="row tarjeta-body">
+        <div class="col-md-3">
+            <span class="tarjeta-title-1" for="cuenta-cable">Cuenta CLABE:</span>
+        </div>
+        <div class="col-md-3">
+            {{model.resumenCartaInstruccion.pensionado.cuentaClabe}}
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <h3>Documentación</h3>
+    <hr class="red" />
+</div>
+<div class="row" *ngFor="let item of resumenCartaInstruccion.documentos; let i = index">
+    <div class="col-md-3"></div>
+    <div class="col-md-3" style="text-align: left;">{{item.tipoDocumentoEnum.descripcion}}</div>
+    <div class="col-md-3" style="text-align: left;">
+        <app-download [documento]="item"></app-download>
+    </div>
+    <div class="col-md-3"></div>
+</div>
+<br>
+<div class="col-md-12">
+    <h5>Comprobante electrónico de pago (CEP)</h5>
+    <p>Carga el Comprobante de pago del Préstamo en PDF y XML:</p>
+    <table class="table">
+        <tbody>
+            <tr>
+                <td>*{{cepPensionado.tipoDocumentoEnum.descripcion}}</td>
+                <td>
+                    <app-upload [documento]="cepPensionado" [idSolicitud]="resumenCartaInstruccion.solicitud.id">
+                    </app-upload>
+                </td>
+                <td>
+                    <app-download [documento]="cepPensionado"></app-download>
+                </td>
+            </tr>
+            <tr>
+                <td>{{cepPensionadoXml.tipoDocumentoEnum.descripcion}}</td>
+                <td>
+                    <app-upload-xml [documento]="cepPensionadoXml" [idSolicitud]="resumenCartaInstruccion.solicitud.id">
+                    </app-upload-xml>
+                </td>
+                <td>
+                    <app-download [documento]="cepPensionadoXml"></app-download>
+                </td>
+            </tr>
+            <ng-template let-item ngFor [ngForOf]="resumenCartaInstruccion.cepEntidadFinancieraLista" let-i="index">
+                <tr>
+                    <td>*{{item.tipoDocumentoEnum.descripcion}} <br>
+                        {{resumenCartaInstruccion.listPrestamoRecuperacion.prestamosEnRecuperacion[i].nombreComercial}}
+                        <br>
+                        Folio SIPRE:
+                        {{resumenCartaInstruccion.listPrestamoRecuperacion.prestamosEnRecuperacion[i].numSolicitudSipre}}
+                    </td>
+                    <td>
+                        <app-upload [documento]="item" [idSolicitud]="resumenCartaInstruccion.solicitud.id" 
+                                    [eFinanciera]="resumenCartaInstruccion.listPrestamoRecuperacion.prestamosEnRecuperacion[i].numEntidadFinanciera"
+                                    [cvePrestamoRecuperacion]="resumenCartaInstruccion.listPrestamoRecuperacion.prestamosEnRecuperacion[i].id">
+                        </app-upload>
+                    </td>
+                    <td>
+                        <app-download [documento]="item"></app-download>
+                    </td>
+                </tr>
+                <tr>
+                    <td>{{resumenCartaInstruccion.cepEntidadFinancieraListaXML[i].tipoDocumentoEnum.descripcion}} <br>
+                        {{resumenCartaInstruccion.listPrestamoRecuperacion.prestamosEnRecuperacion[i].nombreComercial}}
+                        <br>
+                        Folio SIPRE:
+                        {{resumenCartaInstruccion.listPrestamoRecuperacion.prestamosEnRecuperacion[i].numSolicitudSipre}}
+                    </td>
+                    <td>
+                        <app-upload-xml [documento]="resumenCartaInstruccion.cepEntidadFinancieraListaXML[i]"
+                            [idSolicitud]="resumenCartaInstruccion.solicitud.id"></app-upload-xml>
+                    </td>
+                    <td>
+                        <app-download [documento]="resumenCartaInstruccion.cepEntidadFinancieraListaXML[i]">
+                        </app-download>
+                    </td>
+                </tr>
+            </ng-template>
+        </tbody>
+    </table>
+</div>
+<!--<div class="row">
+    <div class="col-md-7"></div>
+    <div class="col-md-5" style="text-align: right;">
+        <a class="btn btn-default" routerLink="../buscarFolioAutorizar" role="button">Regresar</a> &nbsp;
+        <a class="btn btn-primary" (click)="guardarAnexarCEP();" role="button">Cargar comprobante</a>
+        <br><br>
+    </div>
+</div>-->
+
+<div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-9" style="text-align: right;">
+      <a class="btn btn-default" routerLink="../buscarFolioAutorizar" role="button">Regresar</a>
+      &nbsp;
+      <button (click)="openModal('cancelarCarta')" class="btn btn-default">
+        <span class="oi oi-undefined glyphicon glyphicon-undefined"></span>
+        Cancelar Préstamo
+      </button>&nbsp;
+      <button (click)="guardarAnexarCEP()" class="btn btn-primary">
+        <span class="oi oi-undefined glyphicon glyphicon-undefined"></span>
+        Cargar comprobante
+      </button>
+    </div>
+  </div><br><br>
+
+<jw-modal id="cancelarCarta">
+    <div class="jw-modal-titulo">
+        Cancelar Préstamo
+    </div>
+    <div class="modal-body">
+        <p>¿Estás seguro que deseas cancelar el préstamo?</p>
+    </div>
+    <div class="row">
+        <div class="col-md-12 text-right">
+            <button class="btn btn-default" (click)="closeModal('cancelarCarta');">Cancelar</button>&nbsp;&nbsp;
+            <button class="btn btn-primary" (click)="cancelarSolicitud();">Aceptar</button>
+        </div>
+    </div>
+</jw-modal>
+
+<jw-modal id="carga">
+    <div class="jw-modal-titulo"> <b>Atención</b></div>
+    <div style="height:100%; width:100%">
+        <br>
+        <br>
+        <p style="text-align:center"><b>Cargando datos</b></p>
+        <div align="center">
+            <div class="preloader"></div>
+        </div>
+
+        <br>
+    </div>
+</jw-modal>

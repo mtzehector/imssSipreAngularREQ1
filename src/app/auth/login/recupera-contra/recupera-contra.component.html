@@ -1,0 +1,102 @@
+<div class="alert alert-success" *ngIf="cambiosGuardado">
+
+    La solicitud se realizó con éxito.
+</div>
+<ol class="breadcrumb ">
+    <li><a href="#"><i class="icon icon-home"></i></a></li>
+    <li><a href="#">Inicio</a></li>
+    <li class="active">Préstamos a cuenta de pensión con Entidades Financieras </li>
+</ol>
+<div class="row">
+    <div class="col-md-12">
+        <h3>Préstamos a cuenta de pensión con Entidades Financieras </h3>
+        <hr class="red">
+        <h4>Recupera tu contraseña</h4>
+        <p>Ingresa el correo electrónico asociado a tu registro y presiona Enviar. Recibirás un correo con instrucciones
+            y un código de confirmación para ingresar al sistema.</p>
+    </div>
+</div>
+
+<br>
+
+<form role="form" class="form-horizontal" [formGroup]="formGroup" autocomplete="off">
+
+    <div class="row">
+        <div class="col-md-1">
+
+        </div>
+        <div class="col-md-11">
+            <div class="form-group">
+                <label class="col-sm-4 control-label">Correo electrónico registrado*:</label>
+                <div class="col-sm-8">
+                    <input
+                        [ngClass]="[!formGroup.controls['correo'].valid && formGroup.controls['correo'].touched ? 'form-control-error':'form-control']  "
+                        class=" form-control" formControlName="correo" style="width:360px;" type="text"
+                        oninput="this.value = this.value.toLowerCase()" placeholder="Ingresa correo electrónico">
+
+                    <div style="width: max-content;" *ngIf="!formGroup.controls['correo'].valid">
+                        <div *ngIf="formGroup.get('correo').errors?.pattern  && formGroup.controls['correo'].touched">
+                            <p class="error-class">Asegúrate de que tu correo electrónico tenga el símbolo @ y un punto.
+                        </div>
+
+                        <div
+                            *ngIf=" formGroup.controls['correo'].errors?.required && formGroup.controls['correo'].touched">
+                            <p class="error-class">Es necesario ingresar la información del campo marcado como
+                                obligatorio. </p>
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+
+
+
+        </div>
+    </div><br>
+    <br> * Campos obligatorios
+    <br>
+    <div class="row pull-right" *ngIf=!cambiosGuardado>
+        <div class="form-group">
+            <div class="col-sm-7">
+                <button type="button" routerLink="../login" class="btn btn-default">Regresar
+                </button>
+            </div>
+            <div class="col-sm-5">
+                <button appPrevieneDobleClick type="submit" [disabled]="formGroup.invalid || buttonSubmitStatus"
+                    class="btn btn-primary" (throttledClick)="guardarCambios()">
+                    Enviar
+                </button>
+            </div>
+
+        </div>
+    </div>
+    <br>
+    <div class="row pull-right" *ngIf=cambiosGuardado>
+        <div class="form-group">
+            <div class="col-sm-7">
+                <button type="button" (click)="navegarRecpassword();" class="btn btn-primary">Recuperar contraseña
+                </button>
+            </div>
+        </div>
+    </div>
+    <br>
+</form>
+<br>
+
+
+<jw-modal id="correoNoAsociado">
+    <div class="jw-modal-titulo"> <b>Atención</b></div>
+    <div class="modal-body">
+        <p>El correo electrónico que ingresaste no está asociado a ningún usuario. Favor de verificar o registrar un
+            nuevo usuario.</p>
+        <div class="row">
+            <div class="col-md-12 text-right">
+                <button class="btn btn-default" (click)="closeModalCorreoNoAociado()"
+                    style="margin-right: 5px">Aceptar</button>
+            </div>
+        </div>
+    </div>
+    <br>
+</jw-modal>

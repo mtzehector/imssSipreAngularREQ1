@@ -1,0 +1,425 @@
+<app-header></app-header>
+
+<app-menu-ux *ngIf="this.rol != 'pensionado'" [rol]="this.rol"></app-menu-ux>
+
+<div class="row" style="padding: 10px;">
+    <div class="col-md-8">
+    </div>
+    <app-user-profile></app-user-profile>
+</div>
+<div class="row">
+    <div class="col-md-10">
+        <h4>Informe de Préstamo</h4>
+        <hr class="red">
+        <p></p>
+    </div>
+    <div class="col-md-2"><br>
+        <a class="btn btn-default" (click)="navegarHome(true);" role="button">Regresar</a>
+    </div>
+</div>
+
+<br>
+<div class="row folio-header">
+    <div class="col-md-3">
+        Folio:&nbsp;<span>{{resumenSimulacion.solicitud.numFolioSolicitud}}</span>
+    </div>
+    <div class="col-md-9">
+        Estado:&nbsp;<span>{{resumenSimulacion.solicitud.cveEstadoSolicitud.desEstadoSolicitud}}</span>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6 tarjeta tarjeta-info-pensionado">
+        <div class="row tarjeta-header">
+            Información del solicitante
+        </div>
+        <div class="row tarjeta-body">
+            <div class="row tarjeta-title-1">
+                <div class="col-md-12">
+                    Nombre:
+                </div>
+            </div>
+            <div class="row tarjeta-data-1">
+                <div class="col-md-12">
+                    {{resumenSimulacion.pensionado.nombre}}&nbsp;
+                    {{resumenSimulacion.pensionado.primerApellido}}&nbsp;
+                    {{resumenSimulacion.pensionado.segundoApellido}}
+                </div>
+            </div>
+            <div class="row tarjeta-title-1">
+                <div class="col-md-6">
+                    CURP:
+                </div>
+                <div class="col-md-6">
+                    NSS:
+                </div>
+            </div>
+            <div class="row tarjeta-data-1">
+                <div class="col-md-6">
+                    {{resumenSimulacion.pensionado.curp}}
+                </div>
+                <div class="col-md-6">
+                    {{resumenSimulacion.pensionado.nss}}
+                </div>
+            </div>
+            <div class="row tarjeta-title-1">
+                <div class="col-md-6">
+                    Delegación:
+                </div>
+                <div class="col-md-6">
+                    Tel&eacute;fono m&oacute;vil:
+                </div>
+            </div>
+            <div class="row tarjeta-data-1">
+                <div class="col-md-6">
+                    {{resumenSimulacion.pensionado.delegacion.descDelegacion}}
+                </div>
+                <div class="col-md-6">
+                    {{resumenSimulacion.personaModel.telCelular}}
+                </div>
+            </div>
+            <div class="row tarjeta-title-1">
+                <div class="col-md-12">
+                    Correo electr&oacute;nico:
+                </div>
+            </div>
+            <div class="row tarjeta-data-1">
+                <div class="col-md-12">
+                    {{resumenSimulacion.personaModel.correoElectronico}}
+                </div>
+            </div>
+
+            <div class="row tarjeta-title-1">
+                <div class="col-md-6">
+                    Tipo de pensión:
+                </div>
+                <div class="col-md-6">
+                    Tipo de crédito:
+                </div>
+            </div>
+            <div class="row tarjeta-data-1">
+                <div class="col-md-6">
+                    {{resumenSimulacion.pensionado.tipoPension}}
+                </div>
+                <div class="col-md-6">
+                    {{nuevo.tipoCreditoEnum.descripcion}}
+                </div>
+            </div>
+            <div class="row tarjeta-title-1">
+                <div class="col-md-12">
+                    Tipo de trabajador:
+                </div>
+            </div>
+            <div class="row tarjeta-data-1">
+                <div class="col-md-6">
+                    PENSIONADO
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+    <div class="col-md-6 tarjeta tarjeta-info-ef">
+        <div class="row tarjeta-header">
+            Entidad Financiera elegida
+        </div>
+        <div class="row tarjeta-body">
+            <div class="row">
+                <div class="col-md-12" style="text-align: center;">
+                    <img [src]="imgEFUrl" alt="Sin imagen">
+                </div>
+            </div>
+            <div class="row tarjeta-title-1">
+                <div class="col-md-6">
+                    Nombre comercial:
+                </div>
+                <div class="col-md-6">
+                    Teléfono:
+                </div>
+            </div>
+            <div class="row tarjeta-data-1-bold">
+                <div class="col-md-6">
+                    {{resumenSimulacion.oferta.entidadFinanciera.nombreComercial}}
+                </div>
+                <div class="col-md-6">
+                    {{resumenSimulacion.oferta.entidadFinanciera.numTelefono}}
+                </div>
+            </div>
+            <div class="row tarjeta-title-1">
+                <div class="col-md-12">
+                    Página web:
+                </div>
+            </div>
+            <div class="row tarjeta-data-1">
+                <div class="col-md-12">
+                    <a href="https://{{resumenSimulacion.oferta.entidadFinanciera.paginaWeb}}">{{resumenSimulacion.oferta.entidadFinanciera.paginaWeb}}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row tarjeta">
+    <div class="row tarjeta-header">
+        Personal operativo
+    </div>
+    <div class="row tarjeta-body">
+        <div class="col-md-4">
+            <img [src]="imgPromotorUrl" alt="Sin imagen" style="max-width: 250px; max-height: 150px;">
+        </div>
+        <div class="col-md-8">
+            <div class="row tarjeta-title-1">
+                <div class="col-md-6">
+                    Nombre:
+                </div>
+                <div class="col-md-6">
+                    Teléfono móvil:
+                </div>
+            </div>
+            <div class="row tarjeta-data-1">
+                <div class="col-md-6">
+                    {{ resumenSimulacion.promotor.nombre}}
+                    {{ resumenSimulacion.promotor.primerApellido}}
+                    {{ resumenSimulacion.promotor.segundoApellido}}
+                </div>
+                <div class="col-md-6">
+                    {{ resumenSimulacion.promotor.telefono}}
+                </div>
+            </div>
+            <div class="row tarjeta-title-1">
+                <div class="col-md-12">
+                    Correo Electrónico:
+                </div>
+            </div>
+            <div class="row tarjeta-data-1">
+                <div class="col-md-12">
+                    {{ resumenSimulacion.promotor.correoElectronico}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row tarjeta">
+    <div class="row tarjeta-header">
+        Información de la simulación
+    </div>
+    <div class="row tarjeta-body">
+        <div class="row tarjeta-title-1">
+            <div class="col-md-3">
+                CAT con IVA:
+                <span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip"
+                    data-placement="bottom" title="
+Costo Anual Total:
+Monto total a pagar
+cada año, incluyendo
+la tasa de interés
+anual y otros costos
+del préstamo.">
+                </span>
+            </div>
+            <div class="col-md-3">Monto solicitado:</div>
+            <div class="col-md-3">Descuento mensual:
+                <span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip"
+                    data-placement="bottom" title="
+Es el monto que se
+te descontará
+mensualmente a lo
+largo del préstamo."></span>
+            </div>
+            <div class="col-md-3">Plazo:</div>
+        </div>
+
+        <div class="row tarjeta-data-1">
+            <div class="col-md-3 tarjeta-data-1-bold">{{resumenSimulacion.oferta.cat}}%</div>
+            <div class="col-md-3">${{resumenSimulacion.prestamo.monto | number:'0.2-2'}}</div>
+            <div class="col-md-3 tarjeta-data-1-bold">${{resumenSimulacion.prestamo.impDescNomina | number:'0.2-2'}}
+            </div>
+            <div class="col-md-3 tarjeta-data-1-bold">{{resumenSimulacion.oferta.plazo.descripcion}}</div>
+        </div>
+
+        <div class="row tarjeta-title-1">
+            <div class="col-md-3">
+                Importe total a pagar: <span class="glyphicon glyphicon-question-sign" aria-hidden="true"
+                    data-toggle="tooltip" data-placement="bottom" title="Es el importe total
+del préstamo más
+los intereses y costos
+cubiertos durante la
+vida del crédito"></span>
+            </div>
+            <div class="col-md-3">Fecha del primer descuento:<span class="glyphicon glyphicon-question-sign"
+                    aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Esta fecha está sujeta
+de cambio, conforme a la
+fecha de autorización 
+del préstamo."></span></div>
+            <div class="col-md-3">Fecha de vigencia del folio:</div>
+            <div class="col-md-3"></div>
+        </div>
+
+        <div class="row tarjeta-data-1">
+            <div class="col-md-3 tarjeta-data-1-bold">${{resumenSimulacion.prestamo.impTotalPagar | number:'0.2-2'}}
+            </div>
+            <div class="col-md-3">{{this.fecha}}</div>
+            <div class="col-md-3">{{resumenSimulacion.solicitud.fecVigenciaFolio| slice:0:10}}</div>
+            <div class="col-md-3"></div>
+        </div>
+
+    </div>
+</div>
+
+<div class="row tarjeta">
+    <div class="row tarjeta-header">
+        Préstamos por liquidar
+    </div>
+
+    <div class="sin-info col-md-12" *ngIf="flagConPrestamos==0">
+        <h4>No hay préstamos por liquidar.</h4>
+    </div>
+
+    <span *ngFor="let item of resumenSimulacion.listPrestamoRecuperacion.prestamosEnRecuperacion; let i = index">
+        <div class="row tarjeta-body">
+            <div class="row tarjeta-data-1">
+                Entidad Financiera: <span class="tarjeta-data-1-bold">{{item.nombreComercial}}</span>
+            </div>
+            <div class="row tarjeta-title-1">
+                <div class="col-md-2">CAT con IVA:</div>
+                <div class="col-md-3">Monto solicitado:</div>
+                <div class="col-md-2">Descuento Mensual:</div>
+                <div class="col-md-3">Descuentos / Plazo:</div>
+                <div class="col-md-2">Saldo capital:
+                    <span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip"
+                        data-placement="bottom" title="Saldo capital"></span>
+                </div>
+            </div>
+            <div class="row tarjeta-data-1">
+                <div class="col-md-2 tarjeta-data-1-bold">{{item.canCatPrestamo | number:'0.2-2'}} %</div>
+                <div class="col-md-3">${{item.canMontoSol | number:'0.2-2'}}</div>
+                <div class="col-md-2 tarjeta-data-1-bold">${{item.canDescuentoMensual | number:'0.2-2'}}</div>
+                <div class="col-md-3 tarjeta-data-1-bold">{{item.numMesRecuperado}} / {{item.numPlazoPrestamo}}</div>
+                <div class="col-md-2">${{item.saldoCapital | number:'0.2-2'}}</div>
+            </div>
+        </div>
+        <br>
+    </span>
+</div>
+
+
+
+
+
+
+
+<div class="row">
+    <form role="form" class="form form-horizontal" [formGroup]="formGroup" (ngSubmit)="confirmarModificacionPrestamo()"
+        autocomplete="off">
+        <div class="form-group">
+            <label for="" class="col-sm-12">
+                Motivo*:
+            </label>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-4">
+                <select [ngClass]="[!formGroup.controls['selectTipoBajas'].valid &&
+                     formGroup.controls['selectTipoBajas'].touched &&
+                      captchaValueVerificado != true ? 'form-control-error':'form-control']" class=" form-control"
+                    formControlName="selectTipoBajas">
+                    <option value="" disabled selected>{{labelMotivo}}</option>
+                    <option *ngFor="let motivosBaja of catalogoMotivos" [ngValue]="motivosBaja.id">
+                        {{motivosBaja.descripcion}}</option>
+                </select>
+                <div *ngIf="!formGroup.controls['selectTipoBajas'].valid">
+                    <div *ngIf="formGroup.controls['selectTipoBajas'].errors?.required 
+                        && formGroup.controls['selectTipoBajas'].touched">
+                        <p class="error-class">Es necesario ingresar la información del campo marcado como
+                            obligatorio. </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <label for="">Descripción*:</label>
+                <textarea placeholder="Ingresa la descripción" formControlName="motivoBaja" maxlength="350" rows="5"
+                    cols="80" class="form-control"></textarea>
+                <div *ngIf="!formGroup.controls['motivoBaja'].valid">
+                    <div *ngIf="formGroup.controls['motivoBaja'].errors?.required 
+                            && formGroup.controls['motivoBaja'].touched">
+                        <p class="error-class">Es necesario ingresar la información del campo marcado como
+                            obligatorio. </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 text-right" style="margin-top: 20px">
+                <a class="btn btn-default" (click)="navegarHome(true);" style="margin-right: 5px" type="button">
+                    Regresar
+                </a>
+                <button type="submit" [disabled]="formGroup.invalid || buttonSubmitStatus"
+                    class="btn btn-primary ">Guardar
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+
+
+
+<div class="row" *ngIf="suspensionPrestamo">
+    <h4>Suspensi&oacute;n prestamo</h4>
+</div>
+<br>
+<div class="row" *ngIf="!bajaPrestamo && !suspensionPrestamo">
+
+</div>
+<br><br>
+<jw-modal id="autorizarBajaPrestamo">
+    <div class="jw-modal-titulo">Atención</div>
+    <div class="modal-body">
+        <p *ngIf="this.model.tipoOperacion==1">¿Deseas dar de baja el préstamo?</p>
+        <p *ngIf="this.model.tipoOperacion==2">¿Deseas suspender el préstamo?</p>
+        <p *ngIf="this.model.tipoOperacion==3">¿Deseas reanudar el préstamo?</p>
+
+        <div class="row">
+            <div class="col-md-12 text-right">
+                <button class="btn btn-default" (click)="closeModalBajaPrestamo()"
+                    style="margin-right: 5px">Cancelar</button>&nbsp;&nbsp;
+                <button class="btn btn-primary " (click)="procesarMovimientoPrestamo()">Aceptar</button>
+            </div>
+        </div>
+    </div>
+</jw-modal>
+
+<jw-modal id="bajaConcluida">
+    <div class="jw-modal-titulo">
+        <h4>Atención</h4>
+    </div>
+    <div style="height:100%; width:100%">
+        <div class="modal-body">
+            <p>Se ha dado de baja correctamente el pr&eacute;stamo</p>
+        </div>
+        <div class="col-md-12" align="right">
+            <a class="btn btn-primary " routerLink="../buscarFolioAutorizar">Cerrar</a>
+        </div>
+    </div>
+</jw-modal>
+
+
+<jw-modal id="carga">
+    <div class="jw-modal-titulo"> <b>Atención</b></div>
+    <div style="height:100%; width:100%">
+        <br>
+        <br>
+        <p style="text-align:center"><b>Cargando datos</b></p>
+        <div align="center">
+            <div class="preloader"></div>
+        </div>
+        <br>
+    </div>
+</jw-modal>

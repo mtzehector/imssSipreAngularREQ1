@@ -1,0 +1,64 @@
+<app-header></app-header>
+
+<div class="row" style="margin-top: -60px;">
+    <app-menu-ux [rol]="rol"></app-menu-ux>
+</div>
+<br>
+
+<div class="row ">
+    <div class="col-md-8">
+        <h4>Te damos la bienvenida</h4>
+        <div class="col-sm">
+            <p text-align="left">
+                Para acceder al sistema, selecciona una de las opciones del menú desplegable en la esquina superior
+                derecha.
+            </p>
+        </div>
+        <br>
+        <div>
+            <h5>Folios pendientes</h5>
+            <hr class="red">
+            <div class="col-md-6">
+                <div class="rectangle-188" style="margin: -30px -15px 100px; width: 360px;">
+                    <h6 style="text-align: center;">Pendiente monto a liquidar</h6>
+                    <p class="blue-font" style="text-align: center;">
+                        <strong>{{this.solicitudHome.solPendienteMontoLiq}}</strong></p>
+                </div>
+            </div>
+            <!--<div class="col-md-6">
+                <div class="rectangle-188" style="margin: -30px 10px 100px; width: 360px;">
+                    <h6 style="text-align: center;">Pendiente por cargar CEP</h6>
+                    <p class="blue-font" style="text-align: center;">
+                        <strong>1</strong></p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="rectangle-188" style="margin: -60px -15px 100px; width: 360px;">
+                    <h6 style="text-align: center;">Por asignar personal operativo</h6>
+                    <p class="blue-font" style="text-align: center;">
+                        <strong>1</strong></p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="rectangle-188" style="margin: -60px 10px 100px; width: 360px;">
+                    <h6 style="text-align: center;">Por autorizar</h6>
+                    <p class="blue-font" style="text-align: center;">
+                        <strong>1</strong></p>
+                </div>
+            </div>-->
+
+
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="row">
+            <app-user-profile></app-user-profile>
+        </div>
+        <div class="row" style="text-align: center;">
+            <app-seccion-ayuda></app-seccion-ayuda>
+        </div>
+    </div>
+
+</div>
+<br>
+<br>

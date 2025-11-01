@@ -1,0 +1,74 @@
+.inputBorder {
+    border-radius: 10px;
+    border: solid 1px;
+}
+
+.inputSimple {
+    height: 47px;
+    border-radius: 10px;
+    border: solid 1px #afaeae;
+}
+
+.tituloResultNotificacion {
+    font-family: Montserrat;
+    font-size: 21px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
+    color: #282828;
+}
+
+.tarjetaResulBusq {
+    width: 1138px;
+    height: 215px;
+    flex-grow: 0;
+    margin: 22px 0 0;
+    padding: 16px 9.5px 21px 43px;
+    border-radius: 15px;
+    box-shadow: 3px 4px 15px 0 rgba(0, 0, 0, 0.18);
+    border: solid 1px #ffffff;
+    background-color: #ffffff;
+}
+
+.tituloPrestamo-span {
+    font-family: Montserrat;
+    font-size: 18px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
+    color: #2f6e93 !important;
+}
+
+.fontNombrePrestamo {
+    font-family: Montserrat;
+    font-size: 18px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
+    color: #464646;
+    padding-top: 1%;
+    padding-bottom: 2%;
+}
+
+.fontNombreEF {
+    font-family: Montserrat;
+    font-size: 18px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
+    color: black;
+    padding-top: 1%;
+    padding-bottom: 2%;
+}

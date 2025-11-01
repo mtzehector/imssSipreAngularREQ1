@@ -1,0 +1,25 @@
+<div class="col-md-12">
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">Comprobante electr&oacute;nico de pago</th>
+        <th scope="col">Examinar</th>
+        <th scope="col">Validar</th>
+        <th scope="col">Ver</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>{{cepPensionado.tipoDocumentoEnum.descripcion}}</td>
+        <td><app-upload [documento]="cepPensionado" [idSolicitud]="model.informeCartaInstruccion.solicitud.id" ></app-upload></td>
+        <td><a><span class=" btn btn-default glyphicon glyphicon-info-sign" disabled aria-hidden="true"></span></a></td>
+        <td><app-download [documento]="cepPensionado" ></app-download></td>
+      </tr>
+      <tr>
+        <td>*Comprobante electr&oacute;nico de pago (Pensionado) xml.</td>
+        <td><app-upload-xml [documento]="cepPensionado" [idSolicitud]="model.informeCartaInstruccion.solicitud.id" ></app-upload-xml></td>
+        <td><a><span class=" btn btn-default glyphicon glyphicon-info-sign" disabled aria-hidden="true"></span></a></td>
+        <td><app-download [documento]="cepPensionado" ></app-download></td>
+    </tbody>
+  </table>
+</div>

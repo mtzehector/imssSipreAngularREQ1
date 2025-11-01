@@ -1,0 +1,67 @@
+<app-header></app-header>
+<div class="row">
+</div>
+<div class="row" style="margin-top: -60px;">
+    <app-menu></app-menu>
+</div>
+<br>
+<div class="row" style="padding: 10px;">
+    <div class="col-md-8">
+    </div>
+    <app-user-profile></app-user-profile>
+</div>
+<div class="row">
+
+    <div class="col-md-12">
+        <h4>Simulación de préstamos</h4>
+        <hr class="red" />
+        <p>
+            <b>Lee con atención la siguiente información:</b> <br> El Resumen de simulación de préstamo ha sido enviado
+            a tu correo electrónico. También puedes descargarlo en este momento. Consérvalo para cualquier aclaración.
+
+        </p>
+    </div>
+</div>
+
+<app-descarga-imprime 
+    [tipo]="'resumen-simulacion'" 
+    [idSolicitud]="model.simulacion.solicitud.id"
+    [verDetalle]="0">
+</app-descarga-imprime>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <b> Siguientes pasos</b><br><br> 1. La Entidad Financiera que elegiste te contactará para continuar con tu
+            préstamo. <br> 2. Cuando te visite, te pedirá copia de los siguientes documentos:<br>
+            <ul>
+                <li>Identificación oficial (credencial para votar, pasaporte o cédula)</li>
+                <li>Documento que contenga CLABE interbancaria <span
+                        class="glyphicon glyphicon-question-sign red-tooltip" aria-hidden="true" data-toggle="tooltip"
+                        data-placement="bottom" title="Puede ser el 
+contrato de la cuenta
+o un estado de cuenta
+bancario."></span></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<br>
+
+<div class="row">
+    <div class="col-sm">
+        <div class="col-md-10"></div>
+        <div class="col-md-2">
+            <a class="btn btn-primary"routerLink="../home" role="button">Finalizar</a>
+            <br><br>
+        </div>
+    </div>
+</div>
+<!--div class="row">
+    <div class="col-sm">
+        <div class="col-md-10"></div>
+        <div class="col-md-2">
+          <button type="button" class="btn btn-default" (click)="regresar();">Finalizar
+          </button>
+           </div>
+    </div>
+</div-->

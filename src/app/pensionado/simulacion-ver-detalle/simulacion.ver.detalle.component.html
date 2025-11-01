@@ -1,0 +1,578 @@
+<app-header></app-header>
+<div class="row" style="margin-top: -60px;">
+    <app-menu *ngIf="this.rol === 'pensionado'"></app-menu>
+    <app-menu-ux *ngIf="this.rol != 'pensionado'" [rol]="this.rol"></app-menu-ux>
+</div>
+<div class="row" style="padding: 10px;">
+    <div class="col-md-8">
+    </div>
+    <app-user-profile></app-user-profile>
+</div>
+
+<div class="row">
+    <div class="col-md-10">
+        <h4>Informe de Préstamo</h4>
+        <hr class="red">
+        <p></p>
+    </div>
+    <div class="col-md-2"><br>
+        <a class="btn btn-default" (click)="navegarHome();" role="button">Regresar</a>
+    </div>
+</div>
+
+<br>
+<div class="row folio-header">
+    <div class="col-md-3">
+        Folio:&nbsp;<span>{{resumenSimulacion.solicitud.numFolioSolicitud}}</span>
+    </div>
+    <div class="col-md-9">
+        Estado:&nbsp;<span>{{resumenSimulacion.solicitud.cveEstadoSolicitud.desEstadoSolicitud}}</span>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6 tarjeta tarjeta-info-pensionado">
+        <div class="row tarjeta-header">
+            Información del solicitante
+        </div>
+        <div class="row tarjeta-body">
+            <div class="row tarjeta-title-1">
+                <div class="col-md-12">
+                    Nombre:
+                </div>
+            </div>
+            <div class="row tarjeta-data-1">
+                <div class="col-md-12">
+                    {{resumenSimulacion.pensionado.nombre}}&nbsp; {{resumenSimulacion.pensionado.primerApellido}}&nbsp; {{resumenSimulacion.pensionado.segundoApellido}}
+                </div>
+            </div>
+            <div class="row tarjeta-title-1">
+                <div class="col-md-6">
+                    CURP:
+                </div>
+                <div class="col-md-6">
+                    NSS:
+                </div>
+            </div>
+            <div class="row tarjeta-data-1">
+                <div class="col-md-6">
+                    {{resumenSimulacion.pensionado.curp}}
+                </div>
+                <div class="col-md-6">
+                    {{resumenSimulacion.pensionado.nss}}
+                </div>
+            </div>
+            <div class="row tarjeta-title-1">
+                <div class="col-md-6">
+                    Delegación:
+                </div>
+                <div class="col-md-6">
+                    Tel&eacute;fono m&oacute;vil:
+                </div>
+            </div>
+            <div class="row tarjeta-data-1">
+                <div class="col-md-6">
+                    {{resumenSimulacion.pensionado.delegacion.descDelegacion}}
+                </div>
+                <div class="col-md-6">
+                    {{resumenSimulacion.personaModel.telCelular}}
+                </div>
+            </div>
+            <div class="row tarjeta-title-1">
+                <div class="col-md-6">
+                    Correo electr&oacute;nico:
+                </div>
+                <div class="col-md-6">
+                    Tipo de trabajador:
+                </div>
+            </div>
+            <div class="row tarjeta-data-1">
+                <div class="col-md-6">
+                    {{resumenSimulacion.personaModel.correoElectronico}}
+                </div>
+                <div class="col-md-6">
+                    PENSIONADO
+                </div>
+            </div>
+
+            <div class="row tarjeta-title-1">
+                <div class="col-md-6">
+                    Tipo de pensión:
+                </div>
+                <div class="col-md-6">
+                    Tipo de crédito:
+                </div>
+            </div>
+            <div class="row tarjeta-data-1">
+                <div class="col-md-6">
+                    {{resumenSimulacion.pensionado.tipoPension}}
+                </div>
+                <div class="col-md-6">
+                    {{nuevo.tipoCreditoEnum.descripcion}}
+                </div>
+            </div>
+            <div class="row tarjeta-title-1">
+                <div class="col-md-6">
+                    Origen del préstamo:
+                </div>
+            </div>
+            <div class="row tarjeta-data-1">
+                <div class="col-md-6">
+                    {{resumenSimulacion.solicitud.cveOrigenSolicitud.desOrigenSolicitud}}
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+    <div class="col-md-6 tarjeta tarjeta-info-ef">
+        <div class="row tarjeta-header">
+            Entidad Financiera elegida
+        </div>
+        <div class="row tarjeta-body">
+            <div class="row">
+                <div class="col-md-12" style="text-align: center;">
+                    <img [src]="imgEFUrl" alt="Sin imagen">
+                </div>
+            </div>
+            <div class="row tarjeta-title-1">
+                <div class="col-md-6">
+                    Nombre comercial:
+                </div>
+                <div class="col-md-6">
+                    Teléfono:
+                </div>
+            </div>
+            <div class="row tarjeta-data-1-bold">
+                <div class="col-md-6">
+                    {{resumenSimulacion.oferta.entidadFinanciera.nombreComercial}}
+                </div>
+                <div class="col-md-6">
+                    {{resumenSimulacion.oferta.entidadFinanciera.numTelefono}}
+                </div>
+            </div>
+            <div class="row tarjeta-title-1">
+                <div class="col-md-12">
+                    Página web:
+                </div>
+            </div>
+            <div class="row tarjeta-data-1">
+                <div class="col-md-12">
+                    <a href="https://{{resumenSimulacion.oferta.entidadFinanciera.paginaWeb}}">{{resumenSimulacion.oferta.entidadFinanciera.paginaWeb}}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div *ngIf="resumenSimulacion.promotor != null" class="row tarjeta">
+    <div class="row tarjeta-header">
+        Personal operativo
+    </div>
+    <div class="row tarjeta-body">
+        <div class="col-md-4">
+            <img [src]="imgPromotorUrl" alt="Sin imagen" style="max-width: 250px; max-height: 150px;">
+        </div>
+        <div class="col-md-8">
+            <div class="row tarjeta-title-1">
+                <div class="col-md-6">
+                    Nombre:
+                </div>
+                <div class="col-md-6">
+                    Teléfono móvil:
+                </div>
+            </div>
+            <div class="row tarjeta-data-1">
+                <div class="col-md-6">
+                    {{ resumenSimulacion.promotor.nombre}} {{ resumenSimulacion.promotor.primerApellido}} {{ resumenSimulacion.promotor.segundoApellido}}
+                </div>
+                <div class="col-md-6">
+                    {{ resumenSimulacion.promotor.telefono}}
+                </div>
+            </div>
+            <div class="row tarjeta-title-1">
+                <div class="col-md-12">
+                    Correo Electrónico:
+                </div>
+            </div>
+            <div class="row tarjeta-data-1">
+                <div class="col-md-12">
+                    {{ resumenSimulacion.promotor.correoElectronico}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row tarjeta">
+    <div class="row tarjeta-header">
+        Información de la simulación
+    </div>
+    <div class="row tarjeta-body">
+        <div class="row tarjeta-title-1">
+            <div class="col-md-3">
+                CAT con IVA:
+                <span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="
+Costo Anual Total:
+Monto total a pagar
+cada año, incluyendo
+la tasa de interés
+anual y otros costos
+del préstamo.">
+                </span>
+            </div>
+            <div class="col-md-3">Monto solicitado:</div>
+            <div class="col-md-3">Descuento mensual:
+                <span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="
+Es el monto que se
+te descontará
+mensualmente a lo
+largo del préstamo."></span>
+            </div>
+            <div class="col-md-3">Plazo:</div>
+        </div>
+
+        <div class="row tarjeta-data-1">
+            <div *ngIf="resumenSimulacion.catPromotor != null" class="col-md-3 tarjeta-data-1-bold">{{resumenSimulacion.catPromotor}}%</div>
+            <div *ngIf="resumenSimulacion.catPromotor == null" class="col-md-3 tarjeta-data-1-bold">{{resumenSimulacion.oferta.cat}}%</div>
+            <div class="col-md-3">${{resumenSimulacion.prestamo.monto | number:'0.2-2'}}</div>
+            <div class="col-md-3 tarjeta-data-1-bold">${{resumenSimulacion.prestamo.impDescNomina | number:'0.2-2'}}
+            </div>
+            <div class="col-md-3 tarjeta-data-1-bold">{{resumenSimulacion.oferta.plazo.descripcion}}</div>
+        </div>
+
+        <div class="row tarjeta-title-1">
+            <div class="col-md-3">
+                Importe total a pagar: <span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Es el importe total
+del préstamo más
+los intereses y costos
+cubiertos durante la
+vida del crédito"></span>
+            </div>
+            <div class="col-md-3">Fecha del primer descuento:<span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Esta fecha está sujeta
+de cambio, conforme a la
+fecha de autorización 
+del préstamo."></span></div>
+            <div class="col-md-3">Fecha de registro:</div>
+            <div class="col-md-3">Fecha de vigencia del folio:</div>
+        </div>
+
+        <div class="row tarjeta-data-1">
+            <div class="col-md-3 tarjeta-data-1-bold">${{resumenSimulacion.prestamo.impTotalPagar | number:'0.2-2'}}
+            </div>
+            <div class="col-md-3">{{resumenSimulacion.prestamo.primerDescuento| slice:0:10}}</div>
+            <div class="col-md-3">{{resumenSimulacion.solicitud.altaRegistro| slice:0:10}}</div>
+            <div class="col-md-3">{{resumenSimulacion.solicitud.fecVigenciaFolio| slice:0:10}}</div>
+        </div>
+
+    </div>
+</div>
+
+<div class="row tarjeta">
+    <div class="row tarjeta-header">
+        Préstamos por liquidar
+    </div>
+
+    <div class="sin-info col-md-12" *ngIf="flagConPrestamos==0">
+        <h4>No hay préstamos por liquidar.</h4>
+    </div>
+
+    <span *ngFor="let item of resumenSimulacion.listPrestamoRecuperacion.prestamosEnRecuperacion; let i = index">
+        <div class="row tarjeta-body">
+            <div class="row tarjeta-data-1">
+                <!--Entidad Financiera: <span class="tarjeta-data-1-bold">{{item.nombreComercial}}</span>-->
+                <div class="col-md-9">
+                    Entidad Financiera: <span class="tarjeta-data-1-bold" style="font-size: 18px;">{{item.nombreComercial}}</span>
+                </div>
+                
+                <div  *ngIf="resumenSimulacion.prestamo.tipoCredito != 3"></div>
+                <div class="col-md-3">
+                    <div class="row" style="text-align: left;">
+                        CLABE: <span class="tarjeta-data-1-bold" style="font-size: 18px;">{{item.clabe}}</span>
+                    </div>
+                </div>
+</div>
+<div class="row tarjeta-title-1">
+    <div class="col-md-2">CAT con IVA:</div>
+    <div class="col-md-3">Monto solicitado:</div>
+    <div class="col-md-2">Descuento Mensual:</div>
+    <div class="col-md-3">Descuentos / Plazo:</div>
+    <div class="col-md-2">Saldo capital:
+        <span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Saldo capital"></span>
+    </div>
+    <div class="col-md-3"></div>
+</div>
+<div class="row tarjeta-data-1">
+    <div class="col-md-2 tarjeta-data-1-bold">{{item.canCatPrestamo | number:'0.2-2'}} %</div>
+    <div class="col-md-3">${{item.impRealPrestamo | number:'0.2-2'}}</div>
+    <div class="col-md-2 tarjeta-data-1-bold">${{item.canDescuentoMensual | number:'0.2-2'}}</div>
+    <div class="col-md-3 tarjeta-data-1-bold">{{item.numMesRecuperado}} / {{item.numPlazoPrestamo}}</div>
+    <div *ngIf="item.canMontoSol != null" class="col-md-2">${{item.canMontoSol | number:'0.2-2'}}</div>
+    <div *ngIf="item.canMontoSol == null" class="col-md-2">${{item.saldoCapital | number:'0.2-2'}}</div>
+    <div class="col-md-3 tarjeta-data-1-bold"></div>
+</div>
+<div class="col-md-12" *ngIf="resumenSimulacion.prestamo.tipoCredito == 3 || resumenSimulacion.prestamo.tipoCredito == 6">
+    <div class="row tarjeta-title-1" style="text-align: left;">
+        Referencia: <span class="tarjeta-data-1-bold" style="font-size: 18px;">{{item.referencia}}</span>
+       <!-- CLABE: <span class="tarjeta-data-1-bold" style="font-size: 18px;">{{item.clabe}}</span>-->
+    </div>
+</div>
+<!--<div class="row tarjeta-title-1">
+    <div class="col-md-3">Cuenta Cable:</div>
+</div>
+<div class="row tarjeta-data-1">
+    <div class="col-md-3 tarjeta-data-1-bold">{{item.clabe}}</div>
+</div>-->
+</div>
+<br>
+</span>
+<!--<span>
+        <div class="row tarjeta-body">
+            <div class="row tarjeta-data-1">
+                Entidad Financiera: <span class="tarjeta-data-1-bold">TEST</span>
+            </div>
+            <div class="row tarjeta-title-1">
+                <div class="col-md-2">CAT con IVA:</div>
+                <div class="col-md-3">Monto solicitado:</div>
+                <div class="col-md-2">Descuento Mensual:</div>
+                <div class="col-md-3">Descuentos / Plazo:</div>
+                <div class="col-md-2">Saldo capital:
+                    <span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip"
+                        data-placement="bottom" title="Saldo capital"></span>
+                </div>
+            </div>
+            <div class="row tarjeta-data-1">
+                <div class="col-md-2 tarjeta-data-1-bold">TEST %</div>
+                <div class="col-md-3">$TEST</div>
+                <div class="col-md-2 tarjeta-data-1-bold">$TEST</div>
+                <div class="col-md-3 tarjeta-data-1-bold">TEST</div>
+                <div class="col-md-2">TEST</div>
+            </div>
+        </div>
+        <br>
+    </span>
+    -->
+</div>
+
+
+<div class="row tarjeta">
+    <div class="row tarjeta-header">
+        Documentación del préstamo
+    </div>
+    <div class="row">
+
+        <div class="sin-info col-md-12" *ngIf="flagConDocumentos==0 && resumenSimulacion.solicitud.id==null">
+            <h4>No hay documentación cargada para este préstamo</h4>
+        </div>
+
+        <div class="col-md-6" *ngIf="resumenSimulacion.solicitud.id!=null && resumenSimulacion.solicitud.cveOrigenSolicitud.id == 1">
+            <div class="col-md-6" style="text-align: right;">
+                Resumen de simulación
+            </div>
+            <div class="col-md-6" style="text-align: center;">
+                <app-descarga-imprime 
+                    [tipo]="'resumen-simulacion'" 
+                    [idSolicitud]="resumenSimulacion.solicitud.id" 
+                    [verDetalle]="1">
+                </app-descarga-imprime>
+            </div>
+        </div>
+
+        <div class="col-md-6" *ngIf="resumenSimulacion.solicitud.id!=null && resumenSimulacion.solicitud.cveOrigenSolicitud.id == 4 && resumenSimulacion.solicitud.cveEstadoSolicitud.id == 2">
+            <div class="col-md-6" style="text-align: right;">
+                Carta de Libranza
+            </div>
+            <div class="col-md-6" style="text-align: center;">
+                <app-descarga-imprime
+                    [tipo]="'carta-instruccion'" 
+                    [idSolicitud]="resumenSimulacion.solicitud.id" 
+                    [verDetalle]="1">
+                </app-descarga-imprime>
+            </div>
+        </div>
+
+        <div *ngIf="resumenSimulacion.solicitud.id!=null && resumenSimulacion.solicitud.cveOrigenSolicitud.id == 5 && resumenSimulacion.solicitud.cveEstadoSolicitud.id == 2" class="col-md-6">
+            <div class="col-md-6" style="text-align: right;">
+                Carta de Reinstalación
+            </div>
+            <div class="col-md-6" style="text-align: center;">
+                <app-descarga-imprime 
+                    [tipo]="'carta-reinstalacion'" 
+                    [idSolicitud]="resumenSimulacion.solicitud.id" 
+                    [verDetalle]="1">
+                </app-descarga-imprime>
+            </div>
+        </div>
+
+        <span *ngFor="let item of documentacion; let i = index">
+            <div *ngIf="item.tipoDocumento !=7&&
+                        item.tipoDocumento !=8&&
+                        item.tipoDocumento !=12&&
+                        item.tipoDocumento !=13">
+                <div class="col-md-6">
+                    <div class="col-md-6" style="text-align: right;">
+                        {{item.tipoDocumentoEnum.descripcion}}
+                    </div>
+                    <div class="col-md-6" style="text-align: center;">
+                        <app-download [documento]="item"></app-download>
+                    </div>
+                </div>
+            </div>
+        </span>
+
+    </div>
+</div>
+<div *ngIf="resumenSimulacion.solicitud.cveOrigenSolicitud.id != 5" class="row tarjeta">
+    <div class="row tarjeta-header">
+        CEP del préstamo
+    </div>
+    <div class="sin-info col-md-12" *ngIf="flagConDocumentosCEP==0 && resumenSimulacion.solicitud.id!=null">
+        <h4>No hay documentación CEP cargada para este préstamo</h4>
+    </div>
+    <span *ngFor="let item of comprobantesPago; let i = index">
+        <div *ngIf="item.tipoDocumento ==7||
+                    item.tipoDocumento ==8||
+                    item.tipoDocumento ==12||
+                    item.tipoDocumento ==13">  
+            <div class="col-md-6">
+                <div class="col-md-6" style="text-align: right;">
+                    {{item.tipoDocumentoEnum.descripcion}}
+                </div>
+                <div class="col-md-6" style="text-align: center;">
+                    <app-download [documento]="item"></app-download>
+                </div>
+            </div>
+        </div>  
+    </span>
+
+</div>
+
+<div *ngIf="resumenSimulacion.solicitud.cveOrigenSolicitud.id != 5" class="row tarjeta">
+    <div class="row tarjeta-header">
+        Documentación adicional
+    </div>
+    <div class="sin-info col-md-12" *ngIf="flagConDocumentos==0 && resumenSimulacion.solicitud.id==null">
+        <h4>No hay documentación cargada para este préstamo</h4>
+    </div>
+    <span *ngFor="let item of documentacionAdicional; let i = index">
+        <div>  
+            <div class="col-md-6">
+                <div class="col-md-6" style="text-align: right;">
+                    {{item.tipoDocumentoEnum.descripcion}}
+                </div>
+                <div class="col-md-6" style="text-align: center;">
+                    <app-download [documento]="item"></app-download>
+                </div>
+            </div>
+        </div>  
+    </span>
+</div>
+
+<ul class="nav nav-tabs">
+    <li [ngClass]="[tabVisible=='tabAmort' ? 'active':'']">
+        <a data-target="#tab1" data-toggle="tab" (click)="verTab('tabAmort')" class="tab-click-detalle">Tabla
+            Amortización</a>
+    </li>
+    <li [ngClass]="[tabVisible=='descApli' ? 'active':'']">
+        <a data-target="#tab1" data-toggle="tab" (click)="verTab('descApli')" class="tab-click-detalle">Descuentos
+            Aplicados</a>
+    </li>
+    <li [ngClass]="[tabVisible=='descBita' ? 'active':'']">
+        <a data-target="#tab1" data-toggle="tab" (click)="verTab('descBita')" class="tab-click-detalle">Bitácora de
+            Movimientos
+        </a>
+    </li>
+</ul>
+
+<div class="row tab-content">
+    <div class="tab-pane active" *ngIf="tabVisible=='tabAmort'">
+        <div class="sin-info col-md-12" *ngIf="flagConTablaAmortizacion==0">
+            <h4>Datos inexistentes para este folio de préstamo</h4>
+        </div>
+        <div class="col-md-12" *ngIf="flagConTablaAmortizacion==1">
+            <table class="table table-striped">
+                <thead>
+                    <th>Núm. descuento</th>
+                    <th>Saldo Capital</th>
+                    <th>Abono a Capital</th>
+                    <th>Intereses</th>
+                    <th>IVA</th>
+                    <th>Descuento Mensual</th>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of resumenSimulacion.tablaAmort; let i = index">
+                        <td>{{item.periodo}}</td>
+                        <td>$ {{item.saldo| number:'0.2-2'}}</td>
+                        <td>$ {{item.capital| number:'0.2-2'}}</td>
+                        <td>$ {{item.intereses| number:'0.2-2'}}</td>
+                        <td>$ {{item.iva| number:'0.2-2'}}</td>
+                        <td>$ {{item.descuento| number:'0.2-2'}}</td>
+                        <td>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="tab-pane active" *ngIf="tabVisible=='descApli'">
+        <div class="sin-info col-md-12" *ngIf="flagConTablaDescuentos==0">
+            <h4>Datos inexistentes para este folio de préstamo</h4>
+        </div>
+        <div class="col-md-12" *ngIf="flagConTablaDescuentos==1">
+            <table class="table table-striped">
+                <thead>
+                    <th>Nómina</th>
+                    <th>Razón social</th>
+                    <th>Movimiento</th>
+                    <th>Importe pagado</th>
+                    <th>Saldo pendiente</th>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of resumenSimulacion.descuentosAplicados; let i = index">
+                        <td>{{item.periodoNomina}}</td>
+                        <td>{{item.razonSocial}}</td>
+                        <td>{{item.desMovimiento}}</td>
+                        <td>$ {{item.impRecuperado| number:'0.2-2'}}</td>
+                        <td>$ {{item.saldoPendiente| number:'0.2-2'}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="tab-pane active" *ngIf="tabVisible=='descBita'">
+        <div class="sin-info col-md-12" *ngIf="flagConTablaBitacora ==0">
+            <h4>Datos inexistentes para este folio de préstamo</h4>
+        </div>
+        <div class="col-md-12" *ngIf="flagConTablaBitacora==1">
+            <table class="table table-striped">
+                <thead>
+                    <th>Evento</th>
+                    <th>Estado</th>
+                    <th>CURP</th>
+                    <th>Fecha alta</th>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of bitacoraDes; let i = index">
+                        <td>{{item.tipo}}</td>
+                        <td>{{item.estadoSolicitud}}</td>
+                        <td>{{item.curp}}</td>
+                        <td>{{item.altaRegistro}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-md-10">
+    </div>
+    <div class="col-md-2"><br>
+        <a class="btn btn-default" (click)="navegarHome()" role="button">Regresar</a>
+    </div>
+</div>
+<br>

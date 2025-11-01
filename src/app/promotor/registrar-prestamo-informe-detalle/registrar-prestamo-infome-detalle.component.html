@@ -1,0 +1,290 @@
+<div class="row folio-header">
+    <div class="col-md-3">
+        Folio:&nbsp;<span>{{resumenSimulacion.solicitud.numFolioSolicitud}}</span>
+    </div>
+    <div class="col-md-9">
+        Estado:&nbsp;<span>Iniciado</span>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6 tarjeta tarjeta-info-pensionado">
+        <div class="row tarjeta-header">
+            Información del solicitante
+        </div>
+        <div class="row tarjeta-body">
+            <div class="row tarjeta-title-1">
+                <div class="col-md-12">
+                    Nombre:
+                </div>
+            </div>
+            <div class="row tarjeta-data-1">
+                <div class="col-md-12">
+                    {{this.model.prestamoPromotor.persona.nombre}}&nbsp; {{this.model.prestamoPromotor.persona.primerApellido}}&nbsp; {{this.model.prestamoPromotor.persona.segundoApellido}}
+                </div>
+            </div>
+            <div class="row tarjeta-title-1">
+                <div class="col-md-6">
+                    CURP:
+                </div>
+                <div class="col-md-6">
+                    NSS:
+                </div>
+            </div>
+            <div class="row tarjeta-data-1">
+                <div class="col-md-6">
+                    {{resumenSimulacion.pensionado.cveCurp}}
+                </div>
+                <div class="col-md-6">
+                    {{resumenSimulacion.pensionado.idNss}}
+                </div>
+            </div>
+            <div class="row tarjeta-title-1">
+                <div class="col-md-6">
+                    Delegación:
+                </div>
+                <div class="col-md-6">
+                    Tel&eacute;fono m&oacute;vil:
+                </div>
+            </div>
+            <div class="row tarjeta-data-1">
+                <div class="col-md-6">
+                    {{resumenSimulacion.pensionado.descDelegacion}}
+                </div>
+                <div class="col-md-6">
+                    {{this.model.prestamoPromotor.pensionado.telefono}}
+                </div>
+            </div>
+            <div class="row tarjeta-title-1">
+                <div class="col-md-6">
+                    Correo electr&oacute;nico:
+                </div>
+                <div class="col-md-6">
+                    Tipo de trabajador:
+                </div>
+            </div>
+            <div class="row tarjeta-data-1">
+                <div class="col-md-6" style="font-size: 16px;">
+                    {{this.model.prestamoPromotor.pensionado.correoElectronico}}
+                </div>
+                <div class="col-md-6">
+                    PENSIONADO
+                </div>
+            </div>
+            <div class="row tarjeta-title-1">
+                <div class="col-md-6">
+                    Tipo de pensión:
+                </div>
+                <div class="col-md-6">
+                    Tipo de crédito:
+                </div>
+            </div>
+            <div class="row tarjeta-data-1">
+                <div class="col-md-6">
+                    {{resumenSimulacion.pensionado.tipoPension}}
+                </div>
+                <div class="col-md-6">
+                    {{this.tipoCreditoDesc}}
+                </div>
+            </div>
+            <div class="row tarjeta-title-1">
+                <div class="col-md-6">
+                    Origen del préstamo:
+                </div>
+                <div class="col-md-6">
+                </div>
+            </div>
+            <div class="row tarjeta-data-1">
+                <div class="col-md-6">
+                    {{resumenSimulacion.solicitud.cveOrigenSolicitud.desOrigenSolicitud}}
+                </div>
+                <div class="col-md-6">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 tarjeta tarjeta-info-ef">
+        <div class="row tarjeta-header ">
+            Entidad Financiera elegida
+        </div>
+        <div class="row tarjeta-body">
+            <div class="row">
+                <div class="col-md-12" style="text-align: center;">
+                    <img [src]="imgEFUrl" alt="Sin imagen">
+                </div>
+            </div>
+            <div class="row tarjeta-title-1">
+                <div class="col-md-6">
+                    Nombre comercial:
+                </div>
+                <div class="col-md-6">
+                    Teléfono:
+                </div>
+            </div>
+            <div class="row tarjeta-data-1-bold">
+                <div class="col-md-6">
+                    {{resumenSimulacion.personaEf.entidadFinanciera.nombreComercial}}
+                </div>
+                <div class="col-md-6">
+                    {{resumenSimulacion.personaEf.entidadFinanciera.telefonoAtencionClientes}}
+                </div>
+            </div>
+            <div class="row tarjeta-title-1">
+                <div class="col-md-12">
+                    Página web:
+                </div>
+            </div>
+            <div class="row tarjeta-data-1">
+                <div class="col-md-12">
+                    <a href="https://{{resumenSimulacion.personaEf.entidadFinanciera.paginaWeb}}">{{resumenSimulacion.personaEf.entidadFinanciera.paginaWeb}}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row tarjeta">
+    <div class="row tarjeta-header">
+        Personal operativo
+    </div>
+    <div class="row tarjeta-body">
+        <div class="col-md-4">
+            <img [src]="imgPromotorUrl" alt="Sin imagen" style="max-width: 250px; max-height: 150px;">
+        </div>
+
+        <div class="col-md-8">
+            <div class="row tarjeta-title-1">
+                <div class="col-md-6">
+                    Nombre:
+                </div>
+                <div class="col-md-6">
+                    Teléfono móvil:
+                </div>
+            </div>
+            <div class="row tarjeta-data-1">
+                <div class="col-md-6">
+                    {{resumenSimulacion.promotor.nombre}} {{resumenSimulacion.promotor.primerApellido}} {{resumenSimulacion.promotor.segundoApellido}}
+                </div>
+                <div class="col-md-6">
+                    {{resumenSimulacion.promotor.telefono}}
+                </div>
+            </div>
+            <div class="row tarjeta-title-1">
+                <div class="col-md-12">
+                    Correo Electrónico:
+                </div>
+            </div>
+            <div class="row tarjeta-data-1">
+                <div class="col-md-12">
+                    {{resumenSimulacion.promotor.correoElectronico}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row tarjeta">
+    <div class="row tarjeta-header">
+        Información de la simulación
+    </div>
+    <div class="row tarjeta-body">
+        <div class="row tarjeta-title-1">
+            <div class="col-md-3">
+                CAT con IVA:
+                <span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Costo Anual Total:
+Monto total a pagar
+cada año, incluyendo
+la tasa de interés
+anual y otros costos
+del préstamo.">
+                </span>
+            </div>
+            <div class="col-md-3">Monto solicitado:</div>
+            <div class="col-md-3">Descuento mensual:
+                <span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Es el monto que se
+te descontará
+mensualmente a lo
+largo del préstamo."></span>
+            </div>
+            <div class="col-md-3">Plazo:</div>
+        </div>
+
+        <div class="row tarjeta-data-1">
+            <div class="col-md-3 tarjeta-data-1-bold">{{resumenSimulacion.oferta.cat}}%</div>
+            <div class="col-md-3">${{resumenSimulacion.prestamo.monto | number:'0.2-2'}}</div>
+            <div class="col-md-3 tarjeta-data-1-bold">${{resumenSimulacion.prestamo.impDescNomina | number:'0.2-2'}}
+            </div>
+            <div class="col-md-3 tarjeta-data-1-bold">{{resumenSimulacion.oferta.plazo.descripcion}}</div>
+        </div>
+
+        <div class="row tarjeta-title-1">
+            <div class="col-md-3">
+                Importe total a pagar: <span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Es el importe total
+del préstamo más
+los intereses y costos
+cubiertos durante la
+vida del crédito."></span>
+            </div>
+            <div class="col-md-3">
+                Fecha del primer descuento:<span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Esta fecha está sujeta 
+de cambio, conforme a la
+fecha de autorización 
+del préstamo."></span></div>
+            <div class="col-md-3">Fecha de registro:</div>
+            <div class="col-md-3">Fecha de vigencia del folio:</div>
+        </div>
+
+        <div class="row tarjeta-data-1">
+            <div class="col-md-3 tarjeta-data-1-bold">${{resumenSimulacion.prestamo.impTotalPagar | number:'0.2-2'}}
+            </div>
+            <div class="col-md-3">{{this.fecha}}</div>
+            <div class="col-md-3">{{resumenSimulacion.solicitud.altaRegistro| slice:0:10}}</div>
+            <div class="col-md-3">{{resumenSimulacion.solicitud.fecVigenciaFolio| slice:0:10}}</div>
+        </div>
+
+    </div>
+</div>
+
+
+<div class="row tarjeta" *ngIf="resumenSimulacion.listPrestamoRecuperacion.length > 0 ">
+    <div class="row tarjeta-header">
+        Préstamos por liquidar
+    </div>
+    <div class="sin-info col-md-12" *ngIf="flagConPrestamos==0">
+        <h4>No hay préstamos por liquidar.</h4>
+    </div>
+    <span *ngFor="let item of resumenSimulacion.listPrestamoRecuperacion.prestamosEnRecuperacion; let i = index">
+        <div class="row tarjeta-body">
+            <div class="row tarjeta-data-1">
+                Entidad Financiera: <span class="tarjeta-data-1-bold">{{item.nombreComercial}}</span>
+</div>
+<div class="row tarjeta-title-1">
+    <div class="col-md-2">CAT con IVA:</div>
+    <div class="col-md-3">Monto solicitado:</div>
+    <div class="col-md-2">Descuento Mensual:</div>
+    <div class="col-md-3">Descuentos / Plazo:</div>
+    <div class="col-md-2">Saldo capital:
+        <span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Saldo capital"></span>
+    </div>
+</div>
+<div class="row tarjeta-data-1">
+    <div class="col-md-2 tarjeta-data-1-bold">{{item.canCatPrestamo | number:'0.2-2'}} %</div>
+    <div class="col-md-3">${{item.canMontoSol | number:'0.2-2'}}</div>
+    <div class="col-md-2 tarjeta-data-1-bold">${{item.canDescuentoMensual | number:'0.2-2'}}</div>
+    <div class="col-md-3 tarjeta-data-1-bold">{{item.numMesRecuperado}} / {{item.numPlazoPrestamo}}</div>
+    <div class="col-md-2">${{item.saldoCapital | number:'0.2-2'}}</div>
+</div>
+</div>
+<br>
+</span>
+</div>
+
+
+
+
+
+
+<br>

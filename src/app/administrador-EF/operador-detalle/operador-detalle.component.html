@@ -1,0 +1,268 @@
+<app-header></app-header>
+<div class="row" style="margin-top: -60px;">
+    <app-menu-ux [rol]="this.rol"></app-menu-ux>
+</div>
+<div class="row" style="padding: 10px;">
+    <div class="col-md-8">
+    </div>
+    <app-user-profile></app-user-profile>
+</div>
+
+<div class="col-md-12">
+  <h4>Informe de Operador de Entidad Financiera</h4>
+  <hr class="red">
+</div>
+
+<div class="row">
+  <div class="col-md-3">
+    <span class="tarjeta-data-1-bold">&nbsp;&nbsp;&nbsp;Estado: </span>
+    <span class="tarjeta-data-1-bold-blue">
+      {{model.operador.desEstadoPersonaEf}}
+    </span>
+  </div>
+</div>
+<div class="row tarjeta">
+  <div class="row tarjeta-body">
+    <div class="row">
+      <div class="col-md-5 tarjeta-data-1-bold">
+        &nbsp;&nbsp; {{model.operador.nombre}} {{model.operador.primerApellido}} {{model.operador.segundoApellido}}
+      </div>
+      <div class="col-md-3">
+      </div>
+      <div class="col-md-2">
+      </div>
+    </div>
+    <div class="row tarjeta-title-1">
+      <div class="col-md-5">
+        CURP:
+      </div>
+      <div class="col-md-3">
+        Correo electrónico:
+      </div>
+      <div class="col-md-2" style="margin-left: 15%!important;">
+        Teléfono móvil:
+      </div>
+    </div>
+    <div class="row tarjeta-data-1">
+      <div class="col-md-5">
+        {{model.operador.cveCurp}}
+      </div>
+      <div class="col-md-3">
+        {{model.operador.correoElectronico}}
+      </div>
+      <div class="col-md-2" style="margin-left: 15%!important;">
+        {{model.operador.telCelular}}
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row tarjeta">
+  <div class="row tarjeta-header">
+    Información de empleado
+  </div>
+  <div class="row tarjeta-body">
+    <div class="row tarjeta-title-1">
+      <div class="col-md-4">
+        RFC:
+      </div>
+      <div class="col-md-4">
+        Número de empleado:
+      </div>
+      <div class="col-md-4">
+        Registro Patronal:
+      </div>
+
+    </div>
+    <div class="row tarjeta-data-1">
+      <div class="col-md-4">
+        {{model.operador.rfc}}
+      </div>
+      <div class="col-md-4">
+        {{model.operador.numEmpleado}}
+      </div>
+      <div class="col-md-4">
+        {{model.operador.registroPatronal}}
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="row tarjeta">
+  <div class="row tarjeta-header">
+    Datos de contacto
+  </div>
+  <div class="row tarjeta-body">
+    <div class="row tarjeta-title-1">
+      <div class="col-md-6">
+        Teléfono móvil:
+      </div>
+      <div class="col-md-6">
+        Correo electrónico:
+      </div>
+
+
+    </div>
+    <div class="row tarjeta-data-1">
+      <div class="col-md-6">
+        {{model.operador.telCelular}}
+      </div>
+      <div class="col-md-6">
+        {{model.operador.correoElectronico}}
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="col-md-12">
+  <h4>Documentación</h4>
+  <hr class="red">
+</div>
+
+
+<div class="row">
+  <div class="col-md-3">
+  </div>
+  <div class="col-md-3" style="text-align: center;">
+    <label>Identificación oficial:</label>
+  </div>
+  <div class="col-md-3" style="text-align: center;">
+    <app-download [documento]="model.operador.documentoIdentOficial"></app-download>
+  </div>
+  <div class="col-md-3">
+  </div>
+</div>
+
+<br>
+<form role="form" class="form-horizontal" [formGroup]="formGroup" (ngSubmit)="bajaConfirmacionModal()"
+  autocomplete="off">
+  <div *ngIf="bajaOperador">
+    <div class="col-md-12">
+      <h4>Baja de Operador</h4>
+      <hr class="red">
+    </div>
+    <div class="row" style="padding-left: 20px;">
+      <div class="col-sm-4">
+        <span>Estado*: </span>
+        <select class="form-control select-style" [(ngModel)]="operadorBajaRQ.cveEstadoPersonaEf"
+          formControlName="cveEstadoPersonaEf" (change)="habilitarMotivo()">
+          <option value="" selected>Seleccionar...</option>
+          <option *ngIf="model.operador.desEstadoPersonaEf!='Activo'" value="1">Activo</option>
+          <option *ngIf="model.operador.desEstadoPersonaEf=='Activo'" value="2">Suspendido</option>
+          <option *ngIf="model.operador.desEstadoPersonaEf=='Activo'" value="3">Inactivo</option>
+        </select>
+        <div
+          *ngIf="!formGroup.controls['cveEstadoPersonaEf'].valid && formGroup.controls['cveEstadoPersonaEf'].touched">
+          <p class="error-class">
+            Es necesario ingresar la información del campo marcado como obligatorio
+          </p>
+        </div>
+      </div>
+      <div class="col-sm-4" *ngIf="operadorBajaRQ.cveEstadoPersonaEf != 1">
+        <span>Motivo*: </span>
+        <select class="form-control select-style" [(ngModel)]="this.operadorBajaRQ.baja" formControlName="baja">
+          <option value="" selected>Seleccionar...</option>
+          <option value="2">Comportamiento irregular.</option>
+          <option value="1">T&eacute;rmino de la relaci&oacute;n laboral.</option>
+        </select>
+        <div *ngIf="!formGroup.controls['baja'].valid && formGroup.controls['baja'].touched">
+          <p class="error-class">
+            Es necesario ingresar la información del campo marcado como obligatorio
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+
+  <div *ngIf="!bajaOperador">
+    <div class="form-group" style="text-align: right;">
+      <button type="button" class="btn btn-default" (click)="regresar()">Regresar</button>
+      &nbsp;&nbsp;&nbsp;
+      <!--<button type="button" *ngIf="model.operador.desEstadoPersonaEf!='Activo'" class="btn btn-primary"
+        (click)="cerrar()">Cerrar</button>
+      &nbsp;&nbsp;&nbsp;-->
+      <span *ngIf="model.operador.desEstadoPersonaEf=='Activo'">
+        <button type="button" class="btn btn-primary" (click)="baja()">
+          Dar de Baja
+        </button>
+      </span>
+      <span *ngIf="model.operador.desEstadoPersonaEf != 'Activo'">
+        <button type="button" class="btn btn-primary" (click)="baja()">
+          Reactivar
+        </button>
+      </span>
+      &nbsp;&nbsp;&nbsp;
+      <button type="button" class="btn btn-primary"
+        (click)="modificar()">Modificar</button>
+    </div>
+  </div>
+
+  <div *ngIf="bajaOperador">
+    <div class="form-group" style="text-align: right;">
+      <button type="button" class="btn btn-default" (click)="regresarBaja()">Regresar</button>
+      &nbsp;&nbsp;&nbsp;
+      <span *ngIf="model.operador.desEstadoPersonaEf =='Activo'">
+        <button type="submit" class="btn btn-primary" [disabled]="formGroup.invalid">Dar de Baja</button>
+      </span>
+      <span *ngIf="model.operador.desEstadoPersonaEf != 'Activo'">
+        <button type="submit" class="btn btn-primary" [disabled]="formGroup.invalid">Reactivar</button>
+      </span>
+    </div>
+  </div>
+</form>
+<br>
+
+<jw-modal id="carga">
+  <div class="jw-modal-titulo"> <b>Atención</b></div>
+  <div style="height:100%; width:100%">
+    <br>
+    <br>
+    <p style="text-align:center"><b>Cargando datos</b></p>
+    <div align="center">
+      <div class="preloader"></div>
+    </div>
+    <br>
+  </div>
+</jw-modal>
+
+<jw-modal id="suspendido">
+  <div class="jw-modal-titulo">Atención</div>
+  <div style="height:100%; width:100%">
+    <div class="modal-body">
+      <p>El operador {{model.operador.nombre}} {{model.operador.primerApellido}}
+        {{model.operador.segundoApellido}} esta suspendido, por lo que no se puede realizar esta
+        acci&oacute;n.
+      </p>
+    </div>
+    <div class="col-md-12" align="right">
+      <button class="btn btn-primary " (click)="closeModal();">Aceptar</button>
+    </div>
+  </div>
+</jw-modal>
+
+<jw-modal id="confirmacionBajaModal">
+  <div class="jw-modal-titulo">Atención</div>
+  <div style="height:100%; width:100%">
+    <div class="modal-body">
+      <span *ngIf="model.operador.desEstadoPersonaEf=='Activo'">
+        <div class="row">
+          ¿Estás seguro de dar de baja al Operador {{model.operador.nombre}}
+          {{model.operador.primerApellido}} {{model.operador.segundoApellido}}?
+        </div>
+      </span>
+      <span *ngIf="model.operador.desEstadoPersonaEf!='Activo'">
+        <div class="row">
+          ¿Estás seguro de reactivar al Operador {{model.operador.nombre}}
+          {{model.operador.primerApellido}} {{model.operador.segundoApellido}}?
+        </div>
+      </span>
+    </div>
+    <div class="col-md-12" align="right">
+      <button class="btn btn-primary " (click)="closeModalConfirmacion();">Cancelar</button>
+      &nbsp;&nbsp;&nbsp;<button class="btn btn-primary " (click)="bajaExec();">Aceptar</button>
+    </div>
+  </div>
+</jw-modal>

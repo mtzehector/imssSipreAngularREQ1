@@ -1,0 +1,99 @@
+<app-header></app-header>
+<div class="row" style="margin-top: -60px;">
+    <app-menu-ux [rol]="rol"></app-menu-ux>
+</div>
+<div class="row" style="padding: 10px;">
+    <div class="col-md-8">
+    </div>
+    <app-user-profile></app-user-profile>
+</div>
+<div class="row">
+    <div class="col-md-10">
+        <h4>Informe de Prestamo</h4>
+        <hr class="red">
+        <p></p>
+    </div>
+
+</div>
+<app-registrar-prestamo-infome-detalle></app-registrar-prestamo-infome-detalle>
+
+<div class="row tarjeta">
+    <div class="row tarjeta-header">
+        Préstamos por liquidar
+    </div>
+
+    <div class="sin-info col-md-12" *ngIf="flagConPrestamos==0">
+        <h4>No hay préstamos por liquidar.</h4>
+    </div>
+
+    <span *ngFor="let item of this.model.prestamosRecuperacionArreglo; let i = index">
+        <div class="row tarjeta-body">
+            <div class="row tarjeta-data-1">
+                <!--Entidad Financiera: <span class="tarjeta-data-1-bold">{{item.nombreComercial}}</span>-->
+                <div class="col-md-6">Entidad Financiera:
+                    <span class="tarjeta-data-1-bold" style="font-size: 18px;">{{item.nombreComercial}}</span>
+                </div>
+                <div class="col-md-6">
+                    <div class="row" style="text-align: right;">
+                        CLABE: <span class="tarjeta-data-1-bold" style="font-size: 18px;">{{item.clabe}}</span>
+                    </div>
+                </div>
+</div>
+<div class="row tarjeta-title-1">
+    <div class="col-md-2">CAT con IVA:</div>
+    <div class="col-md-3">Monto solicitado:</div>
+    <div class="col-md-2">Descuento Mensual:</div>
+    <div class="col-md-3">Descuentos / Plazo:</div>
+    <div class="col-md-2">Saldo capital:
+        <span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Saldo capital"></span>
+    </div>
+    
+</div>
+<div class="row tarjeta-data-1">
+    <div class="col-md-2 tarjeta-data-1-bold">{{item.canCatPrestamo | number:'0.2-2'}} %</div>
+    <div class="col-md-3">${{item.canMontoSol | number:'0.2-2'}}</div>
+    <div class="col-md-2 tarjeta-data-1-bold">${{item.canDescuentoMensual | number:'0.2-2'}}</div>
+    <div class="col-md-3 tarjeta-data-1-bold">{{item.numMesRecuperado}} / {{item.numPlazoPrestamo}}</div>
+    <div class="col-md-2">${{item.saldoCapital | number:'0.2-2'}}</div>
+
+</div>
+</div>
+<br>
+</span>
+</div>
+
+<div class="row ">
+    <div class="col-md-12">
+        <h5>Aviso de privacidad</h5>
+
+    </div>
+
+</div>
+
+<app-aviso-privacidad></app-aviso-privacidad>
+<br>
+<div class="row ">
+    <div class="col-md-12">
+
+        <input type="checkbox" name="avisoCheck" (change)="cheked()" [checked]="(idx === 0)"> He leído y acepto el aviso de privacidad
+
+
+    </div>
+
+</div>
+
+<div class="row ">
+    <div class="col-md-12" style="text-align: right;">
+
+        <div class="form-group">
+            <button type="button" [disabled]="!estadoTermino || buttonSubmitStatus" (click)=confirmarCondiciones(); class="btn btn-primary borderButton">
+              Generar Carta de Libranza
+        </button>
+
+
+
+        </div>
+
+    </div>
+</div>
+<br>

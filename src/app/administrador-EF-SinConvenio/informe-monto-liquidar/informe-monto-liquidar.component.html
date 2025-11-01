@@ -1,0 +1,459 @@
+<ol class="breadcrumb ">
+    <li><a href="#"><i class="icon icon-home"></i></a></li>
+    <li><a href="#">Inicio</a></li>
+    <li class="active">Préstamos a cuenta de pensión con Entidades Financieras </li>
+</ol>
+
+<div class="row" style="height: 65px;">
+    <div class="col-md-12">
+        <h4>Préstamos a cuenta de pensión con Entidades Financieras </h4>
+        <hr class="red">
+    </div>
+</div>
+<app-menu-ux [rol]="rol"></app-menu-ux>
+<div class="row" style="padding: 10px;">
+    <div class="col-md-8">
+    </div>
+    <app-user-profile></app-user-profile>
+</div>
+
+<div class="row ">
+    <div class="col-md-12">
+        <h4>Informe de préstamo</h4>
+        <hr class="red">
+    </div>
+</div>
+<br>
+
+<!-- DATOS DEL PENSIONADO-->
+<div class="row folio-header">
+    <div class="col-md-3">
+        Folio:&nbsp;<span>{{resumenSimulacion.solicitud.numFolioSolicitud}}</span>
+    </div>
+    <div class="col-md-9">
+        Estado:&nbsp;<span>{{resumenSimulacion.solicitud.cveEstadoSolicitud.desEstadoSolicitud}}</span>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6 tarjeta tarjeta-info-pensionado">
+        <div class="row tarjeta-header">
+            Información del solicitante
+        </div>
+        <div class="row tarjeta-body">
+            <div class="row tarjeta-title-1">
+                <div class="col-md-12">
+                    Nombre:
+                </div>
+            </div>
+            <div class="row tarjeta-data-1">
+                <div class="col-md-12">
+                    {{resumenSimulacion.pensionado.nombre}}&nbsp; {{resumenSimulacion.pensionado.primerApellido}}&nbsp; {{resumenSimulacion.pensionado.segundoApellido}}
+                </div>
+            </div>
+            <div class="row tarjeta-title-1">
+                <div class="col-md-6">
+                    CURP:
+                </div>
+                <div class="col-md-6">
+                    NSS:
+                </div>
+            </div>
+            <div class="row tarjeta-data-1">
+                <div class="col-md-6">
+                    {{resumenSimulacion.pensionado.curp}}
+                </div>
+                <div class="col-md-6">
+                    {{resumenSimulacion.pensionado.nss}}
+                </div>
+            </div>
+            <div class="row tarjeta-title-1">
+                <div class="col-md-6">
+                    Delegación:
+                </div>
+                <div class="col-md-6">
+                    Tel&eacute;fono m&oacute;vil:
+                </div>
+            </div>
+            <div class="row tarjeta-data-1">
+                <div class="col-md-6">
+                    {{resumenSimulacion.pensionado.delegacion.descDelegacion}}
+                </div>
+                <div class="col-md-6">
+                    {{resumenSimulacion.persona.telCelular}}
+                </div>
+            </div>
+            <div class="row tarjeta-title-1">
+                <div class="col-md-6">
+                    Correo electr&oacute;nico:
+                </div>
+                <div class="col-md-6">
+                    Tipo de trabajador:
+                </div>
+            </div>
+            <div class="row tarjeta-data-1">
+                <div class="col-md-6">
+                    {{resumenSimulacion.persona.correoElectronico}}
+                </div>
+                <div class="col-md-6">
+                    {{resumenSimulacion.solicitud.refTrabajador | uppercase }}
+                </div>
+            </div>
+
+            <div class="row tarjeta-title-1">
+                <div class="col-md-6">
+                    Tipo de pensión:
+                </div>
+                <div class="col-md-6">
+                    Tipo de crédito:
+                </div>
+            </div>
+            <div class="row tarjeta-data-1">
+                <div class="col-md-6">
+                    {{resumenSimulacion.pensionado.tipoPension | uppercase }}
+                </div>
+                <div class="col-md-6">
+                    {{resumenSimulacion.prestamo.tipoCreditoEnum.descripcion | uppercase}}
+                </div>
+            </div>
+            <div class="row tarjeta-title-1">
+                <div class="col-md-6">
+                    Origen del préstamo:
+                </div>
+            </div>
+            <div class="row tarjeta-data-1">
+                <div class="col-md-6">
+                    {{resumenSimulacion.solicitud.cveOrigenSolicitud.desOrigenSolicitud}}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 tarjeta tarjeta-info-ef">
+        <div class="row tarjeta-header">
+            Entidad Financiera elegida
+        </div>
+        <div class="row tarjeta-body">
+            <div class="row">
+                <div class="col-md-12" style="text-align: center;">
+                    <img [src]="imgEFUrl" alt="Sin imagen">
+                </div>
+            </div>
+            <div class="row tarjeta-title-1">
+                <div class="col-md-6">
+                    Nombre comercial:
+                </div>
+                <div class="col-md-6">
+                    Teléfono:
+                </div>
+            </div>
+            <div class="row tarjeta-data-1-bold">
+                <div class="col-md-6">
+                    {{resumenSimulacion.prestamo.oferta.entidadFinanciera.nombreComercial}}
+                </div>
+                <div class="col-md-6">
+                    {{resumenSimulacion.prestamo.oferta.entidadFinanciera.numTelefono}}
+                </div>
+            </div>
+            <div class="row tarjeta-title-1">
+                <div class="col-md-12">
+                    Página web:
+                </div>
+            </div>
+            <div class="row tarjeta-data-1">
+                <div class="col-md-12">
+                    <a href="https://{{resumenSimulacion.prestamo.oferta.entidadFinanciera.paginaWeb}}">{{resumenSimulacion.prestamo.oferta.entidadFinanciera.paginaWeb}}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row tarjeta">
+    <div class="row tarjeta-header">
+        Información de la simulación
+    </div>
+    <div class="row tarjeta-body">
+        <div class="row tarjeta-title-1">
+            <div class="col-md-3">
+                CAT con IVA:
+                <span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="
+Costo Anual Total:
+Monto total a pagar
+cada año, incluyendo
+la tasa de interés
+anual y otros costos
+del préstamo."></span>
+            </div>
+            <div class="col-md-3">Monto solicitado:</div>
+            <div class="col-md-3">Descuento mensual:
+                <span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="
+Es el monto que se
+te descontará
+mensualmente a lo
+largo del préstamo."></span>
+            </div>
+            <div class="col-md-3">Plazo:</div>
+        </div>
+
+        <div class="row tarjeta-data-1">
+            <div class="col-md-3 tarjeta-data-1-bold" *ngIf="resumenSimulacion.solicitud.cveOrigenSolicitud.id == 4">{{resumenSimulacion.catPromotor}}%</div>
+            <div class="col-md-3 tarjeta-data-1-bold" *ngIf="resumenSimulacion.solicitud.cveOrigenSolicitud.id != 4">{{resumenSimulacion.oferta.cat}}%</div>
+            <div class="col-md-3">${{resumenSimulacion.prestamo.monto | number:'0.2-2'}}</div>
+            <div class="col-md-3 tarjeta-data-1-bold">${{resumenSimulacion.prestamo.impDescNomina | number:'0.2-2'}}
+            </div>
+            <div class="col-md-3 tarjeta-data-1-bold">{{resumenSimulacion.oferta.plazo.descripcion}}</div>
+        </div>
+
+        <div class="row tarjeta-title-1">
+            <div class="col-md-3">
+                Importe total a pagar: <span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="
+Es el importe total
+del préstamo más
+los intereses y costos
+cubiertos durante la
+vida del crédito"></span>
+            </div>
+            <div class="col-md-3">
+                Fecha del primer descuento:<span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Esta fecha está 
+sujeta de cambio, 
+conforme a la fecha 
+de autorización del
+préstamo."></span></div>
+            <div class="col-md-3">Fecha de registro:</div>
+            <div class="col-md-3">Fecha de vigencia del folio:</div>
+        </div>
+
+        <div class="row tarjeta-data-1">
+            <div class="col-md-3 tarjeta-data-1-bold">${{resumenSimulacion.prestamo.impTotalPagar | number:'0.2-2'}}
+            </div>
+            <div class="col-md-3">{{this.fecha}}</div>
+            <div class="col-md-3">{{resumenSimulacion.solicitud.altaRegistro| slice:0:10}}</div>
+            <div class="col-md-3">{{resumenSimulacion.solicitud.fecVigenciaFolio| slice:0:10}}</div>
+        </div>
+
+    </div>
+</div>
+<!-- <form role="form" [formGroup]="formGroup"> -->
+
+<div class="row tarjeta">
+    <div class="row tarjeta-header">
+        Préstamos por liquidar
+    </div>
+
+    <div class="sin-info col-md-12" *ngIf="flagConPrestamos==0">
+        <h4>No hay préstamos por liquidar.</h4>
+    </div>
+
+    <span *ngFor="let item of resumenSimulacion.listPrestamoRecuperacion.prestamosEnRecuperacion; let i = index">
+        <div class="row tarjeta-body">
+            <div class="row tarjeta-data-1">
+                Entidad Financiera: <span class="tarjeta-data-1-bold">{{item.nombreComercial}}</span>
+</div>
+
+<div class="row tarjeta-title-1">
+    <div class="col-md-2">CAT con IVA:</div>
+    <div class="col-md-2">Monto solicitado:</div>
+    <div class="col-md-2">Descuento Mensual:</div>
+    <div class="col-md-3">Descuentos / Plazo:</div>
+    <div class="col-md-3">Saldo capital:
+        <span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="
+                    Es la parte del préstamo 
+                    que aún no se ha pagado,
+                    incluyendo las comisiones 
+                    que se hayan generado 
+                    hasta dicha fecha"></span>
+    </div>
+</div>
+
+<div class="row tarjeta-data-1">
+    <div class="col-md-2 tarjeta-data-1-bold">{{item.canCatPrestamo | number:'0.2-2'}} %</div>
+    <div class="col-md-2">${{item.impRealPrestamo | number:'0.2-2'}}</div>
+    <div class="col-md-2 tarjeta-data-1-bold">${{item.canDescuentoMensual | number:'0.2-2'}}</div>
+    <div class="col-md-3 tarjeta-data-1-bold">{{item.numMesRecuperado}} / {{item.numPlazoPrestamo}}</div>
+    <!-- <div class="col-md-2">${{item.saldoCapital | number:'0.2-2'}}</div> -->
+    <!-- <div class="form-group col-md-2">
+            <input class="form-control inputSaldoCapital" [ngClass]="[!formGroup.controls['monto'].valid && (formGroup.controls['monto'].touched || formGroup.controls['monto'].dirty ) ? 'form-control-error':'form-control']  " formControlName="monto" placeholder="Ingresa monto"
+                (change)="validarMonto(item.saldoCapital, item.numSolicitudSipre);">
+            <div style="width: max-content;">
+                <div *ngIf="!formGroup.controls['monto'].valid && formGroup.controls['monto'].touched">
+                    <div *ngIf="formGroup.controls['monto'].errors?.required">
+                        <p class="error-class">El monto es obligatorio.</p>
+                    </div>
+                </div>
+                <div *ngIf="this.flagErrorMonto">
+                    <p class="error-class">El monto ingresado debe<br>ser igual o menor<br> al monto original.</p>
+                </div>
+            </div>
+        </div> -->
+    <div class="col-md-2">
+        <input class="form-control inputSaldoCapital" [(ngModel)]="item.saldoCapital" placeholder="Ingresa monto" (change)="validarMonto(item.numSolicitudSipre, item.canDescuentoMensual);" name="salCap" #salCap="ngModel" required appTwoDigitDecimalNumber>
+        <div style="width: max-content;">
+            <div *ngIf="salCap.invalid && salCap.touched">
+                <div *ngIf="salCap.errors.required">
+                    <p class="error-class">El monto es obligatorio.</p>
+                </div>
+            </div>
+            <div *ngIf="salCap.touched && salCap.dirty">
+                <div *ngIf="this.flagErrorMonto && item.numSolicitudSipre == this.solicitado">
+                    <p class="error-class">El monto ingresado<br>no puede superar la<br>suma de dos meses<br>de descuento.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row tarjeta-title-1">
+    <div class ="col-md-2"></div>
+    <div class ="col-md-2">Referencia:</div>
+    <div class ="col-md-7">
+        <input class="form-control inputSaldoCapital" [(ngModel)]="item.referencia" placeholder="Ingresa referencia" (change)="validarReferencia();" name="referencia" #referencia="ngModel" required maxlength="130" oninput="this.value = this.value.toUpperCase()" >
+        <!--<div *ngIf="referencia.invalid && referencia.touched">
+            <div *ngIf="referencia.errors.required">
+                <p class="error-class">La referencia es obligatoria.</p> 
+            </div>
+        </div>-->
+        <div *ngIf="referencia.touched && referencia.dirty">
+            <div *ngIf="this.flagErrorReferencia && item.numSolicitudSipre == this.solicitado">
+                <p class="error-class">La referencia es obligatoria. </p>
+            </div>
+        </div>
+        <div *ngIf="referencia.touched && referencia.dirty">
+            <div *ngIf="this.flagErrorReferenciaCaracter && item.numSolicitudSipre == this.solicitado">
+                <p class="error-class">Solo se pueden usar números, letras y el caracter (-). </p>
+            </div>
+        </div>
+    </div> 
+    <div class ="col-md-1"></div>   
+</div>
+</div>
+<br>
+</span>
+
+<!--<span>
+            <div class="row tarjeta-body">
+                <div class="row tarjeta-data-1">
+                    Entidad Financiera: <span class="tarjeta-data-1-bold">TEST</span>
+                </div>
+                <div class="row tarjeta-title-1">
+                    <div class="col-md-2">CAT con IVA:</div>
+                    <div class="col-md-3">Monto solicitado:</div>
+                    <div class="col-md-2">Descuento Mensual:</div>
+                    <div class="col-md-3">Descuentos / Plazo:</div>
+                    <div class="col-md-2">Saldo capital:
+                        <span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip"
+                            data-placement="bottom" title="Saldo capital"></span>
+                    </div>
+                </div>
+                <div class="row tarjeta-data-1">
+                    <div class="col-md-2 tarjeta-data-1-bold">TEST %</div>
+                    <div class="col-md-3">$TEST</div>
+                    <div class="col-md-2 tarjeta-data-1-bold">$TEST</div>
+                    <div class="col-md-3 tarjeta-data-1-bold">TEST</div>
+                    <div class="col-md-2">TEST</div>
+                </div>
+            </div>
+            <br>
+        </span>
+        -->
+</div>
+
+<br>
+
+<div class="row form-group">
+    <div class="col-md-6" style="text-align: right;"></div>
+    <div class="col-md-6" style="text-align: right;">
+        <button type="button" class="btn btn-default " routerLink="../home">
+            <span class="oi oi-send glyphicon glyphicon-left"> </span>Regresar</button> &nbsp;&nbsp;&nbsp;
+        <!--<button type="submit" class="btn btn-primary" [disabled]="flagErrorMonto || flagError" (click)="guardarMontos()">-->
+            <button type="submit" class="btn btn-primary" [disabled]="flagErrorMonto || flagError || flagErrorReferencia || flagErrorReferenciaCaracter" (click)="confirmarMonto()">
+            <span class="oi oi-send glyphicon glyphicon-left"> </span>Continuar</button>
+        <br><br>
+    </div>
+</div>
+<!-- </form> -->
+
+
+<jw-modal id="preguntaRegistroMonto">
+    <div class="jw-modal-titulo"> <b>Atención</b></div>
+    <div style="height:100%; width:100%">
+        <br>
+        <br>
+        <p style="text-align:center"><b> ¿El monto capital $ {{montonuevo | number:'0.2-2'}} es correcto?</b></p>
+        <div style="text-align:right">
+            <button type="button" class="btn btn-primary" (click)="guardarMontos()">
+                <span class="oi oi-send glyphicon glyphicon-left"> </span>Si
+            </button>&nbsp;
+            <button type="button" class="btn btn-default" (click)="continuarNo()">
+                <span class="oi oi-send glyphicon glyphicon-left"> </span>No
+            </button>
+        </div>
+        <br>
+    </div>
+</jw-modal>
+
+<jw-modal id="registroExitoso">
+    <div class="jw-modal-titulo"> <b>Atención</b></div>
+    <div style="height:100%; width:100%">
+        <br>
+        <br>
+        <p style="text-align:center"><b> El monto a liquidar ha sido guardado correctamente</b></p>
+        <div style="text-align:right">
+            <button type="button" class="btn btn-primary">
+                <span class="oi oi-send glyphicon glyphicon-left"> </span>Aceptar
+            </button>&nbsp;
+
+        </div>
+        <br>
+    </div>
+</jw-modal>
+
+<jw-modal id="cancelacionFolioFecha">
+    <div class="jw-modal-titulo"> <b>Atención</b></div>
+    <div style="height:100%; width:100%">
+        <br>
+        <br>
+        <p style="text-align:center"><b>Han pasado las 48 horas máximas
+                para ingresar el monto a liquidar del préstamo,
+                por lo que no podrás continuar con el proceso.</b></p>
+        <div style="text-align:right">
+            <button type="button" class="btn btn-primary">
+                <span class="oi oi-send glyphicon glyphicon-left"> </span>Aceptar
+            </button>&nbsp;
+
+        </div>
+        <br>
+    </div>
+</jw-modal>
+
+<jw-modal id="cancelacionFolioMonto">
+    <div class="jw-modal-titulo"> <b>Atención</b></div>
+    <div style="height:100%; width:100%">
+        <br>
+        <br>
+        <p style="text-align:center"><b>El folio de negocio ha sido
+                cancelado, ya que el monto solicitado debe ser
+                mayor al adeudo pendiente con la Entidad
+                Financiera.</b></p>
+        <div style="text-align:right">
+            <button type="button" class="btn btn-primary">
+                <span class="oi oi-send glyphicon glyphicon-left"> </span>Aceptar
+            </button>&nbsp;
+
+        </div>
+        <br>
+    </div>
+    <jw-modal id="carga">
+        <div class="jw-modal-titulo"> <b>Atención</b></div>
+        <div style="height:100%; width:100%">
+            <br>
+            <br>
+            <p style="text-align:center"><b>Cargando datos</b></p>
+            <div align="center">
+                <div class="preloader"></div>
+            </div>
+
+            <br>
+        </div>
+    </jw-modal>
+</jw-modal>

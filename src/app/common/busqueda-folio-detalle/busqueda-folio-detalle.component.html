@@ -1,0 +1,276 @@
+<div class="row ">
+    <div class="col-md-12">
+        <h4>Buscar préstamo</h4>
+        <hr class="red">
+        <p>
+            Para realizar tu búsqueda, ingresa información en uno o varios campos:
+        </p>
+    </div>
+</div>
+<br>
+
+<div class="formulario">
+    <div class="row">
+        <div class="col-sm-4 form-group">
+            <label for="">Folio :</label>
+            <input type="text" [disabled]="activoBusqueda" class="form-control" [(ngModel)]="folioForm" placeholder="Ingresa el Folio" aria-describedby="basic-addon1" maxlength="13">
+        </div>
+
+        <div class="col-sm-4 form-group">
+            <label for="">NSS :</label>
+            <input type="text" [disabled]="activoBusqueda" maxlength="11" class="form-control" [(ngModel)]="nssForm" placeholder="Ingresa el NSS" aria-describedby="basic-addon1">
+            <div class="form-group" *ngIf="!nssValido">
+                <div>
+                    <p class="error-class">El NSS ingresado no es correcto, por favor verifica.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-4 form-group">
+            <label for="rol" class="">Estado:</label>
+            <select id="estado" class="form-control select-style " name="estado" [(ngModel)]="estadoSolicitudForm" [disabled]="activoBusqueda">
+                <option value="0" selected disabled>Seleccione estado</option>
+                <option *ngIf="this.rol == 'operadorIMSS' || this.rol == 'administradorIMSS' || this.rol == 'operadorEF' || this.rol == 'adminEF'" value="3">
+                    Autorizado
+                </option>
+                <option *ngIf="this.rol != 'promotor' && this.rol != 'adminEFSinConvenio'" value="4">
+                    Anexar Comprobante CEP
+                </option>
+                <option *ngIf="this.rol == 'operadorIMSS' || this.rol == 'administradorIMSS' || this.rol == 'operadorEF' || this.rol == 'adminEF'" value="10">
+                    Baja por compra de cartera
+                </option>
+                <option *ngIf="this.rol == 'operadorIMSS' || this.rol == 'administradorIMSS' || this.rol == 'operadorEF' || this.rol == 'adminEF'" value="12">
+                    Baja por defunción o Irrecuperable
+                </option>
+                <option *ngIf="this.rol == 'operadorIMSS' || this.rol == 'operadorEF' || this.rol == 'adminEF'" value="13">
+                    Baja por improcedencia
+                </option>
+                <option *ngIf="this.rol == 'operadorIMSS' || this.rol == 'operadorEF' || this.rol == 'adminEF'" value="9">
+                    Baja por liquidación anticipada
+                </option>
+                <option *ngIf="this.rol == 'operadorIMSS' || this.rol == 'administradorIMSS' || this.rol == 'operadorEF' || this.rol == 'adminEF'" value="11">
+                    Baja por liquidación total
+                </option>
+                <option *ngIf="this.rol == 'operadorIMSS' || this.rol == 'administradorIMSS' || this.rol == 'operadorEF' || this.rol == 'adminEF'" value="6">
+                    Cancelado
+                </option>
+                <option *ngIf="this.rol != 'operadorEF' && this.rol != 'adminEFSinConvenio'" value="1">
+                    Iniciado
+                </option>
+                <option *ngIf="this.rol != 'promotor'" value="5">
+                    Pendiente monto a liquidar
+                </option>
+                <option *ngIf="this.rol == 'operadorEF' || this.rol == 'adminEF'" value="15">
+                    Por asignar personal operativo
+                </option>
+                <option *ngIf="this.rol != 'promotor' && this.rol != 'adminEFSinConvenio'" value="2">
+                    Por Autorizar
+                </option>
+                <option *ngIf="this.rol == 'operadorIMSS' || this.rol == 'administradorIMSS' || this.rol == 'operadorEF' || this.rol == 'adminEF'" value="14">
+                    Por autorizar renovación
+                </option>
+                <option *ngIf="this.rol == 'operadorIMSS' || this.rol == 'administradorIMSS' || this.rol == 'operadorEF' || this.rol == 'adminEF'" value="18">
+                    Préstamo con error SPES
+                </option>
+                <option *ngIf="this.rol == 'operadorIMSS' || this.rol == 'operadorEF' || this.rol == 'adminEF'" value="8">
+                    Préstamo en recuperación
+                </option>
+                <option *ngIf="this.rol == 'operadorIMSS' || this.rol == 'administradorIMSS' || this.rol == 'operadorEF' || this.rol == 'adminEF'" value="17">
+                    Préstamo otorgado
+                </option>
+                <option *ngIf="this.rol == 'operadorIMSS' || this.rol == 'operadorEF' || this.rol == 'adminEF'" value="7">
+                    Préstamo suspendido
+                </option>
+                <option *ngIf="this.rol == 'operadorIMSS' || this.rol == 'administradorIMSS' || this.rol == 'operadorEF' || this.rol == 'adminEF'" value="16">
+                    Préstamo suspensión reanudada
+                </option>
+                <option *ngIf="this.rol == 'operadorIMSS' || this.rol == 'administradorIMSS' || this.rol == 'operadorEF'" value="22">
+                    Descuentos no aplicados
+                </option>
+            </select>
+        </div>
+    </div>
+    <p>Vigencia del folio</p>
+    <div class="row">
+        <div class="col-sm-4 form-group">
+            <label for="">De :</label>
+            <div class="form-group datepicker-group">
+                <input type="text" [disabled]="activoBusquedafecha" class="form-control" placeholder="Ingresa fecha de inicio " id="dateFolioAutorizar" [(ngModel)]="this.cartaInstruccionRequest.model.inicio" autocomplete="off">
+                <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+            </div>
+        </div>
+
+        <div class="col-sm-4 form-group">
+            <label for="">A :</label>
+            <div class="form-group datepicker-group">
+                <input type="text" [disabled]="activoBusquedafecha" class="form-control" placeholder="Ingresa fecha de fin. " id="dateFolioAutorizarA" [(ngModel)]="this.cartaInstruccionRequest.model.fin" autocomplete="off">
+                <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-sm-12 text-right">
+            <button (click)="limpiar()" class="btn btn-default">
+                Limpiar
+            </button>&nbsp;&nbsp;
+            <button (click)="validarEstado()" class="btn btn-primary ">
+                <span class="oi oi-undefined glyphicon glyphicon-undefined"></span>Buscar
+            </button>
+        </div>
+    </div>
+
+    <h4>Resultados de la b&uacute;squeda</h4>
+
+    <!-- boton descargar -->
+    <div class="row">
+        <div class="col-sm-12 text-right">
+            <button (click)="generarExcelPrestamos()" class="btn btn-default" [disabled]="!pageCartaInstruccion || !pageCartaInstruccion.content">
+                Descargar
+            </button>
+        </div>
+    </div>
+
+    <div class="row" *ngIf="!pageCartaInstruccion || !pageCartaInstruccion.content">
+        No existe informaci&oacute;n para mostrar
+    </div>
+    <div class="row" *ngIf="descuentosNoAplicados">
+        Se han localizado {{descuentosNoAplicadosTotal}} número de préstamos con descuentos no aplicados
+    </div>
+    <div *ngIf="!descuentosNoAplicados">
+        <div class="row tarjeta" *ngFor="let item of pageCartaInstruccion.content; let i = index">
+            <div class="row tarjeta-body">
+    
+                <div class="row tarjeta-data-1">
+                    <div class="col-md-6">Estado de la solicitud:
+                        <span class="tarjeta-data-1-bold" style="font-size: 18px;">{{item.solicitud.cveEstadoSolicitud.desEstadoSolicitud}}</span>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row" style="text-align: right;">
+                            <span *ngIf="this.rol == 'promotor'" style="cursor:pointer; text-decoration: none;" (click)="buscarFolioCartaInstruccion(item.solicitud.numFolioSolicitud);">
+                                <img [src]="'/mclpe/auth/js/assets/img/generacarta1.png'" class="generacarta-1"><span
+                                    class="Generar-carta">Generar carta</span>
+                            </span>
+                            <span *ngIf="this.rol == 'operadorEF' && item.solicitud.cveEstadoSolicitud.id == 5 && item.solicitud.cveEntidadFinanciera != model.personaEF.cveEntidadFinanciera" style="cursor:pointer; text-decoration: none;" (click)="seleccionSolicitud(i);">
+                                <img [src]="'/mclpe/auth/js/assets/img/capturarmonto1.png'" class="generacarta-1"><span
+                                    class="Generar-carta">Validar Monto</span>
+                            </span>
+                            <span *ngIf="this.rol == 'adminEFSinConvenio' && item.solicitud.cveEstadoSolicitud.id == 5" style="cursor:pointer; text-decoration: none;" (click)="seleccionSolicitud(i);">
+                                <img [src]="'/mclpe/auth/js/assets/img/capturarmonto1.png'" class="generacarta-1"><span
+                                    class="Generar-carta">Validar Monto</span>
+                            </span>
+                            <span *ngIf="this.rol == 'operadorEF' && item.solicitud.cveEstadoSolicitud.id == 4" style="cursor:pointer; text-decoration: none;" (click)="seleccionSolicitud(i);">
+                                <img [src]="'/mclpe/auth/js/assets/img/cep1.png'" class="cep-1"><span
+                                    class="Generar-carta">Cargar comprobante</span>
+                            </span>
+                            <span *ngIf="this.rol == 'operadorEF'  && (item.solicitud.cveEstadoSolicitud.id == 17 || item.solicitud.cveEstadoSolicitud.id == 8 || item.solicitud.cveEstadoSolicitud.id == 3) && item.solicitud.cveOrigenSolicitud.id != 5" 
+                            style="cursor:pointer; text-decoration: none;" (click)="seleccionSolicitud(i)">
+                                <img [src]="'/mclpe/auth/js/assets/img/cep1.png'" class="cep-1"><span
+                                    class="Ver-detalle">Carga de Documentos</span>
+                            </span>
+                            <span *ngIf="(this.rol == 'operadorEF' || this.rol == 'adminEF') && item.solicitud.cveEstadoSolicitud.id == 15" style="cursor:pointer; text-decoration: none;" (click)="asignarFolio(
+                                item.solicitud.cveEntidadFinanciera,
+                                item.solicitud.delegacion,
+                                item.solicitud.numFolioSolicitud,
+                                item.solicitud.id)">
+                                <img [src]="'/mclpe/auth/js/assets/img/asignapromotores1.png'"
+                                    class="asignapromotores-1"><span class="Generar-carta">Asignar personal operativo</span>
+                            </span>
+                            <span *ngIf="this.rol == 'operadorEF' && item.solicitud.cveEstadoSolicitud.id == 2" style="cursor:pointer; text-decoration: none;" (click)="seleccionSolicitud(i);">
+                                <img [src]="'/mclpe/auth/js/assets/img/autorizacarta1.png'" class="autorizacarta-1"><span
+                                    class="Generar-carta">Por autorizar</span>
+                            </span>
+                            <span *ngIf="this.rol == 'operadorIMSS'  && (item.solicitud.cveEstadoSolicitud.id == 8)" style="cursor:pointer; text-decoration: none;" (click)="buscarFolioSuspension(item.solicitud.numFolioSolicitud,item.solicitud.idSolPrFinanciero);">
+                                <img [src]="'/mclpe/auth/js/assets/img/autorizacarta2.png'" class="autorizacart/a-1"><span
+                                    class="Generar-carta">Suspender préstamo</span>
+                            </span>
+                            <span *ngIf="this.rol == 'operadorIMSS'  && (item.solicitud.cveEstadoSolicitud.id == 7)" style="cursor:pointer; text-decoration: none;" (click)="buscarFolioReanudar(item.solicitud.numFolioSolicitud,item.solicitud.idSolPrFinanciero);">
+                                <img [src]="'/mclpe/auth/js/assets/img/autorizacarta2.png'" class="autorizacarta-1"><span
+                                    class="Generar-carta">Reanudar préstamo</span>
+                            </span>
+                            <span *ngIf="this.rol == 'operadorEF'  && (item.solicitud.cveEstadoSolicitud.id == 7 || item.solicitud.cveEstadoSolicitud.id == 8)" style="cursor:pointer; text-decoration: none;" (click)="buscarFolioBaja(item.solicitud.numFolioSolicitud,item.solicitud.idSolPrFinanciero);">
+                                <img [src]="'/mclpe/auth/js/assets/img/autorizacarta2.png'" class="autorizacarta-1"><span
+                                    class="Generar-carta">Baja préstamo</span>
+                            </span>
+                            <span *ngIf="this.rol == 'operadorEF' && item.solicitud.cveEstadoSolicitud.id == 22" 
+                                  style="cursor:pointer; text-decoration: none;" 
+                                  (click)="reinstalacion(item.solicitud.idSolPrFinanciero,item.pensionado.nss,item.pensionado.curp, i)">
+                                  <img [src]="'/mclpe/auth/js/assets/img/GroupVD.png'" class="GroupVD">
+                                  <span class="Ver-detalle">Reinstalación de préstamo</span>
+                            </span>
+                            <span style="cursor:pointer; text-decoration: none;" 
+                            (click)="buscarFolio(item.solicitud.numFolioSolicitud,item.solicitud.idSolPrFinanciero, i)">
+                                <img [src]="'/mclpe/auth/js/assets/img/GroupVD.png'" class="GroupVD"><span
+                                    class="Ver-detalle">Ver Detalle</span>
+                            </span>
+    
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="row tarjeta-title-1">
+                    <div class="col-md-4">Folio:</div>
+                    <div class="col-md-4">NSS:</div>
+                    <div class="col-md-4">Nombre del Pensionado:</div>
+                </div>
+    
+                <div class="row tarjeta-data-1">
+                    <div class="col-md-4">{{item.solicitud.numFolioSolicitud}}</div>
+                    <div class="col-md-4">{{item.solicitud.nss}}</div>
+                    <div class="col-md-4">{{item.pensionado.nombre}} {{item.pensionado.primerApellido}} {{item.pensionado.segundoApellido}}
+                    </div>
+                </div>
+    
+                <div class="row tarjeta-title-1">
+                    <div class="col-md-4">Fecha de inicio del folio:</div>
+                    <div class="col-md-4">Fecha de vigencia del folio:</div>
+                    <div class="col-md-4">Descuento mensual</div>
+                </div>
+    
+                <div class="row tarjeta-data-1">
+                    <div class="col-md-4">{{item.solicitud.altaRegistro | slice:0:10}}</div>
+                    <div class="col-md-4">{{item.solicitud.fecVigenciaFolio | slice:0:10}}</div>
+                    <div class="col-md-4">{{item.solicitud.prestamo? item.solicitud.prestamo.impDescNomina? item.solicitud.prestamo.impDescNomina: 0 : 0}}</div>
+                </div>
+
+                <div *ngIf="item.solicitud.cveEstadoSolicitud.id==22" class="row tarjeta-title-1">
+                    <div class="col-md-4">DNA Consecutivos:</div>
+                    <div class="col-md-4"></div>
+                    <div class="col-md-4"></div>
+                </div>
+
+                <div *ngIf="item.solicitud.cveEstadoSolicitud.id==22" class="row tarjeta-data-1">
+                    <div class="col-md-4">{{item.solicitud.prestamo.numMesesConsecutivos}}</div>
+                    <div class="col-md-4"></div>
+                    <div class="col-md-4"></div>
+                </div>
+    
+            </div>
+        </div>
+    </div>
+    
+
+    <app-pager *ngIf="!descuentosNoAplicados" [pageModel]="pageCartaInstruccion" (paged)="onPaged($event)"></app-pager>
+    <br>
+    <!-- <div class="row">
+        <div class="col-md-12 text-right" *ngIf="activarDetalle">
+            <a class="btn btn-primary" (click)="buscarFolio();" role="button">Ver detalle</a>
+            <a *ngIf="this.rol === 'operadorEF'" class="btn btn-primary" (click)="cartaInstruccion();" role="button">{{activarTipoOpcion}}</a>
+        </div>
+    </div> -->
+    <br>
+    <jw-modal id="carga">
+        <div class="jw-modal-titulo"> <b>Atención</b></div>
+        <div style="height:100%; width:100%">
+            <br>
+            <br>
+            <p style="text-align:center"><b>Cargando datos</b></p>
+            <div align="center">
+                <div class="preloader"></div>
+            </div>
+
+            <br>
+        </div>
+    </jw-modal>
+</div>

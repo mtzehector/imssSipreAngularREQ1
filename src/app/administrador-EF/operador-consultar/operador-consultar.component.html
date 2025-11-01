@@ -1,0 +1,87 @@
+<app-header></app-header>
+<div class="row" style="margin-top: -60px;">
+    <app-menu-ux [rol]="this.rol"></app-menu-ux>
+</div>
+<div class="row" style="padding: 10px;">
+    <div class="col-md-8">
+    </div>
+    <app-user-profile></app-user-profile>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <h4>Consultar Operador de Entidad Financiera</h4>
+    <hr class="red">
+    <p align="left">Para realizar tu búsqueda, ingresa la CURP del Operador:</p>
+  </div>
+
+</div>
+<div class="row ">
+  <div class="col-sm-12">
+    <button type="submit" class="btn btn-primary pull-right" (click)="registrar()">Registrar operador
+    </button>
+  </div>
+</div>
+
+<form #registrarCurpNss="ngForm" autocomplete="off" class="form-horizontal" role="form">
+
+  <div class="row" style="margin-left: 0px !important;">
+    <div class="form-group">
+      <div class="col-sm-4">
+        <label class="">CURP del Operador: </label>
+        <input type="text" class="form-control" [(ngModel)]="operador.curp" name="curp"
+          #curp="ngModel" pKeyFilter="alphanum" placeholder="Ingresa  CURP" minlength="1" maxlength="18"
+          aria-describedby="basic-addon1" autofocus #validate='ngModel' pattern="{{regexCurp}}" required
+          oninput="this.value = this.value.toUpperCase()" />
+      </div>
+      <div class="col-sm-2">
+        <br>
+        <button type="button" class="btn btn-secondary" (click)="regresar()">Regresar
+        </button>
+      </div>
+      <div class="col-sm-1">
+        <br>
+        <button type="submit" style="height: 45px!important;" class="btn btn-primary pull-right" (click)="buscar()"
+          [disabled]="!registrarCurpNss.valid">Buscar
+        </button>
+      </div>
+
+    </div>
+
+  </div>
+</form>
+
+<div class="form-group" *ngIf="curp.errors && (curp.dirty || curp.touched)">
+  <div class="col-sm-6">
+    <p *ngIf="curp.errors.pattern" class="error-class">La CURP ingresada no es correcta, por favor verificar.</p>
+  </div>
+</div>
+
+<div style="margin: 70px 0 70px;"></div>
+<div *ngIf="operadorExiste">
+  <app-operador-consulta-detalle></app-operador-consulta-detalle>
+</div>
+<div *ngIf="etiquetaOperadorNoExiste">
+  <h4 style="text-align: center;">
+    Sin resultados para esta búsqueda.
+  </h4>
+</div>
+
+
+
+<br>
+<br>
+
+<jw-modal id="carga">
+  <div class="jw-modal-titulo"> <b>Atención</b></div>
+  <div style="height:100%; width:100%">
+    <br>
+    <br>
+    <p style="text-align:center"><b>Cargando datos</b></p>
+    <div align="center">
+      <div class="preloader"></div>
+    </div>
+
+    <br>
+  </div>
+</jw-modal>

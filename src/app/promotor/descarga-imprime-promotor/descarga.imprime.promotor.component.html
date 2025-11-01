@@ -1,0 +1,12 @@
+<div class="row">
+  <div class="col-sm-4 tarjeta-data-1-bold">Folio: <span
+      class="tarjeta-data-1-bold-blue">{{model.documento.numFolioSolicitud}}</span></div>
+  <div class="col-sm-4 tarjeta-data-1-bold-blue">{{model.documento.tipoDocumentoEnum.descripcion}}</div>
+  <div class="col-sm-4 tarjeta-data-1-bold" style="cursor:pointer;" (click)=downloadFile()>
+    <span>
+      <span class="glyphicon glyphicon-save" aria-hidden="true" style="color:#373130"></span>
+    </span>&nbsp; Descargar PDF
+  </div>
+ 
+</div>
+<br>

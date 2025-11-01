@@ -1,0 +1,62 @@
+<div class="card panel form">
+    <div class="card-body panel-body">
+        <form id="FormPanelComponent-login" name="login" onsubmit="return false;">
+            <fieldset>
+                <div id="panel_login">
+                    <div id="login">
+                        <h3>Login</h3>
+                        <hr class="red">
+                        <div class="">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="curp" class="control-label  ">CURP</label>
+                                        <div>
+                                            <input [(ngModel)]="model.persona.curp" id="curp" class="form-control " name="curp" type="text">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="rol" class="">Rol</label>
+                                        <div class="input-group col-12">
+                                            <select id="rol" class="form-control select-style" name="rol" [(ngModel)]="value">
+                        <option value="pensionado">Pensionado</option>
+                        <option value="promotor">Personal operativo</option>
+                        <option value="operadorEF">Operador Entidad Financiera</option>
+                        <option value="adminEF">Administrador Entidad Financiera</option>
+
+                        <option value="operadorIMSS">Operador IMSS</option>
+                      </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div id="buttongroup_undefined">
+                                        <div class="pull-right">
+                                            <button onclick="" type="button" class="btn btn-danger ">
+                        <span class="oi oi-undefined glyphicon glyphicon-undefined"></span>Cancelar
+                      </button><span> </span>
+                                            <button (click)="login()" class="btn btn-primary ">
+                        <span class="oi oi-undefined glyphicon glyphicon-undefined"></span>Ingresar
+                      </button><span> </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>

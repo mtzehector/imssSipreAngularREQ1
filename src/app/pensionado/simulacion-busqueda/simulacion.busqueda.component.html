@@ -1,0 +1,263 @@
+<app-header></app-header>
+<app-menu></app-menu>
+<div class="row" style="padding: 10px;">
+    <div class="col-md-8">
+    </div>
+    <app-user-profile></app-user-profile>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <h4>Simulación de préstamos</h4>
+        <hr class="red" />
+    </div>
+</div>
+<app-prestamos-vigentes (prestamoVigenteSeleccionado)="onPrestamoVigenteSeleccionado($event)" [rol]="this.rol"></app-prestamos-vigentes>
+<div class="row">
+    <div class="col-md-12">
+        <p> <b> Simulación</b><br> </p>
+        <hr class="red" style="margin: 10px 0 40px;">
+
+        <p style="margin-left:38%">Elige cómo deseas hacer la simulación:
+            <span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip"
+                data-placement="bottom" title="Haz tu simulación por la cantidad de
+     dinero que deseas pedir prestada, o
+     bien, por la cantidad que quieres
+     pagar mensualmente."></span>
+        </p>
+    </div>
+
+</div>
+<div class="row">
+
+    <div class="col-md-6 text-right" style="margin-left: -3%;">
+        <label class="radio-inline"><input type="radio" name="tipoSimulacion" value="1"
+                [(ngModel)]="model.simulacion.prestamo.tipoSimulacion" (click)="tipoSeleccion(1)">Por monto a
+            solicitar</label>
+    </div>
+    <div class="col-md-6">
+        <label class="radio-inline" style="margin-left:24%;"><input type="radio" name="tipoSimulacion" value="2"
+                [(ngModel)]="model.simulacion.prestamo.tipoSimulacion" (click)="tipoSeleccion(2)">Por descuento
+            mensual</label>
+    </div>
+
+</div>
+<br>
+<div class="row">
+    <div *ngIf="model.simulacion.prestamo.tipoSimulacion=='1'" class="col-md-12"
+        style="margin-left: 20%;margin-top:5%;">
+        <p> <b> ¿Cuánto dinero quieres pedir prestado?</b><br></p>
+    </div>
+    <div *ngIf="model.simulacion.prestamo.tipoSimulacion=='2'" class="col-md-12"
+        style="margin-left: 56%;margin-top:5%;">
+        <p> <b> ¿De cuánto quieres que sea tu </b></p>
+        <p style="margin-top: -1%;"><b>descuento mensual?</b><br></p>
+    </div>
+</div>
+
+
+<div class="col-md-12" style="margin-left: 20%;">
+    <br> <br>
+    <!-- <form id="contactForm" [formGroup]="form" (ngSubmit)="submit()">-->
+    <div class="formulario">
+        <div class="row">
+            <div class="col-md-4">
+
+                <div *ngIf="model.simulacion.prestamo.tipoSimulacion=='2'" [ngClass]="
+                { 'has-error form-group' : (montoSolicitado.dirty || montoSolicitado.touched) && montoSolicitado.invalid }
+                ">
+                    <div class="input-group" style="margin-top: -10%;
+                                margin-bottom: 35%;">
+                        <input placeholder="Ingresa el monto en pesos mexicanos" digitOnly decimal=true required minlength="1"
+                            (blur)="onMontoBlur()" (focus)="onMontoFocus()" #montoSolicitado="ngModel"
+                            [(ngModel)]="model.simulacion.prestamo.monto"
+                            [disabled]="model.simulacion.prestamo.tipoSimulacion==='0'" id="monto" class="form-control "
+                            name="monto" type="text" style="box-shadow:none; width:150%;font-family: Montserrat; font-size: 16px;border-left:none;border-top: none;margin-left: 180%;
+                                    border-right: none;">
+                    </div>
+
+
+
+                    <div style="margin-top: -31%;margin-left: 118%;width: 100%;margin-bottom: 35%;"
+                        *ngIf="montoSolicitado.invalid && (montoSolicitado.dirty || montoSolicitado.touched)">
+
+                        <span class="text-danger" *ngIf="montoSolicitado.errors.required">
+                            El monto es requerido
+                        </span>
+                        <span class="text-danger" *ngIf="montoSolicitado.errors.minlength">
+                            El monto debe ser de al menos 4 caracteres
+                        </span>
+
+                    </div>
+                </div>
+
+                <div *ngIf="model.simulacion.prestamo.tipoSimulacion=='1'" [ngClass]="
+    { 'has-error form-group' : (montoSolicitado.dirty || montoSolicitado.touched) && montoSolicitado.invalid }
+    ">
+                    <div class="input-group" style="margin-top: -10%;
+                    margin-bottom: -5%;">
+                        <input placeholder="Ingresa el monto en pesos mexicanos" digitOnly decimal=true required minlength="1"
+                            (blur)="onMontoBlur()" (focus)="onMontoFocus()" #montoSolicitado="ngModel"
+                            [(ngModel)]="model.simulacion.prestamo.monto"
+                            [disabled]="model.simulacion.prestamo.tipoSimulacion==='0'" id="monto" class="form-control "
+                            name="monto" type="text" style="box-shadow:none; width:150%;font-family: Montserrat; font-size: 16px;border-left:none;border-top: none;
+                        border-right: none;">
+                    </div>
+
+                    <br>
+
+                    <div *ngIf="montoSolicitado.invalid && (montoSolicitado.dirty || montoSolicitado.touched)">
+
+                        <span class="text-danger" *ngIf="montoSolicitado.errors.required">
+                            El monto es requerido
+                        </span>
+                        <span class="text-danger" *ngIf="montoSolicitado.errors.minlength">
+                            El monto debe ser de al menos 4 caracteres
+                        </span>
+
+                    </div>
+                </div>
+                <div class="descMax">
+                    <span *ngIf="model.simulacion.prestamo.tipoSimulacion=='2'">El monto máximo que se te puede </span>
+                    <span *ngIf="model.simulacion.prestamo.tipoSimulacion=='2'">descontar al mes es: </span><span
+                        *ngIf="model.simulacion.prestamo.tipoSimulacion=='2'" class="montoMaximoSpan"
+                        style="font-weight: bold;">${{this.model.sumaDescuentoTotal | number:'0.2-2'}}</span>
+                </div>
+                <span *ngIf="model.simulacion.prestamo.tipoSimulacion=='1'" class="montoMaximoSpanL"
+                    style="font-weight: bold;">El monto m&aacute;ximo que puedes pedir es:</span>
+
+
+
+                <div class="input-group" *ngIf="model.simulacion.prestamo.tipoSimulacion=='1'">
+                    <span class="montoMaximoSpan" *ngIf="model.simulacion.prestamo.tipoSimulacion=='1'"
+                        id="basic-addon1">${{this.model.montoMaximoPrestar | number:'0.2-2'}}</span>
+
+                </div>
+
+
+
+                <br>
+                <div *ngIf="model.simulacion.prestamo.tipoSimulacion=='1'" style="margin-top: 10%;" [ngClass]="
+    { 'has-error form-group' : (plazoSelect.dirty || plazoSelect.touched) && plazoSelect.invalid }
+    ">
+                    <label for="listPlazo" class="montoMaximoSpanL">Elige el plazo al que quieres pagarlo*:</label>
+                    <select #plazoSelect="ngModel" required
+                        [disabled]="model.plazos === undefined  || model.plazos.length===0"
+                        [(ngModel)]="model.simulacion.prestamo.oferta.plazo" class="form-control VectorPlazo"
+                        (change)="cambio()">
+                        <option *ngFor="let plazo of  model.plazos" [ngValue]="plazo">{{plazo.descripcion}}</option>
+                    </select>
+                    <span class="text-danger"
+                        *ngIf="servicio===1 && model.plazos.length===0">
+                        No se encuentran plazos para este monto.
+                    </span>
+                    <div *ngIf="plazoSelect.invalid && (plazoSelect.dirty || plazoSelect.touched)">
+
+                        <span class="text-danger" *ngIf="plazoSelect.errors.required">
+                            El plazo es requerido.
+                        </span>
+                    </div>
+                </div>
+
+
+                <div *ngIf="model.simulacion.prestamo.tipoSimulacion=='2'"
+                    style="margin-top: -2%;margin-left:118%;width:100%" [ngClass]="
+                { 'has-error form-group' : (plazoSelect.dirty || plazoSelect.touched) && plazoSelect.invalid }
+                ">
+                    <label for="listPlazo" class="montoMaximoSpanL">Elige el plazo al que quieres pagarlo*:</label>
+                    <select #plazoSelect="ngModel" required
+                        [disabled]="model.plazos === undefined  || model.plazos.length===0"
+                        [(ngModel)]="model.simulacion.prestamo.oferta.plazo" class="form-control VectorPlazo"
+                        (change)="cambio()">
+                        <option *ngFor="let plazo of  model.plazos" [ngValue]="plazo">{{plazo.descripcion}}</option>
+                    </select>
+                    <span class="text-danger"
+                        *ngIf="servicio===1 && model.plazos.length===0">
+                        No se encuentran plazos para este monto.
+                    </span>
+
+                    <div *ngIf="plazoSelect.invalid && (plazoSelect.dirty || plazoSelect.touched)">
+
+                        <span class="text-danger" *ngIf="plazoSelect.errors.required">
+                            El plazo es requerido.
+                        </span>
+                    </div>
+                </div>
+
+            </div>
+
+            <div *ngIf="model.simulacion.prestamo.tipoSimulacion=='1'">
+
+                <img [src]="'/mclpe/auth/js/assets/img/mujer-1.jpg'" class="mujer-1">
+            </div>
+            <div *ngIf="model.simulacion.prestamo.tipoSimulacion=='2'">
+
+                <img [src]="'/mclpe/auth/js/assets/img/teclado-1.jpg'" class="teclado-1">
+            </div>
+
+        </div>
+    </div><br>
+    <div class="col-sm" style="margin-left:-50%!important;">
+        <div class="row">
+            <div class="col-md-8"></div>
+
+            <div class="col-md-2">
+                <button [disabled]="disabledSimular"
+                    style="    margin-left: -190%;  margin-top: -100%;border-radius: 10px;"
+                    *ngIf="model.simulacion.prestamo.tipoSimulacion=='1'" (click)="continuarOferta()"
+                    class="btn btn-primary">
+                    <span class="oi oi-undefined glyphicon glyphicon-undefined"></span>Continuar</button>
+            </div>
+            <div class="col-md-2">
+                <button [disabled]="disabledSimular"
+                    style="    margin-left: -140%;  margin-top: -100%;border-radius: 10px;"
+                    *ngIf="model.simulacion.prestamo.tipoSimulacion=='2'" (click)="continuarOferta()"
+                    class="btn btn-primary ">
+                    <span class="oi oi-undefined glyphicon glyphicon-undefined"></span>Continuar</button>
+            </div>
+            <br><br>
+        </div>
+        <jw-modal id="carga">
+            <div class="jw-modal-titulo"> <b>Atención</b></div>
+            <div style="height:100%; width:100%">
+                <br>
+                <br>
+                <p style="text-align:center"><b>Cargando datos</b></p>
+                <div align="center">
+                    <div class="preloader"></div>
+                </div>
+
+                <br>
+            </div>
+        </jw-modal>
+
+
+        <jw-modal id="saldoCapital">
+            <div class="jw-modal-titulo"> <b>Atención</b></div>
+            <div style="height:100%; width:100%">
+                <br>
+                <p style="text-align:center"><b>El monto solicitado debe ser superior a tu saldo capital, favor de
+                        verificar.</b></p>
+                <br>
+                <div class="col-md-12" align="right">
+                    <button class="btn btn-default" (click)="closeModal();">Cerrar</button>
+
+
+                </div>
+            </div>
+        </jw-modal>
+    </div>
+
+
+    <jw-modal id="cargaMontoMaximoSB">
+        <div class="jw-modal-titulo"> <b>Atención</b></div>
+        <div style="height:100%; width:100%">
+            <br>
+            <br>
+            <p style="text-align:center"><b>Cargando datos</b></p>
+            <div align="center">
+                <div class="preloader"></div>
+            </div>
+
+            <br>
+        </div>
+    </jw-modal>

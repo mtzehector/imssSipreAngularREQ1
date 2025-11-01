@@ -1,0 +1,157 @@
+<app-header></app-header>
+<app-menu></app-menu>
+<div class="row" style="padding: 10px;">
+    <div class="col-md-8">
+    </div>
+    <app-user-profile></app-user-profile>
+</div>
+
+<div class="row">
+
+    <div class="col-md-12">
+        <h4>Informe de simulación de préstamo</h4>
+        <hr class="red" />
+        <p></p>
+    </div>
+</div>
+<span class="Informacin-del-solicitante">Información del solicitante</span>
+<app-pensionado-datos></app-pensionado-datos>
+
+<span class="Entidad-Financiera-elegida">Entidad Financiera elegida</span>
+
+<app-entidad-financiera-datos></app-entidad-financiera-datos>
+<br>
+<div style="float: none;"></div>
+<br>
+<span class="Informacin-de-la-simulacin"> Información de la simulación</span>
+<app-datos-simulacion></app-datos-simulacion>
+<br>
+<div *ngIf="this.data.model.prestamosRecuperacionArreglo.length>0">
+    <span class="Prstamos-por-liquidar">Préstamos por liquidar
+</span>
+    <div class="RectanglePV-188 " *ngFor="let item of this.data.model.prestamosRecuperacionArreglo;">
+        <table>
+            <thead>
+
+
+                <tr>
+                    <th class="Entidad-FinancieraTH" scope="col" style="text-align: left; width: 20%;">Entidad Financiera :</th>
+                    <td class="datosEFPV" style="text-align: left; width: 30%;">{{item.nombreComercial}} </td>
+                    <th scope="col" style="text-align: left; width: 13%;">&nbsp;</th>
+                    <td style="text-align: left; width: 13%;">&nbsp;</td>
+
+
+                </tr>
+                <tr>
+                    <th scope="col" class="THPV" style="text-align: left; width: 13%;">CAT con IVA:<span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" 
+                        title="
+Costo Anual Total:
+Monto total a pagar
+cada año, incluyendo
+la tasa de interés
+anual y otros costos
+del préstamo."></span></th>
+                    <th scope="col" class="THPV" style="text-align: left; width: 13%;">Monto solicitado:</th>
+                    <th scope="col" class="THPV" style="text-align: left; width: 13%;">Descuento mensual:</th>
+                    <th scope="col" class="THPV" style="text-align: left; width: 22%;">Descuentos / Plazo:</th>
+                    <th scope="col" class="THPV" style="text-align: left; width: 13%;">Saldo Capital:</th>
+
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr>
+                    <td style="text-align: left; width: 13%;font-weight: bold;">{{item.canCatPrestamo}}%</td>
+                    <td style="text-align: left; width: 13%;">${{item.canMontoSol | number:'0.2-2'}}</td>
+                    <td style="text-align: left; width: 13%;font-weight: bold;">${{item.canDescuentoMensual |number:'0.2-2'}}</td>
+                    <td style="text-align: left; width: 13%; font-weight: bold;">{{item.numMesRecuperado}} de {{item.numPlazoPrestamo}}</td>
+                    <td style="text-align: left; width: 13%;">${{item.saldoCapital |number:'0.2-2'}}</td>
+
+                </tr>
+
+
+
+            </tbody>
+        </table>
+
+    </div>
+
+</div>
+<br>
+<app-aviso-privacidad></app-aviso-privacidad>
+<div class="col-md-12">
+
+
+
+</div>
+<div class="col-md-1"></div>
+<div class="col-md-12">
+    <!--input type="radio" id="aceptoAviso" name="aceptoAviso" required>He leído y acepto el aviso de privacidad -->
+    <input type="checkbox" name="avisoCheck" (change)="cheked()" [checked]="(idx === 0)"> He leído y acepto el aviso de privacidad
+    <br>
+</div>
+<div class="col-md-12" *ngIf="estado">
+    <span style="color: #ed1b24" id="errorAviso" name="errorAviso">
+    No se puede continuar con el proceso si no aceptas el aviso de privacidad.
+    <br> <br>
+  </span>
+
+</div>
+<br>
+<br>
+<br>
+<div class="container">
+    <div class="row"></div>
+    <div class="col-md-2">
+        <!--button class="btn btn-default" type="button">
+      Imprimir
+      <span class="icon-printing"></span>
+    </button-->
+    </div>
+    <div class="col-md-4">
+        <!--button class="btn btn-default" type="button">
+      Enviar por correo
+      <span class="glyphicon glyphicon-envelope"></span>
+    </button-->
+    </div>
+
+    <div class="col-md-2" style="margin-left:10%">
+        <a class="btn btn-default"  routerLink="../simulacionSelecionar" role="button">Regresar</a>
+    </div>
+    <div class="col-md-2">
+        <button (click)="openModal()"  class="btn btn-primary ">
+        <span class="oi oi-undefined glyphicon glyphicon-undefined"></span>Generar documento
+      </button>
+        <br><br>
+    </div>
+
+    
+    <jw-modal id="custom-modal-2">
+        <div class="jw-modal-titulo"> <b>Atención</b></div>
+        <br><div style="height:100%; width:100%; margin-top:-2%;">
+            <p style="text-align:center" class="popupPensionado">¿Estás de acuerdo con tu simulación de préstamo?</p>
+            <p style="text-align:center;" class="popupPensionado">Generaremos un folio y enviaremos los datos a la Entidad Financiera elegida para iniciar el proceso.
+                Si deseas realizar otra simulación,deberás cancelar este folio.</p>
+            <p style="text-align:center;" class="popupPensionado">Debido a que el CAT es dinámico, al cancelar la simulación, puede cambiar sus condiciones</p>
+            <div class="col-md-12" style="margin-top: -2px!important;" align="right">
+                <button class="btn btn-default" (click)="closeModal();">Cancelar</button>&nbsp;&nbsp;
+
+                <button class="btn btn-primary "  (click)="guardarSimulacion();">Aceptar</button>&nbsp;&nbsp; &nbsp;&nbsp;
+
+            </div>
+        </div>
+    </jw-modal>
+    <jw-modal id="carga">
+        <div class="jw-modal-titulo"> <b>Atención</b></div>
+        <div style="height:100%; width:100%">
+            <br>
+            <br>
+            <p style="text-align:center"><b>Cargando datos</b></p>
+            <div align="center">
+                <div class="preloader"></div>
+            </div>
+
+            <br>
+        </div>
+    </jw-modal>
+</div>

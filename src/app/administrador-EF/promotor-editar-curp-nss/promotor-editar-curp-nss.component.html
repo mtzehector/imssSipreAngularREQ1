@@ -1,0 +1,49 @@
+<form #registrarCurpNss="ngForm" autocomplete="off" class="form-horizontal" role="form">
+
+    <div class="form-group">
+        <label class="col-sm-1">CURP*: </label>
+        <div class="col-sm-4">
+            <input type="text" class="form-control" [(ngModel)]="model.registrarPromotor.curp" name="curp" #curp="ngModel" pKeyFilter="alphanum" placeholder="Ingresa el CURP" minlength="1" maxlength="18" aria-describedby="basic-addon1" required autofocus />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-1">NSS*: </label>
+        <div class="col-sm-4">
+            <input type="text" class="form-control" [(ngModel)]="model.registrarPromotor.nss" name="nss" #nss="ngModel" pKeyFilter="num" placeholder="Ingresa el NSS" minlength="1" maxlength="11" aria-describedby="basic-addon1" required />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-sm-4">
+            <div>
+                * Campos obligatorios
+            </div>
+        </div>
+    </div>
+
+
+    <div style="margin: 70px 0 70px;"></div>
+
+    <div class="form-group">
+
+        <div class="col-sm-2">
+            <button type="button" class="btn btn-secondary" (click)="location.back()">Regresar
+      </button>
+        </div>
+
+        <div class="col-sm-2">
+        </div>
+
+        <div class="col-sm-2">
+            <button type="reset" class="btn btn-primary pull-left" (click)="limpiar()">Limpiar
+      </button>
+        </div>
+
+        <div class="col-sm-2">
+            <button type="submit" class="btn btn-primary pull-right" (click)="continuar()" [disabled]="!registrarCurpNss.valid">Continuar
+      </button>
+        </div>
+
+    </div>
+</form>

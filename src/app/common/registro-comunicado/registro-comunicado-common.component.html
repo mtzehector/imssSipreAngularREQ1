@@ -1,0 +1,170 @@
+<form role="form" [formGroup]="formGroup" (ngSubmit)="guardarCambios()">
+    <div class="row">
+        <div class="col-md-12">
+            <h4>Registrar comunicados</h4>
+            <hr class="red">
+            <p>Ingresa la información que se te solicita para registrar el comunicado:
+            </p>
+        </div>
+
+    </div>
+    <br>
+    <br>
+    <div class="row">
+        <div class="col-md-2">
+            <label class=" control-label">Descripción*:</label>
+        </div>
+        <div class="form-group">
+            <div class="col-md-10" style="text-align: left;">
+                <input class="form-control inputSimple"
+                    [ngClass]="[!formGroup.controls['desc'].valid && (formGroup.controls['desc'].touched || formGroup.controls['desc'].dirty ) ? 'form-control-error':'form-control']  "
+                    formControlName="desc"
+                    placeholder="Ingresa la descripción general de la notificación sin requerimientos" maxlength='50'>
+                <div *ngIf="!formGroup.controls['desc'].valid">
+                    <div *ngIf="formGroup.controls['desc'].errors?.required && formGroup.controls['desc'].touched">
+                        <p class="error-class">El campo Descripción es obligatorio.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+    <div class="row">
+        <div class="col-md-12">
+            <h4>Préstamos</h4>
+            <hr class="red">
+            <p>Busca préstamos para agregarlos al comunicado:</p>
+        </div>
+
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-4 form-group">
+            <label class="control-label">Folio del Préstamo:</label>
+            <input class="form-control inputSimple" formControlName="folio" placeholder="Ingresa 13 dígitos"
+                maxlength="13" type="text"
+                [ngClass]="[!formGroup.controls['folio'].valid && formGroup.controls['folio'].touched ? 'form-control-error':'form-control']  ">
+            <div style="width: max-content;">
+                <div *ngIf="formGroup.controls['folio'].touched && formGroup.get('folio').errors?.pattern">
+                    <p class="error-class">El folio no tiene la estructura correcta. </p>
+                </div>
+                <div *ngIf=" formGroup.get('folio').errors?.minlength && formGroup.controls['folio'].touched">
+                    <p class="error-class">El folio debe de tener un maximo de 13 dígitos. </p>
+                </div>
+                <div *ngIf="folioRequerido">
+                    <p class="error-class">Es necesario ingresar el folio del préstamo. </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="pull-right" style="margin-top: 30px;">
+                <div class="form-group">
+                    <div class="col-sm-6">
+                        <button type="button" (click)="limpiarPrestamo();" class="btn btn-default inputBorder"
+                            [disabled]="!formGroup.controls['folio'].valid">Limpiar</button>
+                    </div>
+                    <div class="col-sm-6">
+                        <button type="button" (click)="buscarPrestamo();" class="btn btn-primary inputBorder"
+                            [disabled]="!formGroup.controls['folio'].valid">Buscar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="col-md-10">
+        <app-prestamo-registro-communicado-common [visible]="verPrestamo"></app-prestamo-registro-communicado-common>
+    </div>
+    <br>
+    <div *ngIf=verPrestamo>
+        <button type="button" (click)="agregarPrestamo();" class="btn btn-primary pull-right inputBorder">Agregar
+            préstamo
+        </button>
+    </div>
+    <br>
+    <!-- Agregamos prestamos  -->
+    <div class="row col-md-12" *ngIf="notificaionPrestamo.prestamoList.length  > 0 ">
+        <span class='tituloPrestamo' style="text-align: left;">Préstamos agregados</span>
+        <div class="col-md-12">
+            <br>
+            <br>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th style="width: 25%">Folio del préstamo</th>
+                        <th style="width: 30%">Pensionado:</th>
+                        <th style="width: 30%">Plazo:</th>
+                        <th style="width: 15%; text-align: center;">Eliminar</th>
+                    </tr>
+                </thead>
+                <tbody *ngFor="let prestamo of notificaionPrestamo.prestamoList">
+                    <tr>
+                        <td style="width: 25%"> {{prestamo.numSolicitud}}</td>
+                        <td style="width: 30%">
+                            {{prestamo.pensionado.nombre}} {{prestamo.pensionado.primerApellido}}
+                            {{prestamo.pensionado.segundoApellido}}
+                        </td>
+                        <td style="width: 30%;">{{prestamo.desPlazo}}</td>
+                        <td style="width: 15%; text-align: center;">
+                            <a (click)="openModalPrestamo(prestamo.id)">
+                                <span class="glyphicon glyphicon-remove-circle" style="color: #404041; cursor:pointer;"
+                                    aria-hidden="true"></span>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- Codigo para agregar los archivos adjuntos  -->
+    <br>
+    <app-archivos-adjuntos-registro-communicado-common></app-archivos-adjuntos-registro-communicado-common>
+    <br>
+    <div class="row">
+
+        <div class="pull-right">
+            <div class="form-group">
+                <div class="col-sm-4">
+
+                    <button type="button" (click)="regresarANotificaciones()"
+                        class="btn btn-default inputBorder">Regresar
+                    </button>
+                </div>
+                <div class="col-sm-8">
+                    <button type="submit" class="btn btn-primary inputBorder" [disabled]="formGroup.invalid">Guardar
+                        comunicado
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<div style="margin: 65px 0 65px; text-align:right;"></div>
+<jw-modal id="eliminarPrestamo">
+    <div class="jw-modal-titulo"> <b>Atención</b></div>
+    <div class="modal-body">
+        <p style="text-align: center;">
+            ¿Deseas eliminar el préstamo?</p>
+        <div class="row">
+            <div class="col-md-12 text-right">
+                <button class="btn btn-default inputBorder" (click)="closeModalPrestamo()">Cancelar</button>
+                <button class="btn btn-primary inputBorder" (click)="borrarPrestamo(this.idborrarPrestamo)"
+                    style="margin-right: 5px">Aceptar </button>
+            </div>
+        </div>
+    </div>
+    <br>
+</jw-modal>
+<jw-modal id="carga">
+    <div class="jw-modal-titulo"> <b>Atención</b></div>
+    <div style="height:100%; width:100%">
+        <br>
+        <br>
+        <p style="text-align:center"><b>Cargando datos</b></p>
+        <div align="center">
+            <div class="preloader"></div>
+        </div>
+        <br>
+    </div>
+</jw-modal>

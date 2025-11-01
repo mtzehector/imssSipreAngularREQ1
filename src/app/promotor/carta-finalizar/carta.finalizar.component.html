@@ -1,0 +1,39 @@
+<app-header></app-header>
+<div class="row" style="margin-top: -60px;">
+    <app-menu-ux [rol]="rol"></app-menu-ux>
+</div>
+<div class="row" style="padding: 10px;">
+    <div class="col-md-8">
+    </div>
+    <app-user-profile></app-user-profile>
+</div>
+
+<form class="form-inline" role="form">
+
+    <div class="row">
+        <div class="col-md-12">
+            <h4>Generar Carta de Libranza</h4>
+            <hr class="red" />
+
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                La Carta de Libranza ha sido enviada a los correos electrónicos del Pensionado y de la Entidad Financiera. <br><br>
+            </div>
+        </div>
+    </div>
+    <app-descarga-imprime-promotor [tipo]="'carta-instruccion'" [idSolicitud]="model.cartaInstruccion.solicitud.id">
+    </app-descarga-imprime-promotor>
+    <div class="row">
+        <div class="col-sm">
+            <div class="col-md-10"></div>
+            <div class="col-md-2">
+                <a class="btn btn-primary" routerLink="../buscarFolioDetalle" role="button">Finalizar</a>
+                <br><br>
+            </div>
+        </div>
+    </div>
+</form>
