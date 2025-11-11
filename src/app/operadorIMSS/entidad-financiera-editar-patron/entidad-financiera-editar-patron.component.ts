@@ -68,7 +68,8 @@ export class EntidadFinancieraEditarPatronComponent extends BaseComponent implem
 
       this.modalService.open("carga");
       this.flat = true;
-      this.registrarEntidadFinancieraService.consultarRenapo(this.model.registrarEntidadFinanciera.curpRepresentanteLegal)
+      //this.registrarEntidadFinancieraService.consultarRenapo(this.model.registrarEntidadFinanciera.curpRepresentanteLegal)
+      this.registrarEntidadFinancieraService.consultarRenapo(this.model.registrarEntidadFinanciera.curpRepresentanteLegal, this.data.model.sesion)
         .subscribe((response: any) => {
           this.flat = false;
           this.data.model.registrarEntidadFinanciera.nombreLegal = response.body.nombres;

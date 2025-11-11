@@ -29,7 +29,8 @@ httpOptions.observe = 'response';
 export class RegistrarEntidadFinancieraService extends BaseService {
 
   private consultarPatronesEndPointURL = '/patrones/{0}/datosGenerales';
-  private consultarRenapoEndPointURL = '/renapo';
+  //private consultarRenapoEndPointURL = '/renapo';
+  private consultarRenapoEndPointURL = '/renapo/curp/{0}/{1}';
   private registrarEntidadEndPointURL = '/financiera';
   private consultarEntidadEndPointURL = '/financiera/{0}/ot2';
   private consultarExistePromotorEfEndPointURL = '/pensionado/entidad/financiera/{0}';
@@ -61,13 +62,15 @@ export class RegistrarEntidadFinancieraService extends BaseService {
       .pipe(catchError(error => this.handleError(error, 'danger', 'consultarPersonaRenapoBdtu')));
   }
 
-  consultarRenapo(curp: string) {
+  //consultarRenapo(curp: string) {
+  consultarRenapo(curp: string, sesion: number) {
 
     ////console.log("RegistrarEntidadFinancieraService.consultarRenapo, curp: " + curp);
 
-    const payload: any = { curp: curp };
+    //const payload: any = { curp: curp };
 
-    return this.http.post<any>(String.Format(this.consultarRenapoEndPointURL), payload, httpOptions)
+    //return this.http.post<any>(String.Format(this.consultarRenapoEndPointURL), payload, httpOptions)
+    return this.http.get<any>(String.Format(this.consultarRenapoEndPointURL, curp, sesion), httpOptions)
       .pipe(map((response: any) => {
         // //console.log(JSON.stringify(response, null, 2));
         return response;

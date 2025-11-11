@@ -47,7 +47,7 @@ export class EntidadFinancieraEditarCatComponent extends BaseComponent implement
 
   ngOnInit() {
     this.catalogoService.consultarDelegaciones().subscribe((response: Delegacion[]) => {
-      console.log("Delegaciones: ", response);
+      //  console.log("Delegaciones: ", response);
       this.items = response;
     });
     this.catalogoPlazos = [
@@ -62,6 +62,8 @@ export class EntidadFinancieraEditarCatComponent extends BaseComponent implement
       { id: 10, descripcion: "54 meses" },
       { id: 11, descripcion: "60 meses" }];
 
+    try { this.recomputeSelectedPlazos(); } catch (_e) {}
+    try { (this as any).validarPlazos && (this as any).validarPlazos(); } catch (_e) {}
     this.mapPlazos = this.catalogoPlazos.reduce(function (map, obj) {
       map[obj.id] = obj.descripcion;
       return map;
@@ -76,14 +78,14 @@ export class EntidadFinancieraEditarCatComponent extends BaseComponent implement
 }
 
     this.catMaximoService.catActual().subscribe((response : any)=>{
-      console.log('Response:', response.catAnterior);
+      //  console.log('Response:', response.catAnterior);
       this.CATMaximoActual = response.catAnterior;
   } );
 
   }
 
   agregar(index?: number) {
-    console.log("agregar index:" + index);
+    //  console.log("agregar index:" + index);
     let nuevaCondicion: CondicionOfertaCrud = {
       fecRegistroAlta: null,
       bajaRegistro: null,
@@ -114,20 +116,20 @@ export class EntidadFinancieraEditarCatComponent extends BaseComponent implement
   }
 
   eliminar(index) {
-    console.log("eliminar index 1:" + index);
+    //  console.log("eliminar index 1:" + index);
     //if (index != 0) {
     //if (index !== -1) {
-    console.log("eliminar index 2:" + index);
+    //  console.log("eliminar index 2:" + index);
     if (this.model.registrarEntidadFinanciera.mclcCondicionOfertaCollection[index].fecRegistroAlta === null) {
       this.model.registrarEntidadFinanciera.mclcCondicionOfertaCollection.splice(index, 1);
-      console.log("eliminar index 3:" + index);
+      //  console.log("eliminar index 3:" + index);
     } else {
-      console.log("eliminar index 4:" + index);
+      //  console.log("eliminar index 4:" + index);
       this.model.registrarEntidadFinanciera.mclcCondicionOfertaCollection[index].bajaRegistro = this.datePipe.transform(new Date(), 'dd/MM/yyyy ') + '00:00:00';
     }
     //}
     //}
-    console.log("eliminar index 5:" + index);
+    //  console.log("eliminar index 5:" + index);
     this.validarPlazos()
   }
 
@@ -139,13 +141,13 @@ export class EntidadFinancieraEditarCatComponent extends BaseComponent implement
 
   validarPlazos() {
     let plazos = this.model.registrarEntidadFinanciera.mclcCondicionOfertaCollection;
-    console.log("validarPlazos:" + plazos);
+    //  console.log("validarPlazos:" + plazos);
     this.plazosValidos = true;
     this.model.flatPlazosModEF = true;
     let plazosSet = new Set();
     plazos.forEach(element => {
 
-      console.log("validarPlazos element:", element);
+      //  console.log("validarPlazos element:", element);
       if (element.mclcPlazo.id != undefined) {
 
 
@@ -181,13 +183,38 @@ export class EntidadFinancieraEditarCatComponent extends BaseComponent implement
   public selectedPlazos: Set<number> = new Set<number>();
   private _adding: boolean = false;
 
+/** Catálogo de plazos [{id, descripcion}]. Toma el arreglo oficial si existe; si no, lo arma desde mapPlazos */
+private getCatalogoPlazos(): any[] {
+  const anyThis: any = this;
+
+  // Si tu componente ya trae un arreglo, úsalo (ajusta el nombre si aplica)
+  if (anyThis.catalogoPlazos && anyThis.catalogoPlazos.length) { return anyThis.catalogoPlazos; }
+  if (anyThis.listaPlazos && anyThis.listaPlazos.length) { return anyThis.listaPlazos; }
+
+  // Construir desde mapPlazos (que ya usas en HTML)
+  const mp = anyThis.mapPlazos || {};
+  const out: any[] = [];
+  for (var k in mp) {
+    if (Object.prototype.hasOwnProperty.call(mp, k)) {
+      var idNum = ('' + k).match(/^\d+$/) ? parseInt(k, 10) : k;
+      out.push({ id: idNum, descripcion: mp[k] });
+    }
+  }
+  out.sort(function(a, b) {
+    var an = (typeof a.id === 'number') ? a.id : Number.MAX_SAFE_INTEGER;
+    var bn = (typeof b.id === 'number') ? b.id : Number.MAX_SAFE_INTEGER;
+    return an - bn;
+  });
+  return out;
+}
+
   private _getCollection(): any[] {
     try {
       return (this.model && this.model.registrarEntidadFinanciera && this.model.registrarEntidadFinanciera.mclcCondicionOfertaCollection)
         ? this.model.registrarEntidadFinanciera.mclcCondicionOfertaCollection
         : [];
     } catch (e) {
-      console.log('[[_getCollection]] error:', e);
+      //  console.log('[[_getCollection]] error:', e);
       return [];
     }
   }
@@ -195,7 +222,6 @@ export class EntidadFinancieraEditarCatComponent extends BaseComponent implement
   private _isActive(row: any): boolean {
     return row && (row.bajaRegistro === undefined || row.bajaRegistro === null);
   }
-
   private _getPlazoId(row: any): number | null {
     if (row && row.mclcPlazo && row.mclcPlazo.id !== undefined && row.mclcPlazo.id !== null) {
       const n = Number(row.mclcPlazo.id);
@@ -209,125 +235,160 @@ export class EntidadFinancieraEditarCatComponent extends BaseComponent implement
     return col.filter(r => this._isActive(r));
   }
 
-  public recomputeSelectedPlazos(): void {
-    const set = new Set<number>();
-    const active = this._activeRows();
-    for (let i = 0; i < active.length; i++) {
-      const id = this._getPlazoId(active[i]);
-      if (id !== null) set.add(id);
+  /** Filas activas: bajaRegistro == null */
+private getActivas(): any[] {
+  const anyThis: any = this;
+  const coll: any[] = (anyThis && anyThis.model && anyThis.model.registrarEntidadFinanciera
+    && anyThis.model.registrarEntidadFinanciera.mclcCondicionOfertaCollection)
+      ? anyThis.model.registrarEntidadFinanciera.mclcCondicionOfertaCollection
+      : [];
+  const out: any[] = [];
+  for (let i = 0; i < coll.length; i++) {
+    const r = coll[i];
+    if (r && r.bajaRegistro == null) out.push(r);
+  }
+  return out;
+}
+
+/** Recalcula el set de plazos usados SOLO con filas activas */
+private recomputeSelectedPlazos(): void {
+  (this as any)._selectedPlazos = {};
+  const activas = this.getActivas();
+  for (let i = 0; i < activas.length; i++) {
+    const r = activas[i];
+    if (r && r.mclcPlazo && r.mclcPlazo.id != null) {
+      (this as any)._selectedPlazos[r.mclcPlazo.id] = true;
     }
-    this.selectedPlazos = set;
-    console.log('[recomputeSelectedPlazos] seleccionados:', Array.from(this.selectedPlazos));
+  }
+}
+
+
+  /** Plazos disponibles para la fila i: incluye su propio plazo y excluye los usados por otras activas */
+public getPlazosDisponibles(i: number): any[] {
+  const all = this.getCatalogoPlazos();
+  const sel = (this as any)._selectedPlazos || {};
+
+  // plazo actual de la fila i
+  let currentId: any = null;
+  const anyThis: any = this;
+  const coll: any[] = (anyThis && anyThis.model && anyThis.model.registrarEntidadFinanciera
+    && anyThis.model.registrarEntidadFinanciera.mclcCondicionOfertaCollection)
+      ? anyThis.model.registrarEntidadFinanciera.mclcCondicionOfertaCollection
+      : [];
+  if (i > -1 && i < coll.length && coll[i] && coll[i].mclcPlazo) {
+    currentId = coll[i].mclcPlazo.id;
   }
 
-  public getPlazosDisponibles(i: number): any[] {
-    const col = this._getCollection();
-    const row = (i >= 0 && i < col.length) ? col[i] : null;
-    const currentId = this._getPlazoId(row);
-    const cat = this.catalogoPlazos || [];
-    const result = cat.filter(p => (currentId !== null && p.id === currentId) || !this.selectedPlazos.has(p.id));
-    console.log('[getPlazosDisponibles] fila', i, 'currentId=', currentId, '=> opciones=', result.map(r => r.id));
-    return result;
-  }
-
-  public canAddMore(): boolean {
-    const catLen = (this.catalogoPlazos && this.catalogoPlazos.length) ? this.catalogoPlazos.length : 0;
-    const maxByNegocio = 10;
-    const logicalMax = Math.min(maxByNegocio, catLen);
-    const libres = catLen - this.selectedPlazos.size;
-    const active = this._activeRows().length;
-    const can = active < logicalMax && libres > 0;
-    console.log('[canAddMore] {logicalMax:', logicalMax, ', libres:', libres, ', active:', active, '} =>', can);
-    return can;
-  }
-
-  public agregarWrap(): void {
-    if (!this.canAddMore()) { return; }
-
-    if (this._adding) {
-      console.log('[agregarWrap] Ignorado por _adding=true');
-      return;
+  const out: any[] = [];
+  for (let k = 0; k < all.length; k++) {
+    const p = all[k];
+    if (!sel[p.id] || p.id === currentId) {
+      out.push(p);
     }
-    if (!this.canAddMore()) {
-      console.log('[agregarWrap] No hay plazos libres: operacion bloqueada');
-      return;
-    }
-    this._adding = true;
-    try {
-      this.agregar();
-    } catch (e) {
-      console.log('[agregarWrap] Error en agregar():', e);
-    }
-    this.recomputeSelectedPlazos();
-    const self = this;
-    setTimeout(function() { self._adding = false; }, 300);
   }
+  return out;
+}
+
+  /** Plazos libres para una NUEVA fila (excluye los usados por activas) */
+private getPlazosDisponiblesParaNueva(): any[] {
+  const all = this.getCatalogoPlazos();
+  const sel = (this as any)._selectedPlazos || {};
+  const out: any[] = [];
+  for (let k = 0; k < all.length; k++) {
+    const p = all[k];
+    if (!sel[p.id]) out.push(p);
+  }
+  return out;
+}
+
+/** Se puede agregar si hay < 10 activas y existe al menos 1 plazo libre */
+public canAddMore(): boolean {
+  const activos = this.getActivas().length;
+  if (activos >= 10) { return false; }
+  return this.getPlazosDisponiblesParaNueva().length > 0;
+}
+
+/** Agregar nueva fila solo si se puede (y deja la colección consistente) */
+public agregarWrap(): void {
+  if (!this.canAddMore()) { return; }
+
+  const anyThis: any = this;
+  const coll: any[] = (anyThis && anyThis.model && anyThis.model.registrarEntidadFinanciera
+    && anyThis.model.registrarEntidadFinanciera.mclcCondicionOfertaCollection)
+      ? anyThis.model.registrarEntidadFinanciera.mclcCondicionOfertaCollection
+      : [];
+
+  coll.push({
+    id: null,
+    bajaRegistro: null,
+    mclcPlazo: { id: null },
+    porCat: null,        // CAT Máximo EF
+    porTasaAnual: null   // otro campo de EF si lo usas
+  });
+
+  try { this.recomputeSelectedPlazos(); } catch (_e) {}
+  try { (this as any).validarPlazos && (this as any).validarPlazos(); } catch (_e) {}
+}
+
 
   public eliminarWrap(i: number): void {
+  const anyThis: any = this;
+  const coll: any[] = (anyThis && anyThis.model && anyThis.model.registrarEntidadFinanciera
+    && anyThis.model.registrarEntidadFinanciera.mclcCondicionOfertaCollection)
+      ? anyThis.model.registrarEntidadFinanciera.mclcCondicionOfertaCollection
+      : [];
 
-    // Guard: si solo hay 1 fila activa, NO borrar; limpiar selección del plazo
-    try {
-      const anyThis: any = this;
-      const coll: any[] = (anyThis && anyThis.model && anyThis.model.registrarEntidadFinanciera && anyThis.model.registrarEntidadFinanciera.mclcCondicionOfertaCollection)
-        ? anyThis.model.registrarEntidadFinanciera.mclcCondicionOfertaCollection
-        : [];
-      const activos = coll.filter((o:any) => o && o.bajaRegistro == null);
-      if (activos.length <= 1) {
-        if (coll[i] != null) {
-          if (!coll[i].mclcPlazo) {
-            coll[i].mclcPlazo = { id: null };
-          } else {
-            coll[i].mclcPlazo.id = null;
-          }
-          // Intentar refrescar listeners de cambio, si existen
-          try {
-            if ((this as any) && (this as any).listenerPlazoWrap && typeof (this as any).listenerPlazoWrap === 'function') {
-              (this as any).listenerPlazoWrap(i);
-            } else if ((this as any) && (this as any).recomputeSelected && typeof (this as any).recomputeSelected === 'function') {
-              (this as any).recomputeSelected();
-            }
-          } catch (_e) {}
-        }
-        return;
-      }
-    } catch (_e) {
-      // en caso de error en conteo, continuar con la eliminación original
-    }
-
-    try {
-      this.eliminar(i);
-    } catch (e) {
-      console.log('[eliminarWrap] Error en eliminar(i):', e);
-    }
-    this.recomputeSelectedPlazos();
+  // contar activas y localizar última
+  let activos = 0, ultimoIdx = -1;
+  for (let k = 0; k < coll.length; k++) {
+    if (coll[k] && coll[k].bajaRegistro == null) { activos++; ultimoIdx = k; }
   }
+
+  // 1 sola activa -> NO borrar la fila ni tocar el plazo: limpiar SOLO CAT EF
+  if (activos <= 1) {
+    const idx = (ultimoIdx !== -1) ? ultimoIdx : i;
+    const row = coll[idx];
+    if (row) {
+      row.porCat = null;        // EF
+      row.porTasaAnual = null;  // EF (si aplica)
+      // mantener IMSS y plazo
+      try { this.recomputeSelectedPlazos(); } catch (_e) {}
+      try { (this as any).validarPlazos && (this as any).validarPlazos(); } catch (_e) {}
+    }
+    return;
+  }
+
+  // 2+ activas -> soft/hard delete
+  const row = coll[i];
+  if (row && row.id) {
+    // SOFT DELETE: marcar baja; que el back procese la baja
+    row.bajaRegistro = new Date().toISOString();
+  } else {
+    // HARD DELETE: solo si es nueva (sin id)
+    if (i > -1 && i < coll.length) { coll.splice(i, 1); }
+  }
+
+  try { this.recomputeSelectedPlazos(); } catch (_e) {}
+  try { (this as any).validarPlazos && (this as any).validarPlazos(); } catch (_e) {}
+}
 
   public listenerPlazoWrap(i: number): void {
-    try {
-      this.listenerPlazo(i);
-    } catch (e) {
-      console.log('[listenerPlazoWrap] Error en listenerPlazo(i):', e);
+  try {
+    if (typeof (this as any).listenerPlazo === 'function') {
+      (this as any).listenerPlazo(i);
     }
-    this.recomputeSelectedPlazos();
+  } catch (_e) {}
+  try { this.recomputeSelectedPlazos(); } catch (_e) {}
+  try { (this as any).validarPlazos && (this as any).validarPlazos(); } catch (_e) {}
+}
 
-    // Validacion defensiva de duplicados
-    var seleccionados: number[] = [];
-    var active = this._activeRows();
-    for (let k = 0; k < active.length; k++) {
-      const id = this._getPlazoId(active[k]);
-      if (id !== null) seleccionados.push(id);
-    }
-    var size = (new Set(seleccionados)).size;
-    this.plazosValidos = (size === seleccionados.length);
-    console.log('[listenerPlazoWrap] plazosValidos=', this.plazosValidos, 'seleccionados=', seleccionados);
-  }
 
   ngAfterViewInit(): void {
     try {
       this.recomputeSelectedPlazos();
-      console.log('[ngAfterViewInit] Inicializado con', this.selectedPlazos.size, 'plazos seleccionados');
+      //  console.log('[ngAfterViewInit] Inicializado con', this.selectedPlazos.size, 'plazos seleccionados');
     } catch (e) {
-      console.log('[ngAfterViewInit] error:', e);
+      //  console.log('[ngAfterViewInit] error:', e);
     }
   }
   // ====== END: helpers ======

@@ -10,13 +10,19 @@ import { RecuperaContraComponent } from './login/recupera-contra/recupera-contra
 import { CambioContraComponent } from './login/cambio-contra/cambio-contra.component';
 import { RegistroUsuarioPensionadoComponent } from './login/registro-usuario-pensionado/registro-usuario-pensionado.component';
 import { BlockCopyPasteDirective } from './login/block-copy-paste.directive';
+
+import { RecaptchaModule, RecaptchaFormsModule, RECAPTCHA_SETTINGS, RecaptchaSettings } from 'ng-recaptcha';
+import { environment } from 'src/environments/environment';
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     AuthRoutingModule,
     ReactiveFormsModule,
-    MyCommonModule
+    MyCommonModule,
+    RecaptchaModule,
+    RecaptchaFormsModule,
   ],
   declarations: [
     LoginComponent,
@@ -24,6 +30,14 @@ import { BlockCopyPasteDirective } from './login/block-copy-paste.directive';
     CambioContraComponent,
     RegistroUsuarioPensionadoComponent,
     BlockCopyPasteDirective
-  ]
+  ], 
+  providers: [
+    {
+      provide: RECAPTCHA_SETTINGS,
+      useValue: {
+        siteKey: environment.recaptcha.siteKey,
+      } as RecaptchaSettings,
+    },
+  ],
 })
 export class AuthModule {}

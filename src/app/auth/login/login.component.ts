@@ -5,7 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DataService, ModalService, RegistrarEntidadFinancieraService, PensionadoService } from 'src/app/common/services';
 import { Model } from "src/app/model";
 import { Loggin } from 'src/app/common/domain/loggin';
-import { Persona } from 'src/app/common/domain/persona';
+//import { Persona } from 'src/app/common/domain/persona';
 import { PensionesResponse } from 'src/app/common/domain/pensiones.response';
 import { Pension } from 'src/app/common/domain/pension';
 import { PensionadoResponse } from 'src/app/common/domain/pensionado.response';
@@ -17,17 +17,17 @@ import { PersonaEF } from 'src/app/common/domain/persona.ef';
 import 'rxjs/add/operator/toPromise';
 import { fromEvent, Subscription } from "rxjs";
 // Dependencias para generar el Captcha.
-import { GenerarCaptchaService } from '../../common/services/generar.captcha.service';
-import { CaptchaGenerarRq } from 'src/app/common/domain/captcha.generar.rq';
-import { ValidarCaptchaService } from '../../common/services/validar.captcha.service';
-import { CaptchaValidarRq } from 'src/app/common/domain/captcha.validar';
+//import { GenerarCaptchaService } from '../../common/services/generar.captcha.service';
+//import { CaptchaGenerarRq } from 'src/app/common/domain/captcha.generar.rq';
+//import { ValidarCaptchaService } from '../../common/services/validar.captcha.service';
+//import { CaptchaValidarRq } from 'src/app/common/domain/captcha.validar';
 import { EntidadFinanciera, Mensaje } from 'src/app/common/domain';
 import { ValidarPensionadoModel } from 'src/app/common/domain/validar.pensionado.model';
 import { horarioInicia, horarioTermina } from 'src/environments/environment';
-import { BitacoraInterfaz } from 'src/app/common/domain/bitacora.interfaz';
-import { environment } from 'src/environments/environment';
-import { BitacoraInterfazService } from 'src/app/common/services/bitacora.interfaz.service';
-import { TipoServicio } from 'src/app/common/domain/tipo.servicio';
+import { RecaptchaComponent } from 'ng-recaptcha';
+//import { BitacoraInterfaz } from 'src/app/common/domain/bitacora.interfaz';
+//import { BitacoraInterfazService } from 'src/app/common/services/bitacora.interfaz.service';
+//import { TipoServicio } from 'src/app/common/domain/tipo.servicio';
 
 
 @Component({
@@ -41,18 +41,19 @@ export class LoginComponent extends BaseComponent {
   regexCorreo: string = "([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|\"\(\[\]!#-[^-~ \t]|(\\[\t -~]))+\")@([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|\[[\t -Z^-~]*])";
   correoPensionado: string = '';
   // Variables para el Captcha.
-  captchaImageInBase64: string = "";
-  captchaValueEncrypted: string = "";
-  captchaIsValid: boolean = false;
-  captchaValueTyped: string = "";
-  captchaValueVerificado: boolean = false;
-  captchaValidando: boolean = false;
-  captchaCapturadoErroneo: boolean = false;
+  //captchaImageInBase64: string = "";
+  //captchaValueEncrypted: string = "";
+  //captchaIsValid: boolean = false;
+  //captchaValueTyped: string = "";
+  //captchaValueVerificado: boolean = false;
+  //captchaValidando: boolean = false;
+  //captchaCapturadoErroneo: boolean = false;
   // Variables para el Boton Submit del formulario
   mySubscription: any;
   backEvent: Subscription;
   // ACTUALIZAR CADA VERSIÓN A QA O PRODUCCIÓN V.[AÑO].[MES].[DIA].[HORA].[MINUTO]
-  version: string = "2025.08.25.13.00";
+  version: string = "2025.10.30.19.00";
+  captchaResponse: string = null;
 
   constructor(public authService: AuthService,
     protected data: DataService,
@@ -60,13 +61,13 @@ export class LoginComponent extends BaseComponent {
     private formBuilder: FormBuilder,
     private modalService: ModalService,
     private pensionadoService: PensionadoService,
-    private bitacoraInterfazService: BitacoraInterfazService,
+    //private bitacoraInterfazService: BitacoraInterfazService,
     private promotorService: PromotorService,
     private registrarEntidadFinancieraService: RegistrarEntidadFinancieraService,
     // Inicializa servicios para el Captcha
-    private generarCaptchaService: GenerarCaptchaService,
+    //private generarCaptchaService: GenerarCaptchaService,
     //private location: PlatformLocation,
-    private validarCaptchaService: ValidarCaptchaService,
+    //private validarCaptchaService: ValidarCaptchaService,
     private route: ActivatedRoute,
 
   ) {
@@ -88,12 +89,11 @@ export class LoginComponent extends BaseComponent {
 
   ngOnInit() {
     this.buildForm();
-    //this.model.mensaje = { level: "warning", mensaje: "Tu sesión ha expirado. Se redireccionará a Login.", id: "0" };
     this.correoPensionado = '';
-    this.consultarServicioGenerarCaptcha();
+//    this.consultarServicioGenerarCaptcha();
     this.backEvent = fromEvent(window, 'popstate').subscribe(() => {
       this.authService.setPressedBack(1);
-      this.pensionadoService.getCaptcha().subscribe(sesion => console.log());
+      //this.pensionadoService.getCaptcha().subscribe(sesion => console.log());
     });
     this.route.queryParams
       .subscribe(
@@ -119,6 +119,7 @@ export class LoginComponent extends BaseComponent {
           }
         }
       );
+      RecaptchaComponent.prototype.ngOnDestroy = function() {};
   }
 
   ngOnDestroy() {
@@ -137,15 +138,14 @@ export class LoginComponent extends BaseComponent {
   private buildForm() {
     this.formGroup = this.formBuilder.group({
       nomUsuario: ['', [Validators.required, Validators.pattern(this.regexCorreo)]],
-      password: ['', [, Validators.required, Validators.minLength(8)]],
-      captchaTyped: ['', [Validators.required, Validators.minLength(7), Validators.maxLength(7), Validators.pattern('[A-Za-z0-9!?-]{7}')]]
+      password: ['', [, Validators.required, Validators.minLength(8)]]//,
+      //captchaTyped: ['', [Validators.required, Validators.minLength(7), Validators.maxLength(7), Validators.pattern('[A-Za-z0-9!?-]{7}')]]
     });
   }
 
   async validarCredenciales() {
     let tiempoActual = new Date().getTime();
 
-    //if (new Date().getTime() < horarioInicia.getTime() || new Date().getTime() > horarioTermina.getTime()) {
     if (!(tiempoActual >= horarioInicia.getTime() && tiempoActual <= horarioTermina.getTime())) {
       this.model.mensaje = { level: "danger", 
         mensaje: "Servicio no disponible. <br> El horario de atención es de 6:00 a 24:00 hrs. de lunes a domingo.", id: "0" };
@@ -154,10 +154,10 @@ export class LoginComponent extends BaseComponent {
 
     this.openModalLogin();
     this.model.buttonSubmitStatus = true;
-    if (!this.captchaIsValid) {
-      await this.validarCaptcha();
-    }
-    if (this.captchaIsValid) {
+    //if (!this.captchaIsValid) {
+    //  await this.validarCaptcha();
+    //}
+    //if (this.captchaIsValid) {
           let loggeo = new Loggin();
           loggeo = this.formGroup.value;
           this.correoPensionado = loggeo.nomUsuario;
@@ -181,15 +181,15 @@ export class LoginComponent extends BaseComponent {
             });
           }, error => {
             this.resetVerificarCaptcha();
-            this.consultarServicioGenerarCaptcha();
+//            this.consultarServicioGenerarCaptcha();
             this.closeModalLogin();
             
             //this.model.mensaje = { level: "danger", mensaje: "Contraseña o usuario no válido, favor de verificar.", id: "0" };
             this.model.mensaje = { level: "danger", mensaje: error.error.message, id: "0" };
           });
-    } else {
-      this.model.buttonSubmitStatus = false;
-    }
+    //} else {
+    //  this.model.buttonSubmitStatus = false;
+    //}
   }
 
   validarPerfil() {
@@ -334,7 +334,7 @@ export class LoginComponent extends BaseComponent {
     this.closeModalLogin();
     this.navegar();
   }
-
+/*
   consultarServicioGenerarCaptcha() {
     this.formGroup.controls['captchaTyped'].disable();
     this.generarCaptchaService.generarCaptcha(new CaptchaGenerarRq).subscribe(
@@ -385,7 +385,6 @@ export class LoginComponent extends BaseComponent {
     this.model.buttonSubmitStatus = false;
   }
 
-/*
   limpiarForm() {
     this.consultarServicioGenerarCaptcha();
     this.captchaIsValid = false;
@@ -449,8 +448,7 @@ export class LoginComponent extends BaseComponent {
       }
     }
   }
-*/
-/*
+
   validarLoginOT1Void() {
     if (this.model.persona.nombre !== null) {
       switch (this.authService.getUser().cvePerfil) {
@@ -493,7 +491,7 @@ export class LoginComponent extends BaseComponent {
         (validacion: any) => {
           if (validacion == 1) {
             this.resetVerificarCaptcha();
-            this.consultarServicioGenerarCaptcha();
+//            this.consultarServicioGenerarCaptcha();
             this.closeModalLogin();
             this.model.mensaje = { level: "danger", mensaje: "El usuario se encuentra inactivo, favor de verificar", id: "0" };
           }
@@ -534,6 +532,14 @@ export class LoginComponent extends BaseComponent {
 
   closeModalLogin() {
     this.modalService.close("validandoCredenciales");
+  }
+
+  onCaptchaResolved(response: string) {
+    this.captchaResponse = response;
+  }
+
+  resetVerificarCaptcha(): void {
+    this.captchaResponse = null;
   }
 
 }

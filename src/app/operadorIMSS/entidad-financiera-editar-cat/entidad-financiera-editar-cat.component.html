@@ -1,313 +1,327 @@
 <ng-container *ngIf="model">
-<div *ngIf="this.model.enabledModificarEntidad">
+  <div *ngIf="this.model.enabledModificarEntidad">
     <h3>Plazos y CAT con IVA </h3>
     <hr class="red" style="margin: 10px 0 40px;">
     <span>Ingresa los plazos y el CAT máximo con IVA autorizado por el IMSS para los préstamos de la Entidad
-        Financiera:</span>
+      Financiera:</span>
     <br>
     <div class="alert alert-info" *ngIf="!(this.model.plazosConsulta.length>0)">
-        <p>
-            No existe informaci&oacute;n.
-        </p>
+      <p>
+        No existe informaci&oacute;n.
+      </p>
     </div>
     <br>
     <br>
-    <ng-container *ngIf="model && model.registrarEntidadFinanciera && model.registrarEntidadFinanciera.mclcCondicionOfertaCollection">
-<table *ngIf="(this.model.plazosConsulta.length>0)" class="table table-striped "
+    <ng-container
+      *ngIf="model && model.registrarEntidadFinanciera && model.registrarEntidadFinanciera.mclcCondicionOfertaCollection">
+      <table *ngIf="(this.model.plazosConsulta.length>0)" class="table table-striped"
         style="font-size: 16px!important;font-family: Montserrat  !important;">
+        <colgroup>
+          <col style="width:140px;"> <!-- Plazo -->
+          <col style="width:120px;"> <!-- % CAT máx IMSS -->
+          <col style="width:160px;"> <!-- % CAT máx EF -->
+          <col> <!-- Beneficio 1 -->
+          <col> <!-- Beneficio 2 -->
+          <col> <!-- Beneficio 3 -->
+          <col style="width:80px;"> <!-- Acciones -->
+        </colgroup>
         <thead>
-            <tr>
-                <th style="text-align: left;  width: 6%;">
-                    Plazo:
-                </th>
-                <th style="text-align: left;  width: 8%;">
-                    % CAT máximo IMSS:
-                </th>
-                <th style="text-align: left;  width: 8%;">
-                    % CAT máximo EF*:
-                </th>
-                <th style="text-align: left;  width: 20%;">
-                    Beneficio 1:
-                </th>
-                <th style="text-align: left;  width: 20%;">
-                    Beneficio 2:
-                </th>
-                <th style="text-align: left;  width: 20%;">
-                    Beneficio 3:
-                </th>
-                <th style="text-align: left;  width: 10%;">
-                </th>
-            </tr>
+          <tr>
+            <th style="text-align: left;  width: 6%;">Plazo:</th>
+            <th style="text-align: left;  width: 8%;">% CAT máximo IMSS:</th>
+            <th style="text-align: left;  width: 8%;">% CAT máximo EF:</th>
+            <th style="text-align: left;  width: 20%;">Beneficio 1:</th>
+            <th style="text-align: left;  width: 20%;">Beneficio 2:</th>
+            <th style="text-align: left;  width: 20%;">Beneficio 3:</th>
+            <th style="text-align: left;  width: 10%;"></th>
+          </tr>
         </thead>
-        <tbody *ngFor="let oferta of model.registrarEntidadFinanciera.mclcCondicionOfertaCollection; let i = index; trackBy: trackByPlazoId">
-            <tr *ngIf="oferta.bajaRegistro == null">
 
-                <td *ngIf="oferta.bajaRegistro == null" class="row form-group" style="border-top: none;">
-                    <div>
-                        <label class="form-control"
-                               style="width: 140px!important; text-align: left; padding: 6px 12px; background-color: #f9f9f9; border: 1px solid #ccc; height: 34px; line-height: 1.5; display: inline-block; color: #555;">
-                            {{ mapPlazos[model.registrarEntidadFinanciera.mclcCondicionOfertaCollection[i].mclcPlazo.id] || '—' }}
-                        </label>
-                    </div>
-                </td>
-                <td class="row form-group" style="border-top: none;">
-                    <input pInputText type="text" class="col-sm-1 form-control" style="width: 140px;text-align: center;"
-                        name="porTasaAnual"
-                        [ngClass]="porTasaAnual.invalid && (porTasaAnual.dirty && porTasaAnual.touched || registrarForm.submitted) ? 'form-control-error' : 'form-control'"
-                        [(ngModel)]="model.registrarEntidadFinanciera.mclcCondicionOfertaCollection[i].porTasaAnual"
-                        #porTasaAnual="ngModel" placeholder="{{CATMaximoActual}}" maxlength="5" disabled="true" required />
-                    <div
-                        *ngIf="porTasaAnual.invalid && (porTasaAnual.dirty && porTasaAnual.touched || registrarForm.submitted)">
-                        <div *ngIf="porTasaAnual.errors.required">
-                            <small class="form-text form-text-error">Es necesario ingresar la información del campo
-                                marcado como
-                                obligatorio.</small>
-                        </div>
-                    </div>
-                </td>
-                <td class="row form-group" style="padding-left: 35px !important;width:30%;border-top: none;">
-                    <label class="col-sm-1">
-                        {{model.registrarEntidadFinanciera.mclcCondicionOfertaCollection[i].porCat}}</label>
-                </td>
-                <td *ngFor="let oferta of model.registrarEntidadFinanciera.mclcCondicionOfertaCollection[i].mclcBeneficioCollection; let j = index;"
-                    class="row form-group" style="border-top: none;">
-                    <span *ngIf="oferta.bajaRegistro != undefined">
-                        <span *ngIf="oferta.bajaRegistro == null" style="width: fit-content;" class="form-group">
-                            {{model.registrarEntidadFinanciera.mclcCondicionOfertaCollection[i].mclcBeneficioCollection[j].desBeneficio}}
-                        </span>
-                    </span>
-                </td>
-                <td style="border-top: none;" (click)="eliminarWrap(i)">
-                    <i class="glyphicon glyphicon-trash" style="margin:4px 4px 0 0; color:#404041;"
-                        title="Eliminar"></i>
-                </td>
+        <tbody
+          *ngFor="let oferta of model.registrarEntidadFinanciera.mclcCondicionOfertaCollection; let i = index; trackBy: trackByPlazoId">
+          <tr *ngIf="oferta.bajaRegistro == null">
 
+            <!-- Columna: Plazo -->
+            <td class="form-group" style="border-top: none;">
+              <!-- Si hay CAT Máximo EF: usar SELECT con una sola opción (el plazo actual) -->
+              <ng-container
+                *ngIf="model.registrarEntidadFinanciera.mclcCondicionOfertaCollection[i]?.porCat != null
+                       && model.registrarEntidadFinanciera.mclcCondicionOfertaCollection[i]?.porCat !== ''; else plazoEditable">
 
-            </tr>
+                <select class="form-control"
+                        name="plazo-bloqueado-{{i}}"
+                        [ngModel]="model.registrarEntidadFinanciera.mclcCondicionOfertaCollection[i].mclcPlazo.id"
+                        [ngModelOptions]="{standalone:true}"
+                        style="width: 140px!important;">
+                  <option
+                    [ngValue]="model.registrarEntidadFinanciera.mclcCondicionOfertaCollection[i].mclcPlazo.id">
+                    {{ mapPlazos[ model.registrarEntidadFinanciera.mclcCondicionOfertaCollection[i].mclcPlazo.id ] || '—' }}
+                  </option>
+                </select>
+              </ng-container>
 
+              <!-- Si NO hay CAT Máximo EF: SELECT normal con plazos disponibles -->
+              <ng-template #plazoEditable>
+                <select class="form-control" name="plazo"
+                        [ngClass]="plazo.invalid && (plazo.dirty && plazo.touched || registrarForm.submitted) ? 'form-control-error' : 'form-control'"
+                        [(ngModel)]="model.registrarEntidadFinanciera.mclcCondicionOfertaCollection[i].mclcPlazo.id"
+                        (change)="listenerPlazoWrap(i)" #plazo="ngModel" style="width: 140px!important;" required>
+                  <option [ngValue]="null" disabled>Seleccionar...</option>
+                  <option *ngFor="let p of getPlazosDisponibles(i); trackBy: trackById" [ngValue]="p.id">
+                    {{ p.descripcion }}
+                  </option>
+                </select>
 
+                <div *ngIf="plazo.invalid && (plazo.dirty && plazo.touched || registrarForm.submitted)">
+                  <div *ngIf="plazo.errors.required">
+                    <small class="form-text form-text-error">Es necesario ingresar la información
+                      del campo marcado como obligatorio.</small>
+                  </div>
+                </div>
+              </ng-template>
+            </td>
+
+            <!-- Columna: % CAT máximo IMSS (input deshabilitado) -->
+            <td class="form-group" style="border-top: none;">
+              <input pInputText type="text" class="col-sm-1 form-control"
+                     style="width: 140px;text-align: center;" name="porTasaAnual"
+                     [ngClass]="porTasaAnual.invalid && (porTasaAnual.dirty && porTasaAnual.touched || registrarForm.submitted) ? 'form-control-error' : 'form-control'"
+                     [(ngModel)]="model.registrarEntidadFinanciera.mclcCondicionOfertaCollection[i].porTasaAnual"
+                     #porTasaAnual="ngModel" placeholder="{{CATMaximoActual}}" maxlength="5" disabled="true" required />
+              <div *ngIf="porTasaAnual.invalid && (porTasaAnual.dirty && porTasaAnual.touched || registrarForm.submitted)">
+                <div *ngIf="porTasaAnual.errors.required">
+                  <small class="form-text form-text-error">Es necesario ingresar la información del campo
+                    marcado como obligatorio.</small>
+                </div>
+              </div>
+            </td>
+
+            <!-- Columna: % CAT máximo EF (siempre existe la celda) -->
+            <td class="form-group" style="border-top:none;">
+  <ng-container *ngIf="
+      model && model.registrarEntidadFinanciera &&
+      model.registrarEntidadFinanciera.mclcCondicionOfertaCollection &&
+      model.registrarEntidadFinanciera.mclcCondicionOfertaCollection[i] &&
+      model.registrarEntidadFinanciera.mclcCondicionOfertaCollection[i].porCat != null &&
+      model.registrarEntidadFinanciera.mclcCondicionOfertaCollection[i].porCat !== '';
+      else sinCatEf">
+    <!-- Mostrar el CAT Máximo EF como input deshabilitado (mismo ancho que IMSS) -->
+    <input pInputText type="text" class="form-control"
+           [ngModelOptions]="{standalone:true}"
+           [ngModel]="model.registrarEntidadFinanciera.mclcCondicionOfertaCollection[i].porCat"
+           style="width: 140px; text-align: center;" disabled="true" />
+  </ng-container>
+
+  <ng-template #sinCatEf>
+    <!-- Cuando NO hay CAT EF, mantenemos la celda y el ancho -->
+    &nbsp;
+  </ng-template>
+</td>
+
+            <!-- Columnas: Beneficio 1/2/3 (siempre 3 celdas fijas) -->
+            <ng-container *ngFor="let idx of [0,1,2]">
+              <td class="form-group" style="border-top: none;">
+                <ng-container *ngIf="
+                    model.registrarEntidadFinanciera.mclcCondicionOfertaCollection[i]
+                    && model.registrarEntidadFinanciera.mclcCondicionOfertaCollection[i].mclcBeneficioCollection
+                    && model.registrarEntidadFinanciera.mclcCondicionOfertaCollection[i].mclcBeneficioCollection[idx]
+                    && model.registrarEntidadFinanciera.mclcCondicionOfertaCollection[i].mclcBeneficioCollection[idx].bajaRegistro == null;
+                    else sinBen">
+                  {{ model.registrarEntidadFinanciera.mclcCondicionOfertaCollection[i].mclcBeneficioCollection[idx].desBeneficio }}
+                </ng-container>
+                <ng-template #sinBen>&nbsp;</ng-template>
+              </td>
+            </ng-container>
+
+            <!-- Columna: Acciones (siempre última) -->
+            <td class="actions-cell" style="border-top:none; text-align:right; white-space:nowrap;">
+              <i class="glyphicon glyphicon-trash"
+                 (click)="eliminarWrap(i)"
+                 title="Eliminar"
+                 role="button"
+                 tabindex="0"
+                 style="margin:4px 16px 0 0; color:#404041; cursor:pointer;"
+                 (keydown.enter)="eliminarWrap(i)"></i>
+
+              <i class="glyphicon glyphicon-plus"
+                 (click)="canAddMore() ? agregarWrap() : null"
+                 [attr.title]="canAddMore() ? 'Agregar' : 'Límite: 10 plazos'"
+                 role="button"
+                 [style.cursor]="canAddMore() ? 'pointer' : 'not-allowed'"
+                 [style.opacity]="canAddMore() ? 1 : 0.4"
+                 tabindex="0"
+                 (keydown.enter)="canAddMore() ? agregarWrap() : null"
+                 style="margin:4px 0 0 0; color:#404041;"></i>
+            </td>
+          </tr>
         </tbody>
-    </table>
-</ng-container>
+      </table>
+    </ng-container>
 
     <div style="width: max-content; color: #D0021B !important;" *ngIf="!plazosValidos">
-        <p class="form-text form-text-error">El plazo que deseas seleccionar ya lo has utilizado previamente, por favor
-            verifícalo.</p>
+      <p class="form-text form-text-error">El plazo que deseas seleccionar ya lo has utilizado previamente, por
+        favor verifícalo.</p>
     </div>
+
     <!-- Datos de Condiciones-->
     <h3>Condiciones registradas</h3>
     <hr class="red" style="margin: 10px 0 40px;">
 
     <div class="alert alert-info" *ngIf="!(this.model.condicionesArray.length>0)">
-        <p>
-            No existe informaci&oacute;n.
-        </p>
+      <p>No existe informaci&oacute;n.</p>
     </div>
-
-
 
     <div *ngIf="this.model.condicionesArray.length>0">
+      <table class="table table-striped " style="font-size: 16px!important;font-family: Montserrat  !important;">
+        <thead>
+          <tr>
+            <th scope="col">Delegación </th>
+            <th scope="col">Sexo</th>
+            <th scope="col">Edad</th>
+            <th scope="col">Monto mínimo</th>
+            <th scope="col">Monto máximo</th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let condicion of this.model.condicionesArray">
+          <tr *ngIf="!condicion.editar">
+            <td>
+              <select id="entidadFederativaE" class="form-control select-style" name="entidadF"
+                      [(ngModel)]="condicion.entidadFederativaE" [ngModelOptions]="{standalone: true}">
+                <option [value]="item['id']" *ngFor="let item of items">{{item["name"]}}</option>
+              </select>
+            </td>
+            <td>
+              <select id="sexo" [(ngModel)]="condicion.sexoE" class="form-control select-style"
+                      [ngModelOptions]="{standalone: true}">
+                <option value="F" [selected]="condicion.sexoE=='F'">Femenino </option>
+                <option value="M" [selected]="condicion.sexoE=='M'">Masculino</option>
+              </select>
+            </td>
+            <td>
+              <select id="edad" [(ngModel)]="condicion.edadE" class="form-control select-style"
+                      name="edadE" [ngModelOptions]="{standalone: true}">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="5">5</option>
+                <option value="5">6</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+                <option value="13">13</option>
+                <option value="14">14</option>
+                <option value="15">15</option>
+                <option value="16">16</option>
+                <option value="17">17</option>
+                <option value="18">18</option>
+                <option value="19">19</option>
+                <option value="20">20</option>
+                <option value="21">21</option>
+                <option value="22">22</option>
+                <option value="25">23</option>
+                <option value="24">24</option>
+              </select>
+            </td>
+            <td>
+              <input type="number" class="form-control" [(ngModel)]="condicion.mMinimoE"
+                     [ngModelOptions]="{standalone: true}">
+            </td>
+            <td>
+              <input type="number" class="form-control" [(ngModel)]="condicion.mMaxE"
+                     [ngModelOptions]="{standalone: true}">
+            </td>
+            <td>&nbsp;</td>
+          </tr>
 
-        <table class="table table-striped " style="font-size: 16px!important;font-family: Montserrat  !important;">
-            <thead>
-                <tr>
-                    <th scope="col">Delegación </th>
-                    <th scope="col">Sexo</th>
-                    <th scope="col">Edad</th>
-                    <th scope="col">Monto mínimo</th>
-                    <th scope="col">Monto máximo</th>
-
-                </tr>
-            </thead>
-            <tbody *ngFor="let condicion of this.model.condicionesArray">
-                <tr *ngIf="!condicion.editar">
-                    <td>
-                        <select id="entidadFederativaE" class="form-control select-style" name="entidadF"
-                            [(ngModel)]="condicion.entidadFederativaE" [ngModelOptions]="{standalone: true}">
-                            <option [value]="item['id']" *ngFor="let item of items">{{item["name"]}}</option>
-                        </select>
-
-                    </td>
-                    <td>
-                        <select id="sexo" [(ngModel)]="condicion.sexoE" class="form-control select-style"
-                            [ngModelOptions]="{standalone: true}">
-                            <option value="F" [selected]="condicion.sexoE=='F'">Femenino </option>
-                            <option value="M" [selected]="condicion.sexoE=='M'">Masculino</option>
-                        </select>
-                    </td>
-                    <td>
-                        <select id="edad" [(ngModel)]="condicion.edadE" class="form-control select-style" name="edadE"
-                            [ngModelOptions]="{standalone: true}">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="5">5</option>
-                            <option value="5">6</option>
-                            <option value="6">6</option>
-                            <option value="7">7</option>
-                            <option value="8">8</option>
-                            <option value="9">9</option>
-                            <option value="10">10</option>
-                            <option value="11">11</option>
-                            <option value="12">12</option>
-                            <option value="13">13</option>
-                            <option value="14">14</option>
-                            <option value="15">15</option>
-                            <option value="16">16</option>
-                            <option value="17">17</option>
-                            <option value="18">18</option>
-                            <option value="19">19</option>
-                            <option value="20">20</option>
-                            <option value="21">21</option>
-                            <option value="22">22</option>
-                            <option value="25">23</option>
-                            <option value="24">24</option>
-
-                        </select>
-                    </td>
-
-                    <td>
-                        <input type="number" class="form-control" [(ngModel)]="condicion.mMinimoE"
-                            [ngModelOptions]="{standalone: true}">
-                    </td>
-                    <td>
-                        <input type="number" class="form-control" [(ngModel)]="condicion.mMaxE"
-                            [ngModelOptions]="{standalone: true}">
-                    </td>
-                    <td>
-                        &nbsp;
-                    </td>
-
-                </tr>
-                <tr *ngIf="condicion.editar">
-                    <td>
-                        {{condicion["nombreEF"]}}
-                    </td>
-                    <td>
-                        {{condicion["sexoJ"]}}
-                    </td>
-                    <td>
-                        {{condicion["edadJ"]}}
-                    </td>
-
-                    <td>
-                        {{condicion["mMinimoJ"]}}
-                    </td>
-                    <td>
-                        {{condicion["mMaxJ"]}}
-                    </td>
-
-
-                </tr>
-
-            </tbody>
-        </table>
+          <tr *ngIf="condicion.editar">
+            <td>{{condicion["nombreEF"]}}</td>
+            <td>{{condicion["sexoJ"]}}</td>
+            <td>{{condicion["edadJ"]}}</td>
+            <td>{{condicion["mMinimoJ"]}}</td>
+            <td>{{condicion["mMaxJ"]}}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
+  </div>
 
-</div>
-
-
-
-
-
-
-<div class="row" *ngIf="!(this.model.enabledModificarEntidad)">
+  <!-- Segunda tabla (CAT con IVA) sin cambios de estructura -->
+  <div class="row" *ngIf="!(this.model.enabledModificarEntidad)">
     <h4>CAT con IVA</h4>
     <hr class="red" style="margin: 10px 0 40px;">
-</div>
+  </div>
 
-<div class="row form-group" *ngIf="!(this.model.enabledModificarEntidad)">
-
+  <div class="row form-group" *ngIf="!(this.model.enabledModificarEntidad)">
     <table style="border-top: none;" class="table table-borderless border-top-0">
-        <tbody style="border-top: none;">
-<ng-container *ngFor="let oferta of model.registrarEntidadFinanciera.mclcCondicionOfertaCollection; let i = index; trackBy: trackByPlazoId">
+      <tbody style="border-top: none;">
+        <ng-container
+          *ngFor="let oferta of model.registrarEntidadFinanciera.mclcCondicionOfertaCollection; let i = index; trackBy: trackByPlazoId">
+          <tr *ngIf="oferta.bajaRegistro == null">
+            <td class="row form-group" style="border-top: none;">
+              <label class="col-sm-2">Plazo*: </label>
+              <div class="col-sm-4">
+                <select class="form-control" name="plazo"
+                        [ngClass]="plazo.invalid && (plazo.dirty && plazo.touched || registrarForm.submitted) ? 'form-control-error' : 'form-control'"
+                        [(ngModel)]="model.registrarEntidadFinanciera.mclcCondicionOfertaCollection[i].mclcPlazo.id"
+                        (change)="listenerPlazoWrap(i)" #plazo="ngModel" style="width: 180px;" required>
+                  <option [ngValue]="null" disabled>Seleccionar...</option>
+                  <option *ngFor="let p of getPlazosDisponibles(i); trackBy: trackById" [ngValue]="p.id">
+                    {{ p.descripcion }}
+                  </option>
+                </select>
 
-            <tr *ngIf="oferta.bajaRegistro == null">
-                <td class="row form-group" style="border-top: none;">
-
-                    <label class="col-sm-2">Plazo*: </label>
-                    <div class="col-sm-4">
-                        <select class="form-control" name="plazo"
-                            [ngClass]="plazo.invalid && (plazo.dirty && plazo.touched || registrarForm.submitted) ? 'form-control-error' : 'form-control'"
-                            [(ngModel)]="model.registrarEntidadFinanciera.mclcCondicionOfertaCollection[i].mclcPlazo.id"
-                            (change)="listenerPlazoWrap(i)" #plazo="ngModel" style="width: 180px;" required>
-                            <option [ngValue]="null" disabled>Seleccionar...</option>
-                            <option *ngFor="let p of getPlazosDisponibles(i); trackBy: trackById" [ngValue]="p.id">
-                                {{ p.descripcion }}</option>
-                        </select>
-
-                        <div *ngIf="plazo.invalid && (plazo.dirty && plazo.touched || registrarForm.submitted)">
-                            <div *ngIf="plazo.errors.required">
-                                <small class="form-text form-text-error">Es necesario ingresar la información del campo
-                                    marcado como
-                                    obligatorio.</small>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <!--<label class="col-sm-2">CAT con IVA*:</label>
-                    <div class="col-sm-4">
-                        <input pInputText type="text" class="form-control" name="porTasaAnual" pattern="{{regexCat}}"
-                            [ngClass]="porTasaAnual.invalid && (porTasaAnual.dirty && porTasaAnual.touched || registrarForm.submitted) ? 'form-control-error' : 'form-control'"
-                            [(ngModel)]="model.registrarEntidadFinanciera.mclcCondicionOfertaCollection[i].porTasaAnual"
-                            digitOnly decimal=true #porTasaAnual="ngModel" placeholder="Ingresa el CAT" maxlength="5"
-                            required />
-                        <div
-                            *ngIf="porTasaAnual.invalid && (porTasaAnual.dirty && porTasaAnual.touched || registrarForm.submitted)">
-                            <div *ngIf="porTasaAnual.errors.required">
-                                <small class="form-text form-text-error">Es necesario ingresar la información del campo
-                                    marcado como
-                                    obligatorio.</small>
-                            </div>
-                            <div *ngIf="porTasaAnual.errors.pattern">
-                                <small class="form-text form-text-error">Ingresar solo dos decimales.</small>
-                            </div>
-                        </div>
-                    </div>-->
-                </td>
-                <td style="border-top: none;" (click)="eliminarWrap(i)">
-                    <i class="glyphicon glyphicon-trash" style="margin:4px 4px 0 0; color:#404041; cursor:pointer;"
-                        title="Eliminar"></i>
-
-                </td>
-                <td  style="border-top: none;">
-                    <i class="glyphicon glyphicon-plus"
-                       (click)="canAddMore() ? agregarWrap() : null"
-                       title="Agregar"
-                       style="margin:4px 4px 0 0; color:#404041; cursor:pointer;"
-                       role="button"
-                       tabindex="0"
-                       [attr.title]="canAddMore() ? 'Agregar' : 'Límite: 10 plazos'" [style.cursor]="canAddMore() ? 'pointer' : 'not-allowed'" [style.opacity]="canAddMore() ? 1 : 0.4" [attr.tabindex]="canAddMore() ? 0 : -1" (keydown.enter)="canAddMore() ? agregarWrap() : null"></i>
-                </td>
-            </tr>
-</ng-container>
-</tbody>
+                <div *ngIf="plazo.invalid && (plazo.dirty && plazo.touched || registrarForm.submitted)">
+                  <div *ngIf="plazo.errors.required">
+                    <small class="form-text form-text-error">Es necesario ingresar la información
+                      del campo marcado como obligatorio.</small>
+                  </div>
+                </div>
+              </div>
+            </td>
+            <td style="border-top: none;" (click)="eliminarWrap(i)">
+              <i class="glyphicon glyphicon-trash"
+                 style="margin:4px 4px 0 0; color:#404041; cursor:pointer;"
+                 title="Eliminar"></i>
+            </td>
+            <td style="border-top: none;">
+              <i class="glyphicon glyphicon-plus"
+                 (click)="canAddMore() ? agregarWrap() : null"
+                 title="Agregar"
+                 style="margin:4px 4px 0 0; color:#404041; cursor:pointer;"
+                 role="button"
+                 tabindex="0"
+                 [attr.title]="canAddMore() ? 'Agregar' : 'Límite: 10 plazos'"
+                 [style.cursor]="canAddMore() ? 'pointer' : 'not-allowed'"
+                 [style.opacity]="canAddMore() ? 1 : 0.4"
+                 [attr.tabindex]="canAddMore() ? 0 : -1"
+                 (keydown.enter)="canAddMore() ? agregarWrap() : null"></i>
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
     </table>
-    
+
     <div style="width: max-content;" *ngIf="!plazosValidos">
-        <p class="form-text form-text-error">El plazo que deseas seleccionar ya lo has utilizado previamente, por favor
-            verifícalo.</p>
+      <p class="form-text form-text-error">El plazo que deseas seleccionar ya lo has utilizado previamente, por
+        favor verifícalo.</p>
     </div>
-</div>
+  </div>
 
+  <div></div>
 
-<div>
-</div>
-
-
-
-<jw-modal id="condicionDuplicada">
-    <div class="jw-modal-titulo"> <b>Atención</b></div>
+  <jw-modal id="condicionDuplicada">
+    <div class="jw-modal-titulo"><b>Atención</b></div>
     <div class="modal-body">
-        <p style="text-align:center"><b>El plazo que deseas seleccionar ya lo haz utilizado previamente, por favor
-                verifícalo.</b></p>
-
-        <div class="col-md-12" align="right">
-            <button class="btn btn-default" (click)="closeModal('condicionDuplicada');">Aceptar</button>&nbsp;
-        </div>
-        <br>
-
+      <p style="text-align:center"><b>El plazo que deseas seleccionar ya lo haz utilizado previamente, por favor
+          verifícalo.</b></p>
+      <div class="col-md-12" align="right">
+        <button class="btn btn-default" (click)="closeModal('condicionDuplicada');">Aceptar</button>&nbsp;
+      </div>
+      <br>
     </div>
-</jw-modal>
+  </jw-modal>
 </ng-container>

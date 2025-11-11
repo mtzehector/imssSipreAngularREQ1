@@ -68,7 +68,8 @@ export class EntidadFinancieraEditarAdminComponent extends BaseComponent impleme
       if(this.model.enabledModificarEntidad){
         this.model.flatCurpAdminEF = false;
       }
-      this.registrarEntidadFinancieraService.consultarRenapo(this.model.registrarEntidadFinanciera.curpAdmin)
+      //this.registrarEntidadFinancieraService.consultarRenapo(this.model.registrarEntidadFinanciera.curpAdmin)
+      this.registrarEntidadFinancieraService.consultarRenapo(this.model.registrarEntidadFinanciera.curpAdmin, this.data.model.sesion)
         .subscribe((response: any) => {
           this.flat = false;
           this.data.model.registrarEntidadFinanciera.nombreAdmin = response.body.nombres;
